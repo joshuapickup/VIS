@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 
-#include "PositionHandler.cpp"
+#include "PositionHandler.h"
 
 int main(int argc, char* argv[]) {
     // Check if a filename argument was provided

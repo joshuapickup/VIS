@@ -5,4 +5,12 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(VIS main.cpp
         PositionHandler.cpp
-        PositionHandler.h)
+        PositionHandler.h
+        Lexer.cpp
+        Lexer.h
+        Token.cpp
+        Token.h
+        Error.cpp
+        Error.h
+        Interpreter.cpp
+        Interpreter.h)

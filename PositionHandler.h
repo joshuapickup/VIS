@@ -1,16 +1,33 @@
-//
-// Created by joshu on 29/10/2024.
-//
+#ifndef POSITION_HANDLER_H
+#define POSITION_HANDLER_H
 
-#ifndef POSITIONHANDLER_H
-#define POSITIONHANDLER_H
-
+#include <string>
+#include <unordered_map>
 
 
 class PositionHandler {
+    public:
+        explicit PositionHandler(const std::string& name);
+
+        char getChar() const;
+
+        void advanceCharacter();
+
+        void advanceLine(const std::string& lineText);
+
+        void resetPos();
+
+        std::unordered_map<std::string, std::string> getPos() const;
+
+    private:
+        int charPos;              // Character position
+        char currentChar;         // Current character
+        int line;                 // Current line number
+        std::string fileName;     // Name of the file
+        std::string lineText;     // Text of the current line
 
 };
 
 
 
-#endif //POSITIONHANDLER_H
+#endif // POSITION_HANDLER_H

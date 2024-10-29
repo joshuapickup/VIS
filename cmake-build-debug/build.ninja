@@ -61,6 +61,30 @@ build CMakeFiles/VIS.dir/PositionHandler.cpp.obj: CXX_COMPILER__VIS_unscanned_De
   OBJECT_DIR = CMakeFiles\VIS.dir
   OBJECT_FILE_DIR = CMakeFiles\VIS.dir
 
+build CMakeFiles/VIS.dir/Lexer.cpp.obj: CXX_COMPILER__VIS_unscanned_Debug D$:/Project$ Workspace/VIS/Lexer.cpp || cmake_object_order_depends_target_VIS
+  DEP_FILE = CMakeFiles\VIS.dir\Lexer.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\VIS.dir
+  OBJECT_FILE_DIR = CMakeFiles\VIS.dir
+
+build CMakeFiles/VIS.dir/Token.cpp.obj: CXX_COMPILER__VIS_unscanned_Debug D$:/Project$ Workspace/VIS/Token.cpp || cmake_object_order_depends_target_VIS
+  DEP_FILE = CMakeFiles\VIS.dir\Token.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\VIS.dir
+  OBJECT_FILE_DIR = CMakeFiles\VIS.dir
+
+build CMakeFiles/VIS.dir/Error.cpp.obj: CXX_COMPILER__VIS_unscanned_Debug D$:/Project$ Workspace/VIS/Error.cpp || cmake_object_order_depends_target_VIS
+  DEP_FILE = CMakeFiles\VIS.dir\Error.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\VIS.dir
+  OBJECT_FILE_DIR = CMakeFiles\VIS.dir
+
+build CMakeFiles/VIS.dir/Interpreter.cpp.obj: CXX_COMPILER__VIS_unscanned_Debug D$:/Project$ Workspace/VIS/Interpreter.cpp || cmake_object_order_depends_target_VIS
+  DEP_FILE = CMakeFiles\VIS.dir\Interpreter.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\VIS.dir
+  OBJECT_FILE_DIR = CMakeFiles\VIS.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target VIS
@@ -69,7 +93,7 @@ build CMakeFiles/VIS.dir/PositionHandler.cpp.obj: CXX_COMPILER__VIS_unscanned_De
 #############################################
 # Link the executable VIS.exe
 
-build VIS.exe: CXX_EXECUTABLE_LINKER__VIS_Debug CMakeFiles/VIS.dir/main.cpp.obj CMakeFiles/VIS.dir/PositionHandler.cpp.obj
+build VIS.exe: CXX_EXECUTABLE_LINKER__VIS_Debug CMakeFiles/VIS.dir/main.cpp.obj CMakeFiles/VIS.dir/PositionHandler.cpp.obj CMakeFiles/VIS.dir/Lexer.cpp.obj CMakeFiles/VIS.dir/Token.cpp.obj CMakeFiles/VIS.dir/Error.cpp.obj CMakeFiles/VIS.dir/Interpreter.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\VIS.dir
