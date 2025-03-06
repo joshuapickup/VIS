@@ -57,7 +57,7 @@ void PositionHandler::resetPos() {
 }
 
 // get current position details
-std::unordered_map<std::string, std::string> PositionHandler::getPos() const {
+std::map<std::string, std::string> PositionHandler::getPos() const {
     return {
             {"name", fileName},
             {"line", std::to_string(line)},

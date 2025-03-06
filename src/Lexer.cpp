@@ -11,19 +11,21 @@ const char Lexer::COMMENT = '~';
 
 Lexer::Lexer(PositionHandler& positionHandler) : positionHandler(positionHandler) {}
 
-Token Lexer::makeOperatorToken(const char character) {
+Token Lexer::makeOperatorToken(const char character) const {
+    const std::map<std::string, std::string> pos = positionHandler.getPos();
     switch(character) {
-        case '+': return Token(TokenType::PLUS);
-        case '-': return Token(TokenType::MINUS);
-        case '*': return Token(TokenType::MUL);
-        case '/': return Token(TokenType::DIV);
-        case '=': return Token(TokenType::EQUALS);
+        case '+': return Token(TokenType::PLUS, pos);
+        case '-': return Token(TokenType::MINUS, pos);
+        case '*': return Token(TokenType::MUL, pos);
+        case '/': return Token(TokenType::DIV, pos);
+        case '=': return Token(TokenType::EQUALS, pos);
         default: throw LexerError("operator token cant be created no case defined for character >>" +
                                             std::string(1, character) + "<<");
     }
 }
 
 Token Lexer::makeNumberToken (char character) const{// loop through line until next char isnt digit
+    const std::map<std::string, std::string> pos = positionHandler.getPos();
     bool dotFlag = false;
     std::string stringNum;
     stringNum += character;
@@ -40,15 +42,16 @@ Token Lexer::makeNumberToken (char character) const{// loop through line until n
     ValueLiteral literal = ValueLiteral();
     if (dotFlag) {
         literal.floatVal = std::stof(stringNum);
-        return Token(TokenType::FLOAT, literal);
+        return Token(TokenType::FLOAT, pos, literal);
     }
     else {
         literal.intVal = std::stoi(stringNum);
-        return Token(TokenType::INT, literal);
+        return Token(TokenType::INT, pos, literal);
     }
 }
 
 Token Lexer::makeIdentifierToken(char character) const{
+    const std::map<std::string, std::string> pos = positionHandler.getPos();
     std::string identifierString;
     identifierString += character;
     char peekChar = character;
@@ -61,17 +64,19 @@ Token Lexer::makeIdentifierToken(char character) const{
     ValueLiteral literal = ValueLiteral();
     literal.stringVal = identifierString;
     if (Lexer::KEYWORDS.find(identifierString) != Lexer::KEYWORDS.end()) {
-        return Token(TokenType::KEYWORD, literal);
+        return Token(TokenType::KEYWORD, pos, literal);
     }
     else {
-        return Token(TokenType::IDENTIFIER, literal);
+        return Token(TokenType::IDENTIFIER, pos, literal);
     }
 }
 
 std::vector<Token> Lexer::tokenise() const {
     std::vector<Token> tokens;
+    std::map<std::string, std::string> pos;
     char currentChar = positionHandler.getChar();
     while (currentChar != '\0') {
+        pos = positionHandler.getPos();
         switch(currentChar){
             case ' ': case '\t': case '\n': case '\r':
                 // Skip whitespace
@@ -79,10 +84,10 @@ std::vector<Token> Lexer::tokenise() const {
             case '~':
                 return tokens;
             case '(':
-                tokens.emplace_back(TokenType::OPENPAREN);
+                tokens.emplace_back(TokenType::OPENPAREN, pos);
                 break;
             case ')':
-                tokens.emplace_back(TokenType::CLOSEPAREN);
+                tokens.emplace_back(TokenType::CLOSEPAREN, pos);
                 break;
             default:
                 if (OPERATORS.find(currentChar) != std::string::npos) {
@@ -95,7 +100,6 @@ std::vector<Token> Lexer::tokenise() const {
                     tokens.push_back(makeIdentifierToken(currentChar));
                 }
                 else {
-                    std::unordered_map<std::string, std::string> pos = positionHandler.getPos();
                     throw IllegalCharError("\nUnrecognized character in file " + pos["name"] + "\n"
                                            "on line: " + std::to_string(stoi(pos["line"]) + 1) + "\n"
                                            "position: " + pos["charPos"] + "\n"

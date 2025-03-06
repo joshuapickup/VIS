@@ -43,7 +43,7 @@ public:
 
 class UnaryOperator final : public Node{
 public:
-    UnaryOperator(Operator operator_, std::unique_ptr<Node> node);
+    UnaryOperator(const Operator &operator_, std::unique_ptr<Node> node);
     [[nodiscard]] Node* getNode() const;
     std::vector<Token> getTokens();
     void printNode(std::ostream &os, int tabCount) const override;

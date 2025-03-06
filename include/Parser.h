@@ -16,10 +16,10 @@ public:
     ~Parser();
 private:
     std::vector<Token> tokenVector;
-    Token currentToken;
+    Token* currentToken;
     int tokenIndex;
     [[nodiscard]] InvalidSyntaxError makeSyntaxError(const std::string &expectedType) const;
-    Token advance();
+    Token* advance();
     std::unique_ptr<Node> binaryOperation(const std::function<std::unique_ptr<Node>()> &func, const std::array<TokenType,2> &tokenTypes);
     std::unique_ptr<Node> expression();
     std::unique_ptr<Node> term();

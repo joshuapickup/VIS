@@ -2,18 +2,6 @@
 #include <utility>
 #include "Token.h"
 
-
-Token::Token(const TokenType type_, ValueLiteral value_): type(type_), value(std::move(value_)) {}
-
-TokenType Token::getType() const {return this->type;}
-
-ValueLiteral Token::getValue() const {return this->value;}
-
-bool Token::matches(const TokenType type_, const std::string &value_) const {
-    if (type == type_ && value.stringVal == value_) {return true;}
-    else{return false;}
-}
-
 std::string tokenTypeToStr(TokenType type) {
     switch (type) {
         case TokenType::INT: return "INT";
@@ -32,9 +20,26 @@ std::string tokenTypeToStr(TokenType type) {
     }
 }
 
+
+Token::Token(const TokenType type_, const std::map<std::string, std::string>& pos, ValueLiteral  value_):
+    type(type_),
+    position(pos),
+    value(std::move(value_)) {}
+
+TokenType Token::getType() const {return type;}
+
+ValueLiteral Token::getValue() const {return value;}
+
+std::map<std::string, std::string> Token::getPos() const {return position;}
+
+bool Token::matches(const TokenType type_, const std::string &value_) const {
+    if (type == type_ && value.stringVal == value_) {return true;}
+    else{return false;}
+}
+
 std::ostream& operator<<(std::ostream& os,  const Token& token) {
     os << "Token(Type: " << tokenTypeToStr(token.getType()) << ", ";
-
+    os << "Position: {line: " << token.getPos()["line"] << "| Pos:" << token.getPos()["charPos"] << "}, ";
     // show value based on TokenType
     switch (token.getType()) {
         case TokenType::INT:

@@ -37,9 +37,9 @@ void Operator::printNode(std::ostream &os, const int tabCount) const {
 
 
 //UNARY OPERATOR DEFINITION
-UnaryOperator::UnaryOperator(Operator operator_, std::unique_ptr<Node> node) :
-                            Node(Token(TokenType::NULL_), NodeType::UnaryOperator),
-                            operatorNode(std::move(operator_)), valueNode(std::move(node)) {
+UnaryOperator::UnaryOperator(const Operator &operator_, std::unique_ptr<Node> node) :
+                            Node(operator_.getToken(), NodeType::UnaryOperator),
+                            operatorNode(operator_), valueNode(std::move(node)) {
     tokenVector = {operatorNode.getToken(), this->valueNode->getToken()};
 }
 
@@ -57,7 +57,7 @@ void UnaryOperator::printNode(std::ostream &os, const int tabCount) const {
 
 //BINARY OPERATOR DEFINITION
 BinaryOperator::BinaryOperator(std::unique_ptr<Node> leftNode, const Operator &operatorNode, std::unique_ptr<Node> rightNode):
-                            Node(Token(TokenType::NULL_), NodeType::BinaryOperator), leftNode(std::move(leftNode)),
+                            Node(leftNode->getToken(), NodeType::BinaryOperator), leftNode(std::move(leftNode)),
                             operatorNode(operatorNode), rightNode(std::move(rightNode)) {
     tokenVector = {this->leftNode->getToken(), operatorNode.getToken(), this->rightNode->getToken()};
 }

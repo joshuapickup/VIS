@@ -5,7 +5,7 @@
 #ifndef CONTEXT_H
 #define CONTEXT_H
 
-
+#include <unordered_map>
 #include "lexer.h"
 
 class SymbolTable {

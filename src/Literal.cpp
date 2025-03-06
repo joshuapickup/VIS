@@ -24,15 +24,19 @@ NumberLiteral::NumberLiteral() :Literal(){
 }
 
 NumberLiteral * NumberLiteral::add(NumberLiteral *) {
+    return nullptr;
 }
 
 NumberLiteral * NumberLiteral::subtract(NumberLiteral *) {
+    return nullptr;
 }
 
 NumberLiteral * NumberLiteral::multipy(NumberLiteral *) {
+    return nullptr;
 }
 
 NumberLiteral * NumberLiteral::divide(NumberLiteral *) {
+    return nullptr;
 }
 
 

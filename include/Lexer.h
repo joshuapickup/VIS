@@ -23,7 +23,7 @@ class Lexer {
         static const char COMMENT;
         [[nodiscard]] Token makeNumberToken(char character) const;
         [[nodiscard]] Token makeIdentifierToken(char character) const;
-        [[nodiscard]] static Token makeOperatorToken(char character);
+        [[nodiscard]] Token makeOperatorToken(char character) const;
         PositionHandler& positionHandler;
 
 };

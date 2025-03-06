@@ -1,6 +1,7 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
+#include <map>
 #include <string>
 
 // defined token types
@@ -31,9 +32,10 @@ std::string tokenTypeToStr(TokenType type);
 // token class representing individual token
 class Token {
 public:
-    explicit Token(TokenType type_, ValueLiteral value_ = ValueLiteral());
+    explicit Token(TokenType type_, const std::map<std::string, std::string>& pos, ValueLiteral  value_ = ValueLiteral());
     [[nodiscard]] TokenType getType() const;
     [[nodiscard]] ValueLiteral getValue() const;
+    [[nodiscard]] std::map<std::string, std::string> getPos() const;
     [[nodiscard]] bool matches(TokenType type_, const std::string &value_) const;
 
     // overload the << operator to easily print tokens
@@ -41,6 +43,7 @@ public:
 private:
     TokenType type;
     ValueLiteral value;
+    std::map<std::string, std::string> position;
 };
 
 
