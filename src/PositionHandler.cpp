@@ -1,28 +1,31 @@
-#include <iostream>
 #include <string>
 #include <unordered_map>
 #include "PositionHandler.h"
 
 
-PositionHandler::PositionHandler(const std::string& name)
-        : charPos(-1),currentChar('\0'), line(-1), fileName(name), lineText("") {}
+PositionHandler::PositionHandler(const std::string& fileName):  charPos(-1),
+                                                            currentChar('\0'),
+                                                            line(-1),
+                                                            fileName(fileName),
+                                                            lineText("") {}
 
-// Get the current character
 char PositionHandler::getChar() const {
     return currentChar;
 }
 
-// Advance to the next character
-void PositionHandler::advanceCharacter() {
+// advance to the next character
+char PositionHandler::advanceCharacter() {
     if (charPos < static_cast<int>(lineText.length()) - 1) {
         charPos++;
         currentChar = lineText[charPos];
-    } else {
-        currentChar = '\0'; // Set currentChar to '\0' when at the end of the line
     }
+    else {
+        currentChar = '\0'; // set currentChar to '\0' when at the end of the line
+    }
+    return currentChar;
 }
 
-// Advance to the next line
+// advance to the next line
 void PositionHandler::advanceLine(const std::string& lineText) {
     this->lineText = lineText;
     line++;
@@ -35,15 +38,25 @@ void PositionHandler::advanceLine(const std::string& lineText) {
     }
 }
 
-// Reset position
+// returns next character without advancing
+char PositionHandler::peek() const{
+    if (charPos < static_cast<int>(lineText.length()) - 1) {
+        return lineText[charPos+1];
+    }
+    else {
+        return '\0';
+    }
+}
+
+// reset position
 void PositionHandler::resetPos() {
     charPos = -1;
     line = -1;
-    currentChar = '\0'; // Reset current character
-    lineText.clear(); // Clear the line text
+    currentChar = '\0';
+    lineText.clear();
 }
 
-// Get current position details
+// get current position details
 std::unordered_map<std::string, std::string> PositionHandler::getPos() const {
     return {
             {"name", fileName},

@@ -1,4 +1,4 @@
-# Install script for directory: D:/Project Workspace/VIS
+# Install script for directory: D:/Project Workspace/Year3/VIS
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Project Workspace/VIS/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/Project Workspace/Year3/VIS/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

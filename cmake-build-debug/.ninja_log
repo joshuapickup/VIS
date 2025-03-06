@@ -1,7 +1,13 @@
 # ninja log v6
-15	578	7519276768263231	CMakeFiles/VIS.dir/main.cpp.obj	1ae818c44793f65d
-578	710	7519276773886498	VIS.exe	50fe59ed1671da2d
-19	677	7519275753747299	CMakeFiles/VIS.dir/PositionHandler.cpp.obj	66714deb42bdc967
-14	843	7519266547279391	CMakeFiles/VIS.dir/Token.cpp.obj	752d3f0b4cb4e614
-15	255	7519268865723069	CMakeFiles/VIS.dir/Error.cpp.obj	72b3da7171d37990
-22	725	7519275753777535	CMakeFiles/VIS.dir/Lexer.cpp.obj	76d41f6d3f7dab2
+681	926	7628699289420937	VIS.exe	92f8cce4040110b9
+23	828	7628685431515590	CMakeFiles/VIS.dir/src/Error.cpp.obj	383855b56b7ebc14
+5	681	7628699282654951	CMakeFiles/VIS.dir/src/Interpreter.cpp.obj	14e89286f755eb53
+44	695	7628685431730016	CMakeFiles/VIS.dir/src/Literal.cpp.obj	d265bfa958faaa56
+39	829	7628685431686053	CMakeFiles/VIS.dir/src/Token.cpp.obj	9c53ea5163b36df1
+20	1138	7628685431480957	CMakeFiles/VIS.dir/src/Lexer.cpp.obj	fbbd50d97b898eb1
+4	638	7628698362691619	CMakeFiles/VIS.dir/src/main.cpp.obj	4977e33089f99a1d
+369	1706	7600851003349637	CMakeFiles/VIS.dir/src/SymbolTable.cpp.obj	36bd9aa47034208f
+151	1015	7601819528153575	CMakeFiles/VIS.dir/src/PositionHandler.cpp.obj	9bda06a3b3f54ebf
+1	741	7629377389992190	build.ninja	87783d77345f211d
+35	963	7628685431637221	CMakeFiles/VIS.dir/src/Node.cpp.obj	d83d7f9e33157335
+31	1246	7628685431596882	CMakeFiles/VIS.dir/src/Parser.cpp.obj	3ef1af7b429eddaf

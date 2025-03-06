@@ -1,0 +1,6 @@
+expression  :   term | term (PLUS | MINUS) term
+                KEYWORD<var> IDENTIFIER EQUALS expression
+term        :   factor | factor (MUL | DIV) factor
+factor      :   atom | (PLUS | MINUS) (INT | FLOAT)
+atom        :   INT | FLOAT | IDENTIFIER
+                LPAREN expression RPAREN
