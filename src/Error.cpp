@@ -21,3 +21,4 @@ InvalidSyntaxError::InvalidSyntaxError(const std::string& message): Error("Synta
 
 VisRunTimeError::VisRunTimeError(const std::string& message): Error("RunTime Error Error: " + message) {
 }
+

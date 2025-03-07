@@ -5,13 +5,16 @@
 #ifndef LITERAL_H
 #define LITERAL_H
 
-#include "Context.h"
+class Context; // decleration to allow use of context without circular loop
 
 class Literal {
 public:
     Literal();
     Context* getContext();
     void setContext(Context* context);
+    friend std::ostream& operator<<(std::ostream& os, const Literal &literal);
+    virtual void printLiteral(std::ostream& os, int tabCount) const;
+    virtual ~Literal() = default;
 private:
     Context* context;
 };
@@ -23,20 +26,27 @@ public:
     NumberLiteral* subtract(NumberLiteral*);
     NumberLiteral* multipy(NumberLiteral*);
     NumberLiteral* divide(NumberLiteral*);
+    auto getValue();
+    void printLiteral(std::ostream &os, int tabCount) const override;
 private:
 };
 
-class IntLiteral : public NumberLiteral{
+class IntLiteral final : public NumberLiteral{
 public:
-    IntLiteral();
+    explicit IntLiteral(int value);
+    [[nodiscard]] int getValue() const;
+    void printLiteral(std::ostream &os, int tabCount) const override;
 private:
-
+    int value;
 };
 
-class FloatLiteral : public NumberLiteral{
+class FloatLiteral final : public NumberLiteral{
 public:
-    FloatLiteral();
+    explicit FloatLiteral(float value);
+    [[nodiscard]] float getValue() const;
+    void printLiteral(std::ostream &os, int tabCount) const override;
 private:
+    float value;
 };
 
 

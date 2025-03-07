@@ -84,13 +84,6 @@ build CMakeFiles/VIS.dir/src/Interpreter.cpp.obj: CXX_COMPILER__VIS_unscanned_De
   OBJECT_DIR = CMakeFiles\VIS.dir
   OBJECT_FILE_DIR = CMakeFiles\VIS.dir\src
 
-build CMakeFiles/VIS.dir/src/SymbolTable.cpp.obj: CXX_COMPILER__VIS_unscanned_Debug D$:/Project$ Workspace/Year3/VIS/src/SymbolTable.cpp || cmake_object_order_depends_target_VIS
-  DEP_FILE = CMakeFiles\VIS.dir\src\SymbolTable.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I"D:/Project Workspace/Year3/VIS/include"
-  OBJECT_DIR = CMakeFiles\VIS.dir
-  OBJECT_FILE_DIR = CMakeFiles\VIS.dir\src
-
 build CMakeFiles/VIS.dir/src/Parser.cpp.obj: CXX_COMPILER__VIS_unscanned_Debug D$:/Project$ Workspace/Year3/VIS/src/Parser.cpp || cmake_object_order_depends_target_VIS
   DEP_FILE = CMakeFiles\VIS.dir\src\Parser.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
@@ -134,7 +127,7 @@ build CMakeFiles/VIS.dir/src/Context.cpp.obj: CXX_COMPILER__VIS_unscanned_Debug 
 #############################################
 # Link the executable VIS.exe
 
-build VIS.exe: CXX_EXECUTABLE_LINKER__VIS_Debug CMakeFiles/VIS.dir/src/main.cpp.obj CMakeFiles/VIS.dir/src/PositionHandler.cpp.obj CMakeFiles/VIS.dir/src/Lexer.cpp.obj CMakeFiles/VIS.dir/src/Error.cpp.obj CMakeFiles/VIS.dir/src/Interpreter.cpp.obj CMakeFiles/VIS.dir/src/SymbolTable.cpp.obj CMakeFiles/VIS.dir/src/Parser.cpp.obj CMakeFiles/VIS.dir/src/Node.cpp.obj CMakeFiles/VIS.dir/src/Token.cpp.obj CMakeFiles/VIS.dir/src/Literal.cpp.obj CMakeFiles/VIS.dir/src/Context.cpp.obj
+build VIS.exe: CXX_EXECUTABLE_LINKER__VIS_Debug CMakeFiles/VIS.dir/src/main.cpp.obj CMakeFiles/VIS.dir/src/PositionHandler.cpp.obj CMakeFiles/VIS.dir/src/Lexer.cpp.obj CMakeFiles/VIS.dir/src/Error.cpp.obj CMakeFiles/VIS.dir/src/Interpreter.cpp.obj CMakeFiles/VIS.dir/src/Parser.cpp.obj CMakeFiles/VIS.dir/src/Node.cpp.obj CMakeFiles/VIS.dir/src/Token.cpp.obj CMakeFiles/VIS.dir/src/Literal.cpp.obj CMakeFiles/VIS.dir/src/Context.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\VIS.dir

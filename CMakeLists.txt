@@ -11,7 +11,6 @@ set(SOURCES src/main.cpp
             src/Lexer.cpp
             src/Error.cpp
             src/Interpreter.cpp
-            src/SymbolTable.cpp
             src/Parser.cpp
             src/Node.cpp
             src/Token.cpp

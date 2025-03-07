@@ -2,6 +2,13 @@
 #include <unordered_map>
 #include "PositionHandler.h"
 
+const std::map<std::string, std::string> PositionHandler::nullPos = {
+    {"name", "null"},
+    {"line", "null"},
+    {"charPos", "null"},
+    {"lineText", "null"},
+    {"character", "null"}
+};
 
 PositionHandler::PositionHandler(const std::string& fileName):  charPos(-1),
                                                             currentChar('\0'),

@@ -23,7 +23,7 @@ public:
     [[nodiscard]] Token getToken() const;
     [[nodiscard]] NodeType getType() const;
     friend std::ostream& operator<<(std::ostream& os, const Node &node);
-    virtual void printNode(std::ostream& os, int tabCount = 0) const;
+    virtual void printNode(std::ostream& os, int tabCount) const;
 protected:
     std::vector<Token> tokenVector;
     NodeType type;

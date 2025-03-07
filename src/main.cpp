@@ -15,10 +15,14 @@ int runFile(const std::string &filename) {
         return 1;
     }
     PositionHandler positionHandler(filename);
+    SymbolTable globalSymbolTable = SymbolTable();
+    IntLiteral nullLiteral = IntLiteral(0);
+    globalSymbolTable.set("null", &nullLiteral);
+    Context globalContext = Context(filename);
+    globalContext.setSymbolTable(&globalSymbolTable);
     Lexer lexer(positionHandler);
     Interpreter interpreter = Interpreter();
     std::string line;
-    // symbolTable initialisatin
 
     while (std::getline(inputFile, line)) {
         positionHandler.advanceLine(line);
@@ -34,7 +38,7 @@ int runFile(const std::string &filename) {
         else {
             continue;
         }
-        interpreter.visit(nodeTree);
+        interpreter.visit(nodeTree, &globalContext);
         std::cout << std::string(40, '-') << std::endl;
     }
     inputFile.close();
