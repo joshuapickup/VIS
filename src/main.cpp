@@ -32,8 +32,7 @@ int runFile(const std::string &filename) {
         std::unique_ptr<Node> nodeTree = parser.parse();
         // print Abstract Syntax Tree
         if (nodeTree) {
-            //std::cout << *nodeTree << std::endl;
-            ;
+            std::cout << *nodeTree << std::endl;
         }
         else {continue;}
 

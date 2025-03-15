@@ -38,20 +38,48 @@ InvalidSyntaxError Parser::makeSyntaxError(const std::string &expectedType) cons
     return InvalidSyntaxError(oss.str());
 }
 
-std::unique_ptr<Node> Parser::binaryOperation(const std::function<std::unique_ptr<Node>()> &func, const std::array<TokenType,2> &tokenTypes) {
+std::unique_ptr<Node> Parser::binaryOperation(  const std::function<std::unique_ptr<Node>()> &func,
+                                                const std::vector<TokenType> &tokenTypes,
+                                                const std::vector<std::string> &tokenValues) {
+
+    const bool containsKeyword = std::find( tokenTypes.begin(),tokenTypes.end(),TokenType::KEYWORD) != tokenTypes.end();
+    if (containsKeyword && tokenValues.empty()) {
+        throw ParseError("binaryOperation was called with TokenType::KEYWORD but no tokenValues were provided");
+    }
+    if (not containsKeyword && not tokenValues.empty()) {
+        throw ParseError("binaryOperation was called without TokenType::KEYWORD but tokenValues were provided");
+    }
+
     std::unique_ptr<Node> left = func();
-    while(currentToken->getType() == tokenTypes[0] or currentToken->getType() == tokenTypes[1]) {
-        Token* opToken = currentToken;
+
+    while (true) {
+        bool matchFound = false;
+        if (containsKeyword) {
+            for (const std::string& value : tokenValues) {
+                if(currentToken->matches(TokenType::KEYWORD, value)) {
+                    matchFound = true;
+                    break;
+                }
+            }
+        }
+        else {
+            matchFound = std::find(tokenTypes.begin(), tokenTypes.end(), currentToken->getType()) != tokenTypes.end();
+        }
+
+        if (not matchFound) {// exit loop if no TokenTypes were correct
+            break;
+        }
+
+        const Token* opToken = currentToken;
         advance();
         std::unique_ptr<Node> right = func();
-        std::unique_ptr<Node> tempPtr = std::make_unique<BinaryOperator>(std::move(left), Operator(*opToken), std::move(right));
-        left = std::move(tempPtr);
+        left = std::make_unique<BinaryOperator>(std::move(left), Operator(*opToken), std::move(right));
     }
     return left;
 }
 
 std::unique_ptr<Node> Parser::expression() {
-    if(currentToken->matches(TokenType::KEYWORD, "var")) {
+    if (currentToken->matches(TokenType::KEYWORD, "var")) {
         advance();
         if (currentToken->getType() != TokenType::IDENTIFIER) {throw makeSyntaxError("identifier");}
         const Token* varToken = currentToken;
@@ -62,20 +90,36 @@ std::unique_ptr<Node> Parser::expression() {
         return std::make_unique<VarAssignment>(*varToken, std::move(expression));
     }
     else {
-        return binaryOperation([this](){return term();}, std::array<TokenType,2>{TokenType::PLUS, TokenType::MINUS});
+        return binaryOperation([this](){return comparision();},
+            std::vector<TokenType>{TokenType::KEYWORD}, std::vector<std::string>{"and", "not"});
     }
 }
 
 std::unique_ptr<Node> Parser::comparision() {
-    return {};
+    if (currentToken->matches(TokenType::KEYWORD, "not")) {
+        Token* opToken = currentToken;
+        advance();
+        std::unique_ptr<Node> valueNode = comparision();
+        return std::make_unique<UnaryOperator>(Operator(*opToken), std::move(valueNode));
+    }
+    else {
+        return binaryOperation([this](){return arithmeticExpression();},
+            std::vector{
+                TokenType::TRUEEQUALS,
+                TokenType::LESSTHAN,
+                TokenType::GREATERTHAN,
+                TokenType::LESSEQUAL,
+                TokenType::GREATEREQUAL
+            });
+    }
 }
 
 std::unique_ptr<Node> Parser::arithmeticExpression() {
-    return {};
+    return binaryOperation([this]() {return term();}, std::vector<TokenType>{TokenType::PLUS, TokenType::MINUS});
 }
 
 std::unique_ptr<Node> Parser::term() {
-    return binaryOperation([this]() {return factor();}, std::array<TokenType,2>{TokenType::MUL, TokenType::DIV});
+    return binaryOperation([this]() {return factor();}, std::vector<TokenType>{TokenType::MUL, TokenType::DIV});
 }
 
 std::unique_ptr<Node> Parser::factor() {
