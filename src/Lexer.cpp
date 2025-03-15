@@ -2,11 +2,11 @@
 #include "Error.h"
 
 
-const std::unordered_set<std::string> Lexer::KEYWORDS = {"var",};
+const std::unordered_set<std::string> Lexer::KEYWORDS = {"var","and","or", "not"};
 const std::string Lexer::DIGITS = "0123456789";
 const std::string Lexer::LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_";
 const std::string Lexer::LETTERS_DIGITS = Lexer::LETTERS + Lexer::DIGITS;
-const std::string Lexer::OPERATORS = "+-*/=";
+const std::string Lexer::OPERATORS = "+-*/";
 const char Lexer::COMMENT = '~';
 
 Lexer::Lexer(PositionHandler& positionHandler) : positionHandler(positionHandler) {}
@@ -39,14 +39,11 @@ Token Lexer::makeNumberToken (char character) const{// loop through line until n
         stringNum += character;
         peekChar = this->positionHandler.peek();
     }
-    ValueLiteral literal = ValueLiteral();
     if (dotFlag) {
-        literal.floatVal = std::stof(stringNum);
-        return Token(TokenType::FLOAT, pos, literal);
+        return Token(TokenType::FLOAT, pos, std::stof(stringNum));
     }
     else {
-        literal.intVal = std::stoi(stringNum);
-        return Token(TokenType::INT, pos, literal);
+        return Token(TokenType::INT, pos, std::stoi(stringNum));
     }
 }
 
@@ -61,22 +58,67 @@ Token Lexer::makeIdentifierToken(char character) const{
         peekChar = this->positionHandler.peek();
     }
 
-    ValueLiteral literal = ValueLiteral();
-    literal.stringVal = identifierString;
     if (Lexer::KEYWORDS.find(identifierString) != Lexer::KEYWORDS.end()) {
-        return Token(TokenType::KEYWORD, pos, literal);
+        return Token(TokenType::KEYWORD, pos, identifierString);
     }
     else {
-        return Token(TokenType::IDENTIFIER, pos, literal);
+        return Token(TokenType::IDENTIFIER, pos, identifierString);
+    }
+}
+
+Token Lexer::makeEqualsToken(char character) const {
+    const std::map<std::string, std::string> pos = positionHandler.getPos();
+    const char peekChar = this->positionHandler.peek();
+    if (peekChar == '=') {
+        positionHandler.advanceCharacter();
+        return Token(TokenType::TRUEEQUALS, pos);
+    }
+    else {
+        return Token(TokenType::EQUALS, pos);
+    }
+}
+
+Token Lexer::makeNotEqualsToken(char character) const {
+    const std::map<std::string, std::string> pos = positionHandler.getPos();
+    const char peekChar = this->positionHandler.peek();
+    if (peekChar == '=') {
+        positionHandler.advanceCharacter();
+        return Token(TokenType::NOTEQUAL, pos);
+    }
+    else {
+        throw ExpectedCharError("expected = intead recieved: <" + std::string(1, peekChar) + ">");
+    }
+}
+
+Token Lexer::makeLessThanToken(char character) const {
+    const std::map<std::string, std::string> pos = positionHandler.getPos();
+    const char peekChar = this->positionHandler.peek();
+    if (peekChar == '=') {
+        positionHandler.advanceCharacter();
+        return Token(TokenType::LESSEQUAL, pos);
+    }
+    else {
+        return Token(TokenType::LESSTHAN, pos);
+    }
+}
+
+Token Lexer::makeGreaterThanToken(char character) const {
+    const std::map<std::string, std::string> pos = positionHandler.getPos();
+    const char peekChar = this->positionHandler.peek();
+    if (peekChar == '=') {
+        positionHandler.advanceCharacter();
+        return Token(TokenType::GREATEREQUAL, pos);
+    }
+    else {
+        return Token(TokenType::GREATERTHAN, pos);
     }
 }
 
 std::vector<Token> Lexer::tokenise() const {
     std::vector<Token> tokens;
-    std::map<std::string, std::string> pos;
     char currentChar = positionHandler.getChar();
     while (currentChar != '\0') {
-        pos = positionHandler.getPos();
+        std::map<std::string, std::string> pos = positionHandler.getPos();
         switch(currentChar){
             case ' ': case '\t': case '\n': case '\r':
                 // Skip whitespace
@@ -88,6 +130,18 @@ std::vector<Token> Lexer::tokenise() const {
                 break;
             case ')':
                 tokens.emplace_back(TokenType::CLOSEPAREN, pos);
+                break;
+            case '=':
+                tokens.push_back(makeEqualsToken(currentChar));
+                break;
+            case '!':
+                tokens.push_back(makeNotEqualsToken(currentChar));
+                break;
+            case '<':
+                tokens.push_back(makeLessThanToken(currentChar));
+                break;
+            case '>':
+                tokens.push_back(makeGreaterThanToken(currentChar));
                 break;
             default:
                 if (OPERATORS.find(currentChar) != std::string::npos) {

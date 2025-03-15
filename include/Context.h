@@ -12,12 +12,12 @@
 class SymbolTable {
 public:
     SymbolTable();
-    Literal* get(const std::string &name);
-    void set(const std::string& name, const Literal* value);
+    Literal* getLiteral(const std::string &name);
+    void set(const std::string& name, std::unique_ptr<Literal> value);
     void remove(const std::string &name);
 private:
     SymbolTable *parentSymbolTable;
-    std::unordered_map<std::string, Literal> table;
+    std::unordered_map<std::string, std::unique_ptr<Literal>> table;
 };
 
 
@@ -27,16 +27,16 @@ public:
     explicit Context(std::string displayName,
                 Context* parentContext = nullptr,
                 std::map<std::string, std::string> entryPos = PositionHandler::nullPos);
-
-    [[nodiscard]] SymbolTable* getSymbolTable() const;
-    void setSymbolTable(SymbolTable* symbolTable);
+    [[nodiscard]] SymbolTable& getSymbolTable();
+    void setSymbolTable(SymbolTable&& symbolTable);
     std::string getDisplayName();
     std::map<std::string, std::string> getEntryPoint();
+    void setEntryPoint(const std::map<std::string, std::string> &pos);
 private:
     std::string diplayName;
     Context* parentContext;
     std::map<std::string, std::string> entryPoint;
-    SymbolTable* symbolTable;
+    SymbolTable symbolTable;
 };
 
 

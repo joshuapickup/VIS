@@ -15,6 +15,12 @@ std::string tokenTypeToStr(TokenType type) {
         case TokenType::KEYWORD: return "KEYWORD";
         case TokenType::IDENTIFIER: return "IDENTIFIER";
         case TokenType::EQUALS: return "EQUALS";
+        case TokenType::NOTEQUAL: return "NOT EQUALS";
+        case TokenType::TRUEEQUALS: return "TRUE EQUALS";
+        case TokenType::LESSTHAN: return "LESS THAN";
+        case TokenType::LESSEQUAL: return "LESS OR EQUALS";
+        case TokenType::GREATERTHAN: return "GREATER THAN";
+        case TokenType::GREATEREQUAL: return "GREATER OR EQUALS";
         case TokenType::NULL_: return "NULL_";
         default: return "UNKNOWN";
     }
@@ -33,38 +39,37 @@ ValueLiteral Token::getValue() const {return value;}
 std::map<std::string, std::string> Token::getPos() const {return position;}
 
 bool Token::matches(const TokenType type_, const std::string &value_) const {
-    if (type == type_ && value.stringVal == value_) {return true;}
-    else{return false;}
+    if (std::holds_alternative<std::string>(value)) {
+        if (type == type_ && std::get<std::string>(value) == value_) {
+            return true;
+        }
+    }
+    return false;
 }
 
 std::ostream& operator<<(std::ostream& os,  const Token& token) {
     os << "Token(Type: " << tokenTypeToStr(token.getType()) << ", ";
-    os << "Position: {line: " << token.getPos()["line"] << "| Pos:" << token.getPos()["charPos"] << "}, ";
-    // show value based on TokenType
-    switch (token.getType()) {
-        case TokenType::INT:
-            os << "Value: " << token.getValue().intVal;
-        break;
-        case TokenType::FLOAT:
-            os << "Value: " << token.getValue().floatVal;
-        break;
-        case TokenType::IDENTIFIER:
-        case TokenType::KEYWORD:
-            os << "Value: " << token.getValue().stringVal;
-        break;
-        case TokenType::PLUS:
-        case TokenType::MINUS:
-        case TokenType::MUL:
-        case TokenType::DIV:
-        case TokenType::OPENPAREN:
-        case TokenType::CLOSEPAREN:
-        case TokenType::EQUALS:
-            os << "No value";  // Operators usually don't have a value
-        break;
-        default:
-            os << "Unknown type";
-        break;
+    os << "Position: {line: " << token.getPos()["line"] << " | Pos:" << token.getPos()["charPos"] << "}, ";
+    os << "Value: ";
+
+    if (std::holds_alternative<std::monostate>(token.getValue())) {
+        os << "No value";  // Case for operators
     }
+    else if (std::holds_alternative<int>(token.getValue())) {
+        os << std::get<int>(token.getValue());
+    }
+    else if (std::holds_alternative<float>(token.getValue())) {
+        os << std::get<float>(token.getValue());
+    }
+    else if (std::holds_alternative<std::string>(token.getValue())) {
+        os << std::get<std::string>(token.getValue());
+    }
+    else if (std::holds_alternative<bool>(token.getValue())) {
+        os << (std::get<bool>(token.getValue()) ? "true" : "false");
+    } else {
+        os << "Unknown Type";  // Fallback case (should never happen)
+    }
+
     os << ")";
     return os;
 }

@@ -23,12 +23,6 @@ Token* Parser::advance() {
     return currentToken;
 }
 
-InvalidSyntaxError Parser::makeSyntaxError(const std::string &expectedType) const {
-    std::ostringstream oss;
-    oss << "expected " << expectedType << " instead received: " << tokenTypeToStr(currentToken->getType());
-    return InvalidSyntaxError(oss.str());
-}
-
 std::unique_ptr<Node> Parser::parse() {
     if (tokenVector.empty()) {
         return nullptr;
@@ -36,6 +30,12 @@ std::unique_ptr<Node> Parser::parse() {
     else {
         return expression();
     }
+}
+
+InvalidSyntaxError Parser::makeSyntaxError(const std::string &expectedType) const {
+    std::ostringstream oss;
+    oss << "expected " << expectedType << " instead received: " << tokenTypeToStr(currentToken->getType());
+    return InvalidSyntaxError(oss.str());
 }
 
 std::unique_ptr<Node> Parser::binaryOperation(const std::function<std::unique_ptr<Node>()> &func, const std::array<TokenType,2> &tokenTypes) {
@@ -64,6 +64,14 @@ std::unique_ptr<Node> Parser::expression() {
     else {
         return binaryOperation([this](){return term();}, std::array<TokenType,2>{TokenType::PLUS, TokenType::MINUS});
     }
+}
+
+std::unique_ptr<Node> Parser::comparision() {
+    return {};
+}
+
+std::unique_ptr<Node> Parser::arithmeticExpression() {
+    return {};
 }
 
 std::unique_ptr<Node> Parser::term() {

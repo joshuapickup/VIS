@@ -43,9 +43,11 @@ UnaryOperator::UnaryOperator(const Operator &operator_, std::unique_ptr<Node> no
     tokenVector = {operatorNode.getToken(), this->valueNode->getToken()};
 }
 
-std::vector<Token> UnaryOperator::getTokens() {return tokenVector;}
+std::vector<Token> UnaryOperator::getTokens() const {return tokenVector;}
 
-Node* UnaryOperator::getNode() const {return valueNode.get();}
+Operator UnaryOperator::getOperator() const {return operatorNode;}
+
+const std::unique_ptr<Node>& UnaryOperator::getValue() const {return valueNode;}
 
 void UnaryOperator::printNode(std::ostream &os, const int tabCount) const {
     os << std::string(tabCount, '\t') << "UnaryOpNode<" << std::endl;
@@ -62,11 +64,13 @@ BinaryOperator::BinaryOperator(std::unique_ptr<Node> leftNode, const Operator &o
     tokenVector = {this->leftNode->getToken(), operatorNode.getToken(), this->rightNode->getToken()};
 }
 
-std::unique_ptr<Node>& BinaryOperator::getLeftNode() {return leftNode;}
+std::vector<Token> BinaryOperator::getTokens() {return tokenVector;}
 
-Operator BinaryOperator::getOperatorNode() {return operatorNode;}
+const std::unique_ptr<Node>& BinaryOperator::getLeftNode() const {return leftNode;}
 
-std::unique_ptr<Node>& BinaryOperator::getRightNode() {return rightNode;}
+Operator BinaryOperator::getOperatorNode() const {return operatorNode;}
+
+const std::unique_ptr<Node>& BinaryOperator::getRightNode() const {return rightNode;}
 
 void BinaryOperator::printNode(std::ostream &os, const int tabCount) const {
     os << std::string(tabCount, '\t') << "BinOpNode<" << std::endl;
@@ -83,10 +87,10 @@ VarAssignment::VarAssignment(const Token &token, std::unique_ptr<Node> value_): 
 const std::unique_ptr<Node>& VarAssignment::getValue() const {return value;}
 
 void VarAssignment::printNode(std::ostream &os, const int tabCount) const {
-    os << std::string(tabCount, '\t') << "VarAssignment<" << std::endl;
+    os << std::string(tabCount, '\t') << "VarAssignNode<" << std::endl;
     os << std::string(tabCount+1, '\t') << tokenVector[0] << std::endl;
     value->printNode(os, tabCount+1);
-    os << std::string(tabCount, '\t') << "VarAssignment>" << std::endl;
+    os << std::string(tabCount, '\t') << "VarAssignNode>" << std::endl;
 }
 
 

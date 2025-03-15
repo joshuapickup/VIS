@@ -4,14 +4,13 @@
 #include <string>
 #include <stdexcept>
 
-// base error class, inheriting from std::runtime_error
+// base error class from std::runtime_error
 class Error : public std::runtime_error {
 public:
     explicit Error(const std::string& message);
     [[nodiscard]] virtual std::string getMessage() const;
 };
 
-// IllegalCharError class for Lexer
 class IllegalCharError final : public Error {
 public:
     explicit IllegalCharError(const std::string& message);
@@ -27,8 +26,20 @@ public:
     explicit InvalidSyntaxError(const std::string& message);
 };
 
+class ExpectedCharError final : public Error {
+public:
+    explicit ExpectedCharError(const std::string& message);
+};
+
+class ParseError final : public Error {
+public:
+    explicit ParseError(const std::string& message);
+};
+
 class VisRunTimeError final : public Error {
     public:
     explicit VisRunTimeError(const std::string& message);
 };
+
+
 #endif // ERROR_H

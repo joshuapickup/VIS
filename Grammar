@@ -1,6 +1,15 @@
-expression  :   term | term (PLUS | MINUS) term
-                KEYWORD<var> IDENTIFIER EQUALS expression
+expression  :   KEYWORD<var> IDENTIFIER EQUALS expression
+            :   comparison ((KEYWORD<and>|KEYWORD<or>) comparison)*
+
+comparison  :   KEYWORD<not> comparison
+            :   arith expr ((TE|LT|GT|LTE|GTE) arith expr)*
+
+arith expr  :   term | term (PLUS | MINUS) term
+
 term        :   factor | factor (MUL | DIV) factor
+
 factor      :   atom | (PLUS | MINUS) (INT | FLOAT)
+
 atom        :   INT | FLOAT | IDENTIFIER
                 LPAREN expression RPAREN
+

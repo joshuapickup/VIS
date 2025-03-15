@@ -7,7 +7,7 @@
 #include "Parser.h"
 #include "Interpreter.h"
 
-
+//TODO implement logic inside interpreter calls and call Inrepreter::interpretFile() or Inrepreter::interpretConsole()
 int runFile(const std::string &filename) {
     std::ifstream inputFile(filename);
     if (!inputFile.is_open()) {
@@ -16,10 +16,9 @@ int runFile(const std::string &filename) {
     }
     PositionHandler positionHandler(filename);
     SymbolTable globalSymbolTable = SymbolTable();
-    IntLiteral nullLiteral = IntLiteral(0);
-    globalSymbolTable.set("null", &nullLiteral);
+    globalSymbolTable.set("null", std::make_unique<IntLiteral>(0));
     Context globalContext = Context(filename);
-    globalContext.setSymbolTable(&globalSymbolTable);
+    globalContext.setSymbolTable(std::move(globalSymbolTable));
     Lexer lexer(positionHandler);
     Interpreter interpreter = Interpreter();
     std::string line;
@@ -28,18 +27,20 @@ int runFile(const std::string &filename) {
         positionHandler.advanceLine(line);
         std::vector<Token> tokenList = lexer.tokenise();
         // print Tokens
-        for (Token &token : tokenList) { std::cout << token << std::endl;}
-        std::cout << std::endl;
+        for (Token &token : tokenList) { std::cout << token << std::endl;} std::cout << std::endl;
         Parser parser = Parser(tokenList);
         std::unique_ptr<Node> nodeTree = parser.parse();
-        if (nodeTree) { // print Abstract Syntax Tree
-            std::cout << *nodeTree << std::endl;
+        // print Abstract Syntax Tree
+        if (nodeTree) {
+            //std::cout << *nodeTree << std::endl;
+            ;
         }
-        else {
-            continue;
+        else {continue;}
+
+        if (std::unique_ptr<Literal> literalVal = interpreter.visit(nodeTree, &globalContext)) {
+            std::cout << *literalVal << std::endl;
         }
-        interpreter.visit(nodeTree, &globalContext);
-        std::cout << std::string(40, '-') << std::endl;
+        std::cout << std::string(80, '-') << std::endl;
     }
     inputFile.close();
     return 0;

@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <variant>
 
 // defined token types
 enum class TokenType {
@@ -18,21 +19,22 @@ enum class TokenType {
     KEYWORD,
     IDENTIFIER,
     EQUALS,
+    TRUEEQUALS,
+    NOTEQUAL,
+    LESSTHAN,
+    GREATERTHAN,
+    LESSEQUAL,
+    GREATEREQUAL,
 };
 
-struct ValueLiteral {
-    bool boolVal;
-    int intVal;
-    float floatVal;
-    std::string stringVal;
-};
+using ValueLiteral = std::variant<std::monostate, bool, int, float, std::string>;
 
 std::string tokenTypeToStr(TokenType type);
 
 // token class representing individual token
 class Token {
 public:
-    explicit Token(TokenType type_, const std::map<std::string, std::string>& pos, ValueLiteral  value_ = ValueLiteral());
+    explicit Token(TokenType type_, const std::map<std::string, std::string>& pos, ValueLiteral  value_ = std::monostate{});
     [[nodiscard]] TokenType getType() const;
     [[nodiscard]] ValueLiteral getValue() const;
     [[nodiscard]] std::map<std::string, std::string> getPos() const;

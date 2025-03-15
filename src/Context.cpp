@@ -9,28 +9,26 @@
 
 
 //SYMBOL TABLE DEFINITION
-SymbolTable::SymbolTable() : parentSymbolTable(nullptr){
-    table = {};
+SymbolTable::SymbolTable() : parentSymbolTable(nullptr), table(){
+
 }
 
-Literal* SymbolTable::get(const std::string &name) {
-    auto it = table.find(name);
-    if (it != table.end()) {
-        return &it->second;
+Literal* SymbolTable::getLiteral(const std::string &name) {
+    if (const auto it = table.find(name); it != table.end()) {
+        return it->second.get();
     }
     if (parentSymbolTable) {
-        return parentSymbolTable->get(name);
+        return parentSymbolTable->getLiteral(name);
     }
     throw VisRunTimeError("symbol '" + name + "' was not found in lookup tables");
 }
 
-void SymbolTable::set(const std::string& name, const Literal* value) {
-    table.emplace(name, *value);
+void SymbolTable::set(const std::string& name, std::unique_ptr<Literal> value) {
+    table[name] = std::move(value);
 }
 
-void SymbolTable::remove(const std::string& name) {
-    table.erase(name);
-}
+
+void SymbolTable::remove(const std::string& name) {table.erase(name);}
 
 
 //CONTEXT DEFINITION
@@ -38,15 +36,17 @@ Context::Context(std::string displayName, Context* parentContext, std::map<std::
 diplayName(std::move(displayName)),
 parentContext(parentContext),
 entryPoint(std::move(entryPos)),
-symbolTable(nullptr) {
+symbolTable(SymbolTable()) {
 
 }
 
-SymbolTable* Context::getSymbolTable() const {return symbolTable;}
+SymbolTable& Context::getSymbolTable() {return symbolTable;}
 
-void Context::setSymbolTable(SymbolTable* symbolTable) {this->symbolTable = symbolTable;}
+void Context::setSymbolTable(SymbolTable&& symbolTable) {this->symbolTable = std::move(symbolTable);}
 
 std::string Context::getDisplayName() {return diplayName;}
 
 std::map<std::string, std::string> Context::getEntryPoint() {return entryPoint;}
+
+void Context::setEntryPoint(const std::map<std::string, std::string> &pos) { entryPoint = pos;}
 

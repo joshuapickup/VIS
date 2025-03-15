@@ -44,8 +44,9 @@ public:
 class UnaryOperator final : public Node{
 public:
     UnaryOperator(const Operator &operator_, std::unique_ptr<Node> node);
-    [[nodiscard]] Node* getNode() const;
-    std::vector<Token> getTokens();
+    [[nodiscard]] std::vector<Token> getTokens() const;
+    [[nodiscard]] Operator getOperator() const;
+    [[nodiscard]] const std::unique_ptr<Node>& getValue() const;
     void printNode(std::ostream &os, int tabCount) const override;
 private:
     Operator operatorNode;
@@ -55,9 +56,10 @@ private:
 class BinaryOperator final : public Node{
 public:
     BinaryOperator(std::unique_ptr<Node> leftNode, const Operator &operatorNode, std::unique_ptr<Node> rightNode);
-    [[nodiscard]] std::unique_ptr<Node>& getLeftNode();
-    Operator getOperatorNode();
-    [[nodiscard]] std::unique_ptr<Node>& getRightNode();
+    std::vector<Token> getTokens();
+    [[nodiscard]] const std::unique_ptr<Node>& getLeftNode() const;
+    [[nodiscard]] Operator getOperatorNode() const;
+    [[nodiscard]] const std::unique_ptr<Node>& getRightNode() const;
     void printNode(std::ostream &os, int tabCount) const override;
 private:
     std::unique_ptr<Node> leftNode;

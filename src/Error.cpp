@@ -19,6 +19,12 @@ LexerError::LexerError(const std::string& message): Error("Lexer Error: " + mess
 InvalidSyntaxError::InvalidSyntaxError(const std::string& message): Error("Syntax Error: " + message) {
 }
 
-VisRunTimeError::VisRunTimeError(const std::string& message): Error("RunTime Error Error: " + message) {
+ExpectedCharError::ExpectedCharError(const std::string& message): Error("Expected Char Error: " + message) {
+}
+
+ParseError::ParseError(const std::string& message): Error("Parse Error: " + message) {
+}
+
+VisRunTimeError::VisRunTimeError(const std::string& message): Error("RunTime Error: " + message) {
 }
 
