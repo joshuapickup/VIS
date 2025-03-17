@@ -72,6 +72,33 @@ std::unique_ptr<Literal> Interpreter::visitBinaryOpNode(const BinaryOperator *no
         case TokenType::DIV:
             uniqueLiteral = leftvalue->divide(*rightvalue);
             break;
+        case TokenType::TRUEEQUALS:
+            uniqueLiteral = leftvalue->compareTE(*rightvalue);
+            break;
+        case TokenType::NOTEQUAL:
+            uniqueLiteral = leftvalue->compareNE(*rightvalue);
+            break;
+        case TokenType::LESSTHAN:
+            uniqueLiteral = leftvalue->compareLT(*rightvalue);
+            break;
+        case TokenType::LESSEQUAL:
+            uniqueLiteral = leftvalue->compareLTE(*rightvalue);
+            break;
+        case TokenType::GREATERTHAN:
+            uniqueLiteral = leftvalue->compareGT(*rightvalue);
+            break;
+        case TokenType::GREATEREQUAL:
+            uniqueLiteral = leftvalue->compareGTE(*rightvalue);
+            break;
+        case TokenType::KEYWORD:
+            if (operatorNode.getToken().matches(TokenType::KEYWORD, "and")) {
+                uniqueLiteral = leftvalue->andWith(*rightvalue);
+                break;
+            }
+            else if (operatorNode.getToken().matches(TokenType::KEYWORD, "or")) {
+                uniqueLiteral = leftvalue->orWith(*rightvalue);
+                break;
+            }
         default:
             throw ParseError("did not recognise token <"
                 + tokenTypeToStr(operatorNode.getToken().getType())
@@ -88,14 +115,16 @@ std::unique_ptr<Literal> Interpreter::visitUnaryOpNode(const UnaryOperator* node
     const Operator operatorNode = node->getOperator();
     const std::unique_ptr<Literal> valueLiteral = visit(node->getValue(), context);
     std::unique_ptr<Literal> returnLiteral;
-    switch (operatorNode.getToken().getType()) {
-        case TokenType::MINUS:
-            returnLiteral = valueLiteral->multiply(IntLiteral(-1));
-            break;
-        default:
-            throw ParseError("unknown operator <"
+    if(operatorNode.getToken().getType() == TokenType::MINUS) {
+        returnLiteral = valueLiteral->multiply(IntLiteral(-1));
+    }
+    else if (operatorNode.getToken().matches(TokenType::KEYWORD, "not")) {
+        returnLiteral = valueLiteral->notSelf();
+    }
+    else {
+        throw ParseError("unknown operator <"
                 + tokenTypeToStr(operatorNode.getToken().getType())
-                + "> for unary operation, expected MINUS");
+                + "> for unary operation, expected MINUS or KEYWORD<not>");
     }
     returnLiteral->setPosition(token.getPos());
     returnLiteral->setContext(context);

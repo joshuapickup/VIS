@@ -16,7 +16,9 @@ int runFile(const std::string &filename) {
     }
     PositionHandler positionHandler(filename);
     SymbolTable globalSymbolTable = SymbolTable();
-    globalSymbolTable.set("null", std::make_unique<IntLiteral>(0));
+    globalSymbolTable.set("null", std::make_unique<BoolLiteral>(false));
+    globalSymbolTable.set("true", std::make_unique<BoolLiteral>(true));
+    globalSymbolTable.set("false", std::make_unique<BoolLiteral>(false));
     Context globalContext = Context(filename);
     globalContext.setSymbolTable(std::move(globalSymbolTable));
     Lexer lexer(positionHandler);

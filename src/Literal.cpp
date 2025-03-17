@@ -28,6 +28,34 @@ void Literal::setPosition(const std::map<std::string, std::string> &pos) {positi
 
 std::map<std::string, std::string> Literal::getPosition() {return position;}
 
+std::unique_ptr<Literal> Literal::compareLT(const Literal& other) const {
+    return std::make_unique<BoolLiteral>(getNumberValue() < other.getNumberValue());
+}
+
+std::unique_ptr<Literal> Literal::compareLTE(const Literal& other) const {
+    return std::make_unique<BoolLiteral>(getNumberValue() <= other.getNumberValue());
+}
+
+std::unique_ptr<Literal> Literal::compareGT(const Literal& other) const {
+    return std::make_unique<BoolLiteral>(getNumberValue() > other.getNumberValue());
+}
+
+std::unique_ptr<Literal> Literal::compareGTE(const Literal& other) const {
+    return std::make_unique<BoolLiteral>(getNumberValue() >= other.getNumberValue());
+}
+
+std::unique_ptr<Literal> Literal::andWith(const Literal& other) const {
+    return std::make_unique<BoolLiteral>(getBoolValue() and other.getBoolValue());
+}
+
+std::unique_ptr<Literal> Literal::orWith(const Literal& other) const {
+    return std::make_unique<BoolLiteral>(getBoolValue() or other.getBoolValue());
+}
+
+std::unique_ptr<Literal> Literal::notSelf() const {
+    return std::make_unique<BoolLiteral>(not getBoolValue());
+}
+
 void Literal::printLiteral(std::ostream &os, const int tabCount) const {
     os << std::string(tabCount, '\t') << "Literal<" << std::endl;
     os << std::string(tabCount, '\t') << "Literal>" << std::endl;
@@ -39,39 +67,112 @@ std::ostream& operator<<(std::ostream& os, const Literal &literal) {
 }
 
 
+
+//BOOL LITERAL DEFINITION
+BoolLiteral::BoolLiteral(const bool value) : Literal(), value(value) {
+
+}
+
+double BoolLiteral::getNumberValue() const {
+    if (value) {
+        return 1;
+    }
+    return 0;
+}
+
+bool BoolLiteral::getBoolValue() const{
+    return value;
+};
+
+std::string BoolLiteral::getStringValue() const {
+    if (value) {
+        return "true";
+    }
+    return "false";
+}
+
+std::unique_ptr<Literal> BoolLiteral::add(const Literal& other) const {
+    if (const auto* otherBool = dynamic_cast<const BoolLiteral*>(&other)) {
+        return std::make_unique<BoolLiteral>(this->getBoolValue() || otherBool->getBoolValue());
+    }
+    else {
+        throw VisRunTimeError("cannot add a non boolean value to a boolean value");
+    }
+}
+
+std::unique_ptr<Literal> BoolLiteral::subtract(const Literal& other) const {
+    throw VisRunTimeError("cannot subtract with a bool");
+}
+
+std::unique_ptr<Literal> BoolLiteral::multiply(const Literal& other) const {
+    throw VisRunTimeError("cannot multiply with a bool");
+}
+
+std::unique_ptr<Literal> BoolLiteral::divide(const Literal& other) const {
+    throw VisRunTimeError("cannot divide with a bool");
+}
+
+std::unique_ptr<Literal> BoolLiteral::compareTE(const Literal& other) const {
+    return std::make_unique<BoolLiteral>(getBoolValue() == other.getBoolValue());
+}
+
+std::unique_ptr<Literal> BoolLiteral::compareNE(const Literal& other) const {
+    return std::make_unique<BoolLiteral>(getBoolValue() != other.getBoolValue());
+}
+
+std::unique_ptr<Literal> BoolLiteral::clone() const {return std::make_unique<BoolLiteral>(*this);}
+
+void BoolLiteral::printLiteral(std::ostream &os, const int tabCount) const {
+    os << std::string(tabCount, '\t') << "BoolLiteral<" << std::endl;
+    os << std::string(tabCount+1, '\t') << "Value: " << getStringValue() << std::endl;
+    os << std::string(tabCount+1, '\t') <<"Position: {line: " << position.at("line");
+    os << " | Pos:" << position.at("charPos") << "}" << std::endl;
+    os << std::string(tabCount, '\t') << "BoolLiteral>" << std::endl;
+}
+
+
+
 //NUMBER LITERAL DEFINITION
-NumberLiteral::NumberLiteral() :Literal(){
+NumberLiteral::NumberLiteral() : Literal(){
 }
 
 std::unique_ptr<Literal> NumberLiteral::add(const Literal& other) const {
-    std::unique_ptr<NumberLiteral> returnLiteral = makeResultLiteral(getValue() + other.getValue());
+    std::unique_ptr<NumberLiteral> returnLiteral = makeResultLiteral(getNumberValue() + other.getNumberValue());
     returnLiteral->setPosition(position);
     returnLiteral->setContext(context);
     return returnLiteral;
 }
 
 std::unique_ptr<Literal> NumberLiteral::subtract(const Literal& other) const {
-    std::unique_ptr<NumberLiteral> returnLiteral = makeResultLiteral(getValue() - other.getValue());
+    std::unique_ptr<NumberLiteral> returnLiteral = makeResultLiteral(getNumberValue() - other.getNumberValue());
     returnLiteral->setPosition(position);
     returnLiteral->setContext(context);
     return returnLiteral;
 }
 
 std::unique_ptr<Literal> NumberLiteral::multiply(const Literal& other) const {
-    std::unique_ptr<NumberLiteral> returnLiteral = makeResultLiteral(getValue() * other.getValue());
+    std::unique_ptr<NumberLiteral> returnLiteral = makeResultLiteral(getNumberValue() * other.getNumberValue());
     returnLiteral->setPosition(position);
     returnLiteral->setContext(context);
     return returnLiteral;
 }
 
 std::unique_ptr<Literal> NumberLiteral::divide(const Literal& other) const {
-    if (other.getValue() == 0) {
+    if (other.getNumberValue() == 0) {
         throw VisRunTimeError("Division by zero!");
     }
-    std::unique_ptr<NumberLiteral> returnLiteral = makeResultLiteral(getValue() / other.getValue());
+    std::unique_ptr<NumberLiteral> returnLiteral = makeResultLiteral(getNumberValue() / other.getNumberValue());
     returnLiteral->setPosition(position);
     returnLiteral->setContext(context);
     return returnLiteral;
+}
+
+std::unique_ptr<Literal> NumberLiteral::compareTE(const Literal& other) const {
+    return std::make_unique<BoolLiteral>(getNumberValue() == other.getNumberValue());
+}
+
+std::unique_ptr<Literal> NumberLiteral::compareNE(const Literal& other) const {
+    return std::make_unique<BoolLiteral>(getNumberValue() != other.getNumberValue());
 }
 
 void NumberLiteral::printLiteral(std::ostream &os, const int tabCount) const {
@@ -87,11 +188,16 @@ std::unique_ptr<NumberLiteral> NumberLiteral::makeResultLiteral(float value) {
 }
 
 
+
 //INT LITERAL DEFINITION
 IntLiteral::IntLiteral(const int value) : NumberLiteral(), value(value) {
 }
 
-double IntLiteral::getValue() const {return value;}
+double IntLiteral::getNumberValue() const {return value;}
+
+bool IntLiteral::getBoolValue() const {return value != 0;}
+
+std::string IntLiteral::getStringValue() const {return std::to_string(value);}
 
 std::unique_ptr<Literal> IntLiteral::clone() const {return std::make_unique<IntLiteral>(*this);}
 
@@ -104,11 +210,16 @@ void IntLiteral::printLiteral(std::ostream &os, const int tabCount) const {
 }
 
 
+
 //FLOAT LITERAL DEFINITION
 FloatLiteral::FloatLiteral(const float value) : NumberLiteral(), value(value){
 }
 
-double FloatLiteral::getValue() const {return value;}
+double FloatLiteral::getNumberValue() const {return value;}
+
+bool FloatLiteral::getBoolValue() const {return value != 0;}
+
+std::string FloatLiteral::getStringValue() const {return std::to_string(value);}
 
 std::unique_ptr<Literal> FloatLiteral::clone() const {return std::make_unique<FloatLiteral>(*this);}
 
