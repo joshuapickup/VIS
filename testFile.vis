@@ -1,0 +1,6 @@
+
+func myfunc(x, y){
+    x + y
+}
+
+myfunc(2, 3)

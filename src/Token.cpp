@@ -10,8 +10,13 @@ std::string tokenTypeToStr(TokenType type) {
         case TokenType::MINUS: return "MINUS";
         case TokenType::MUL: return "MUL";
         case TokenType::DIV: return "DIV";
+        case TokenType::INCREMENT: return "INCREMENT";
+        case TokenType::DECREMENT: return "DECREMENT";
         case TokenType::OPENPAREN: return "OPENPAREN";
         case TokenType::CLOSEPAREN: return "CLOSEPAREN";
+        case TokenType::OPENBRACE: return "OPENBRACE";
+        case TokenType::CLOSEBRACE: return "CLOSEBRACE";
+        case TokenType::SEPERATOR: return "SEPERATOR";
         case TokenType::KEYWORD: return "KEYWORD";
         case TokenType::IDENTIFIER: return "IDENTIFIER";
         case TokenType::EQUALS: return "EQUALS";
@@ -22,10 +27,11 @@ std::string tokenTypeToStr(TokenType type) {
         case TokenType::GREATERTHAN: return "GREATER THAN";
         case TokenType::GREATEREQUAL: return "GREATER OR EQUALS";
         case TokenType::NULL_: return "NULL_";
+        case TokenType::EOL: return "END OF LINE";
+        case TokenType::EOF_: return "END OF FILE";
         default: return "UNKNOWN";
     }
 }
-
 
 Token::Token(const TokenType type_, const std::map<std::string, std::string>& pos, ValueLiteral  value_):
     type(type_),

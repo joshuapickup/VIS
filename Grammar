@@ -1,15 +1,35 @@
-expression  :   KEYWORD<var> IDENTIFIER EQUALS expression
-            :   comparison ((KEYWORD<and>|KEYWORD<or>) comparison)*
+func def    ::= KEYWORD<func> IDENTIFIER OPENPAREN (expr (SEPERATOR expr)*)? CLOSEPAREN
+                OPENBRACE (stmt)+ CLOSEBRACE
 
-comparison  :   KEYWORD<not> comparison
-            :   arith expr ((TE|LT|GT|LTE|GTE) arith expr)*
+stmt        ::= while stmt
+            ::= for stmt
+            ::= if stmt
+            ::= expr
 
-arith expr  :   term | term (PLUS | MINUS) term
+while stmt  ::= KEYWORD<while> OPENPAREN expr CLOSEPAREN OPENBRACE (expr)+ CLOSEBRACE
 
-term        :   factor | factor (MUL | DIV) factor
+for stmt    ::= KEYWORD<for> OPENPAREN var expr SEPERATOR comp expr SEPERATOR var expr CLOSEPAREN
+                OPENBRACE (stmt)+ CLOSEBRACE
 
-factor      :   atom | (PLUS | MINUS) (INT | FLOAT)
+if stmt     ::= KEYWORD<if> OPENPAREN expr CLOSEPAREN OPENBRACE (stmt)+ CLOSEBRACE
 
-atom        :   INT | FLOAT | IDENTIFIER
+expr        ::= (var expr)* (comp expr)*
+
+var expr    ::= KEYWORD<var> IDENTIFIER ((INCREMENT | DECREMENT) | EQUALS expression)
+
+comp expr   ::= comparison ((KEYWORD<and>|KEYWORD<or>) comparison)*
+
+comparison  ::= KEYWORD<not> comparison
+            ::= arith expr ((TE|LT|GT|LTE|GTE) arith expr)*
+
+arith expr  ::= term | term (PLUS | MINUS) term
+
+term        ::= factor | factor (MUL | DIV) factor
+
+factor      ::= call | (PLUS | MINUS) call
+
+call        ::= atom (OPENPAREN (expr (SEPERATOR expr)* )? CLOSEPAREN)?
+
+atom        ::= INT | FLOAT | IDENTIFIER
                 LPAREN expression RPAREN
 

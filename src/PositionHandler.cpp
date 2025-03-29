@@ -1,6 +1,7 @@
 #include <string>
-#include <unordered_map>
 #include "PositionHandler.h"
+#include <fstream>
+#include <utility>
 
 const std::map<std::string, std::string> PositionHandler::nullPos = {
     {"name", "null"},
@@ -10,15 +11,12 @@ const std::map<std::string, std::string> PositionHandler::nullPos = {
     {"character", "null"}
 };
 
-PositionHandler::PositionHandler(const std::string& fileName):  charPos(-1),
-                                                            currentChar('\0'),
-                                                            line(-1),
-                                                            fileName(fileName),
-                                                            lineText("") {}
-
-char PositionHandler::getChar() const {
-    return currentChar;
-}
+PositionHandler::PositionHandler(std::string fileName, std::ifstream &file):
+file(file),
+charPos(-1),
+currentChar('\0'),
+line(-1),
+fileName(std::move(fileName)) {}
 
 // advance to the next character
 char PositionHandler::advanceCharacter() {
@@ -32,17 +30,23 @@ char PositionHandler::advanceCharacter() {
     return currentChar;
 }
 
-// advance to the next line
-void PositionHandler::advanceLine(const std::string& lineText) {
-    this->lineText = lineText;
-    line++;
-    charPos = 0;
-
-    if (!lineText.empty()) {
-        currentChar = lineText[charPos]; // Set the current character
-    } else {
-        currentChar = '\0'; // Set to null character if the line is empty
+// advance to the next line returns false if line dosent exist
+bool PositionHandler::advanceLine() {
+    if (!file.is_open()) {
+        return false;
     }
+    if (std::getline(file, lineText)) {
+        line++;
+        charPos = 0;
+        if (!lineText.empty()) {
+            currentChar = lineText[charPos]; // Set the current character
+        } else {
+            currentChar = '\0'; // Set to null character if the line is empty
+        }
+        return true;
+    }
+    file.close();
+    return false;
 }
 
 // returns next character without advancing
@@ -61,6 +65,40 @@ void PositionHandler::resetPos() {
     line = -1;
     currentChar = '\0';
     lineText.clear();
+}
+
+std::string PositionHandler::getWordFromLine(const std::map<std::string, std::string>& pos) {
+    const auto lineTextIt = pos.find("lineText");
+    const auto charPosIt = pos.find("charPos");
+    if (lineTextIt == pos.end() || charPosIt == pos.end()) {return "";}
+    const std::string& lineText = lineTextIt->second;
+    const int position = std::stoi(charPosIt->second);
+    if (position < 0 || position >= static_cast<int>(lineText.length())) {return "";}
+
+    auto isWordChar = [](char c) {
+        return std::isalnum(static_cast<unsigned char>(c)) || c == '_' || c == '.';
+    };
+
+
+    int start = position;
+    while (start > 0 && isWordChar(lineText[start - 1])) {
+        --start;
+    }
+
+    int end = position;
+    while (end < static_cast<int>(lineText.length()) - 1 && isWordChar(lineText[end + 1])) {
+        ++end;
+    }
+
+    return lineText.substr(start, end - start + 1);
+}
+
+char PositionHandler::getChar() const {
+    return currentChar;
+}
+
+int PositionHandler::getLineNumber() const {
+    return line;
 }
 
 // get current position details

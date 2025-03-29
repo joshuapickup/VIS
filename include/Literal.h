@@ -4,9 +4,11 @@
 
 #ifndef LITERAL_H
 #define LITERAL_H
+
 #include <map>
 #include <memory>
-
+#include "Node.h"
+# include "Context.h"
 class Context; // decleration to allow use of context without circular loop
 
 class Literal {
@@ -112,4 +114,25 @@ private:
 };
 
 
+class FunctionLiteral final : public Literal {
+public:
+    explicit FunctionLiteral(std::string name, FuncDef* node, std::unique_ptr<Context> scope);
+    [[nodiscard]] std::string getName() const;
+    [[nodiscard]] const FuncDef& getNode() const;
+    [[nodiscard]] std::unique_ptr<Literal> add(const Literal &other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> subtract(const Literal &other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> multiply(const Literal &other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> divide(const Literal &other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> compareTE(const Literal &other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> compareNE(const Literal &other) const override;
+    [[nodiscard]] double getNumberValue() const override;
+    [[nodiscard]] bool getBoolValue() const override;
+    [[nodiscard]] std::string getStringValue() const override;
+    [[nodiscard]] std::unique_ptr<Literal> clone() const override;
+    void printLiteral(std::ostream &os, int tabCount) const override;
+private:
+    std::string name;
+    std::unique_ptr<Context> scopeContext;
+    FuncDef* funcNode;
+};
 #endif //LITERAL_H

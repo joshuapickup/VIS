@@ -1,3 +1,0 @@
-false
-var false = (3>2)
-false

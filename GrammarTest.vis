@@ -1,0 +1,63 @@
+5                           ~ Single positive integer
+7.45                        ~ Single decimal number
+-10                         ~ Single negative integer
+1 + 2                       ~ Simple addition
+2 * 3                       ~ Simple multiplication
+6 + 4 / 4                   ~ Addition with division
+~6 / 0                       ~ Division by zero
+                            ~ Empty line
+10 / (2 + 3)                ~ Division with parentheses
+(3 + 4) * 2                 ~ Parentheses with multiplication
+10 - 5 * 2                  ~ Subtraction and multiplication
+20 / 5 + 3                  ~ Division and addition
+-5 + 3 * 2                  ~ Negative number with multiplication
+(8 - 4) / 2 + 1             ~ Combination of operations with parentheses
+4 * (3 + 2) - 6             ~ Parentheses, multiplication, and subtraction
+12 / (3 * (2 + 1))          ~ Nested parentheses
+7 * (2 + 3) - 10 / 2        ~ Complex mix
+var var1 = 2 + 3            ~ Variable assignment
+var var1++                  ~ Variable increment
+var var1--                  ~ Variable decrement
+var var2 = var var3 = 7     ~ Multiple variable assignment
+var var2 = var2 + var1      ~ Variable usage
+5 + (var test = 5)          ~ Variable usage with assignment
+true                        ~ Boolean literal (true)
+false                       ~ Boolean literal (false)
+not true                    ~ Logical NOT
+not false                   ~ Logical NOT
+true and false              ~ Logical AND
+true or false               ~ Logical OR
+not (true and false)        ~ Logical NOT with parentheses
+true == true                ~ Equality comparison
+true != false               ~ Inequality comparison
+5 > 3                       ~ Greater than comparison
+3 < 5                       ~ Less than comparison
+4 == 4                      ~ Equality check with numbers
+6 != 2                      ~ Inequality check with numbers
+(5 > 3) and (4 < 6)         ~ Logical AND with comparisons
+(10 == 10) or (3 > 5)       ~ Logical OR with comparisons
+not (5 != 5)                ~ Logical NOT with comparison
+true == (2 + 3 == 5)        ~ Boolean comparison with arithmetic
+false or (5 * 2 > 8)        ~ Boolean OR with arithmetic
+(3 + 4) > (2 * 3) and true  ~ Complex boolean expression
+if (5 < 6 and not 3 == 2) { ~ IF statement
+    (3 + 3) / 2
+}
+if (true) {                 ~ Nested IF statement
+    if (false) {
+        1 + 1
+    }
+    else {
+        2 + 2
+    }
+}
+else{
+    5 + 5
+}
+var x = 1
+while (x < 50) {            ~ WHILE loop
+    var x = x + 1
+}
+for (var y = 1, y < 10, var y++) {  ~FOR loop
+        y
+    }

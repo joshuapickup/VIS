@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <utility>
 
 
 #include "Context.h"
@@ -230,3 +231,66 @@ void FloatLiteral::printLiteral(std::ostream &os, const int tabCount) const {
     os << " | Pos:" << position.at("charPos") << "}" << std::endl;
     os << std::string(tabCount, '\t') << "FloatLiteral>" << std::endl;
 }
+
+
+
+//FUNCTION LITERAL DEFINITION
+FunctionLiteral::FunctionLiteral(
+    std::string name,
+    FuncDef* node,
+    std::unique_ptr<Context> scope) :
+Literal(),
+name(std::move(name)),
+scopeContext(std::move(scope)),
+funcNode(node) {}
+
+std::string FunctionLiteral::getName() const {return name;}
+
+const FuncDef& FunctionLiteral::getNode() const {return *funcNode;}
+
+std::unique_ptr<Literal> FunctionLiteral::add(const Literal &other) const {
+    throw VisRunTimeError("cannot add a function");
+}
+
+std::unique_ptr<Literal> FunctionLiteral::subtract(const Literal &other) const {
+    throw VisRunTimeError("cannot subtract a function");
+}
+
+std::unique_ptr<Literal> FunctionLiteral::multiply(const Literal &other) const {
+    throw VisRunTimeError("cannot multiply a function");
+}
+
+std::unique_ptr<Literal> FunctionLiteral::divide(const Literal &other) const {
+    throw VisRunTimeError("cannot divide a function");
+}
+
+std::unique_ptr<Literal> FunctionLiteral::compareTE(const Literal &other) const {
+    throw VisRunTimeError("cannot compare a function");
+}
+
+std::unique_ptr<Literal> FunctionLiteral::compareNE(const Literal &other) const {
+    throw VisRunTimeError("cannot compare a function");
+}
+
+double FunctionLiteral::getNumberValue() const {
+    throw VisRunTimeError("function contains no value");
+}
+
+bool FunctionLiteral::getBoolValue() const {
+    throw VisRunTimeError("function contains no value");
+}
+
+std::string FunctionLiteral::getStringValue() const {
+    throw VisRunTimeError("function contains no value");
+}
+
+std::unique_ptr<Literal> FunctionLiteral::clone() const {throw VisRunTimeError("cannot clone a Function");}
+
+void FunctionLiteral::printLiteral(std::ostream &os, const int tabCount) const {
+    os << std::string(tabCount, '\t') << "FunctionLiteral<" << std::endl;
+    os << std::string(tabCount+1, '\t') << "Name: " << name << std::endl;
+    os << std::string(tabCount+1, '\t') <<"Declared on line: " << stoi(position.at("line"))+1 << std::endl;
+    os << std::string(tabCount, '\t') << "FunctionLiteral>" << std::endl;
+}
+
+

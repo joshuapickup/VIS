@@ -12,7 +12,7 @@
 class Lexer {
 public:
     explicit Lexer(PositionHandler& positionHandler);
-    [[nodiscard]] std::vector<Token> tokenise() const;
+    [[nodiscard]] std::map<int, std::vector<Token>> tokenise() const;
     ~Lexer() = default;
 private:
     static const std::unordered_set<std::string> KEYWORDS;

@@ -5,23 +5,25 @@
 #include <string>
 
 class PositionHandler {
-    public:
-        static const std::map<std::string, std::string> nullPos;
-        explicit PositionHandler(const std::string& name);
-        char advanceCharacter();
-        void advanceLine(const std::string& lineText);
-        char peek() const;
-        void resetPos();
-        [[nodiscard]] char getChar() const;
-        [[nodiscard]] std::map<std::string, std::string> getPos() const;
+public:
+    static const std::map<std::string, std::string> nullPos;
+    explicit PositionHandler(std::string  fileName, std::ifstream& file);
+    char advanceCharacter();
+    bool advanceLine();
+    char peek() const;
+    void resetPos();
+    [[nodiscard]] static std::string getWordFromLine(const std::map<std::string, std::string>& pos);
+    [[nodiscard]] char getChar() const;
+    [[nodiscard]] int getLineNumber() const;
+    [[nodiscard]] std::map<std::string, std::string> getPos() const;
 
-    private:
-        int charPos;
-        char currentChar;
-        int line;
-        std::string fileName;
-        std::string lineText;
-
+private:
+    std::ifstream& file;
+    int charPos;
+    char currentChar;
+    int line;
+    std::string fileName;
+    std::string lineText;
 };
 
 

@@ -6,8 +6,11 @@
 #define CONTEXT_H
 
 #include <unordered_map>
+#include <memory>
 #include "lexer.h"
-#include "Literal.h"
+
+
+class Literal; // decleration to allow use of context without circular loop
 
 class SymbolTable {
 public:
@@ -15,6 +18,7 @@ public:
     Literal* getLiteral(const std::string &name);
     void set(const std::string& name, std::unique_ptr<Literal> value);
     void remove(const std::string &name);
+    friend std::ostream& operator<<(std::ostream& os, const SymbolTable& table);
 private:
     SymbolTable *parentSymbolTable;
     std::unordered_map<std::string, std::unique_ptr<Literal>> table;
@@ -29,9 +33,11 @@ public:
                 std::map<std::string, std::string> entryPos = PositionHandler::nullPos);
     [[nodiscard]] SymbolTable& getSymbolTable();
     void setSymbolTable(SymbolTable&& symbolTable);
+    void setParentContext(Context* context);
     std::string getDisplayName();
     std::map<std::string, std::string> getEntryPoint();
     void setEntryPoint(const std::map<std::string, std::string> &pos);
+    friend std::ostream& operator<<(std::ostream& os, const Context& context);
 private:
     std::string diplayName;
     Context* parentContext;

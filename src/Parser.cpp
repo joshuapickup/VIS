@@ -2,20 +2,38 @@
 // Created by joshu on 02/02/2025.
 //
 
+#include "Parser.h"
+
 #include <iostream>
 
-#include "Parser.h"
 #include "Token.h"
 #include <sstream>
 #include <memory>
+#include <PositionHandler.h>
+#include <utility>
 
 
-Parser::Parser(std::vector<Token> tokens): tokenVector(std::move(tokens)), currentToken(nullptr) {
-    tokenIndex = -1;
-    advance();
+Parser::Parser(std::map<int, std::vector<Token>> tokenizedFile):
+lineIndex(-1),
+tokenIndex(-1),
+tokenDict(std::move(tokenizedFile)),
+tokenVector(tokenizedFile[lineIndex]),
+currentToken(nullptr) {
+    advanceLine();
 }
 
-Token* Parser::advance() {
+bool Parser::advanceLine() { // returns true if advanced
+    if (lineIndex+1 > tokenDict.rbegin()->first) {
+        return false;
+    }
+    lineIndex++;
+    tokenIndex = -1;
+    tokenVector = tokenDict[lineIndex];
+    advanceToken();
+    return true;
+}
+
+Token* Parser::advanceToken() {
     tokenIndex++;
     if ( tokenIndex < tokenVector.size()) {
         currentToken = &tokenVector[tokenIndex];
@@ -24,17 +42,31 @@ Token* Parser::advance() {
 }
 
 std::unique_ptr<Node> Parser::parse() {
-    if (tokenVector.empty()) {
-        return nullptr;
+    std::unique_ptr<Node> returnNode = nullptr;
+    if (!tokenVector.empty()) {
+        if (currentToken->getType() == TokenType::EOF_) {
+            returnNode = std::make_unique<EndOfFile>(*currentToken);
+        }
+        else if (currentToken->matches(TokenType::KEYWORD, "func")) {
+            returnNode = funcDef();
+        }
+        else {
+            returnNode = statement();
+        }
+        if (currentToken->getType() == TokenType::EOL) {
+            advanceLine();
+        }
     }
-    else {
-        return expression();
-    }
+    return returnNode;
 }
 
-InvalidSyntaxError Parser::makeSyntaxError(const std::string &expectedType) const {
+InvalidSyntaxError Parser::makeSyntaxError(std::map<std::string, std::string> position,
+                                            const std::string &expectedType) {
     std::ostringstream oss;
-    oss << "expected " << expectedType << " instead received: " << tokenTypeToStr(currentToken->getType());
+    oss << "\nError in file: " << position["name"] << ", on line: " << std::to_string(stoi(position["line"]) + 1)
+    << "\n~" << position["lineText"] << "~"
+    << "\nexpected >>> " << expectedType << " <<< "
+    << "instead recieved >>> " << PositionHandler::getWordFromLine(position) << " <<<";
     return InvalidSyntaxError(oss.str());
 }
 
@@ -71,34 +103,224 @@ std::unique_ptr<Node> Parser::binaryOperation(  const std::function<std::unique_
         }
 
         const Token* opToken = currentToken;
-        advance();
+        advanceToken();
         std::unique_ptr<Node> right = func();
         left = std::make_unique<BinaryOperator>(std::move(left), Operator(*opToken), std::move(right));
     }
     return left;
 }
 
+std::unique_ptr<Node> Parser::funcDef() {
+    advanceToken();
+    if (currentToken->getType() != TokenType::IDENTIFIER) {throw makeSyntaxError(currentToken->getPos(), "IDENTIFIER");}
+    Token identifierToken = *currentToken;
+    advanceToken();
+    if (currentToken->getType() != TokenType::OPENPAREN) {throw makeSyntaxError(currentToken->getPos(), "(");}
+    advanceToken();
+    std::vector<std::unique_ptr<Node>> argumentNodes = {};
+    do {
+        if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+        if (std::unique_ptr<Node> node = expression()) {argumentNodes.push_back(std::move(node));}
+        else {throw ParseError("funcDef was called in parser and argument returned null Node");}
+        if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+        else if (currentToken->getType() == TokenType::SEPERATOR){advanceToken();}
+        else {throw makeSyntaxError(currentToken->getPos(), ", OR )");}
+    }
+    while (true);
+
+    while (currentToken->getType() != TokenType::CLOSEPAREN) {
+        if (std::unique_ptr<Node> node = expression()) {argumentNodes.push_back(std::move(node));}
+        else {throw ParseError("funcDef was called in parser and argument returned null Node");}
+    }
+    advanceToken();
+    while (currentToken->getType() == TokenType::EOL) {advanceLine();}
+    if (currentToken->getType() != TokenType::OPENBRACE) {throw makeSyntaxError(currentToken->getPos(), "{");}
+    advanceToken();
+    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+    advanceLine();
+    std::vector<std::unique_ptr<Node>> funcNodes = {};
+    bool lineCheck = false;
+    do {
+        if (std::unique_ptr<Node> node = parse()) {
+            lineCheck = true;
+            funcNodes.push_back(std::move(node));
+        }
+    }
+    while (currentToken->getType() != TokenType::CLOSEBRACE);
+    if (not lineCheck) {throw InvalidSyntaxError("cannot define function with no statements");}
+    advanceToken();
+    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+    return std::make_unique<FuncDef>(identifierToken, std::move(argumentNodes), std::move(funcNodes));
+}
+
+std::unique_ptr<Node> Parser::statement() {
+    if (currentToken->matches(TokenType::KEYWORD, "while")) {
+        return whileStmt();
+    }
+    else if (currentToken->matches(TokenType::KEYWORD, "for")) {
+        return forStmt();
+    }
+    else if (currentToken->matches(TokenType::KEYWORD, "if")) {
+        return ifStmt();
+    }
+    else {
+        return expression();
+    }
+}
+
+std::unique_ptr<Node> Parser::whileStmt() {
+    advanceToken();
+    if (currentToken->getType() != TokenType::OPENPAREN) {throw makeSyntaxError(currentToken->getPos(), "(");}
+    advanceToken();
+    std::unique_ptr<Node> condition = this->expression();
+    if (currentToken->getType() != TokenType::CLOSEPAREN) {throw makeSyntaxError(currentToken->getPos(), ")");}
+    advanceToken();
+    while (currentToken->getType() == TokenType::EOL) {advanceLine();}
+    if (currentToken->getType() != TokenType::OPENBRACE) {throw makeSyntaxError(currentToken->getPos(), "{");}
+    advanceToken();
+    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+    advanceLine();
+    std::vector<std::unique_ptr<Node>> whileNodes = {};
+    bool lineCheck = false;
+    do {
+        if (std::unique_ptr<Node> node = parse()) {
+            lineCheck = true;
+            whileNodes.push_back(std::move(node));
+        }
+    }
+    while (currentToken->getType() != TokenType::CLOSEBRACE);
+    if (not lineCheck) {throw InvalidSyntaxError("cannot have while statement with no contents");}
+    advanceToken();
+    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+    return std::make_unique<WhileStmt>(std::move(condition), std::move(whileNodes));
+}
+
+std::unique_ptr<Node> Parser::forStmt() {
+    advanceToken();
+    if (currentToken->getType() != TokenType::OPENPAREN) {throw makeSyntaxError(currentToken->getPos(), "(");}
+    advanceToken();
+    std::unique_ptr<Node> varInit= this->varExpr();
+    if (currentToken->getType() != TokenType::SEPERATOR) {throw makeSyntaxError(currentToken->getPos(), ",");}
+    advanceToken();
+    std::unique_ptr<Node> condition = this->compExpr();
+    if (currentToken->getType() != TokenType::SEPERATOR) {throw makeSyntaxError(currentToken->getPos(), ",");}
+    advanceToken();
+    std::unique_ptr<Node> step = this->varExpr();
+    if (currentToken->getType() != TokenType::CLOSEPAREN) {throw makeSyntaxError(currentToken->getPos(), ")");}
+    advanceToken();
+    while (currentToken->getType() == TokenType::EOL) {advanceLine();}
+    if (currentToken->getType() != TokenType::OPENBRACE) {throw makeSyntaxError(currentToken->getPos(), "{");}
+    advanceToken();
+    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+    advanceLine();
+    std::vector<std::unique_ptr<Node>> forNodes = {};
+    bool lineCheck = false;
+    do {
+        if (std::unique_ptr<Node> node = parse()) {
+            lineCheck = true;
+            forNodes.push_back(std::move(node));
+        }
+    }
+    while (currentToken->getType() != TokenType::CLOSEBRACE);
+    if (not lineCheck) {throw InvalidSyntaxError("cannot have for statement with no contents");}
+    advanceToken();
+    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+    return std::make_unique<ForStmt>(std::move(varInit), std::move(condition), std::move(step), std::move(forNodes));
+}
+
+std::unique_ptr<Node> Parser::ifStmt() {
+    advanceToken();
+    if (currentToken->getType() != TokenType::OPENPAREN) {throw makeSyntaxError(currentToken->getPos(), "(");}
+    advanceToken();
+    std::unique_ptr<Node> ifExpression = this->expression();
+    if (currentToken->getType() != TokenType::CLOSEPAREN) {throw makeSyntaxError(currentToken->getPos(), ")");}
+    advanceToken();
+    while (currentToken->getType() == TokenType::EOL) {advanceLine();}
+    if (currentToken->getType() != TokenType::OPENBRACE) {throw makeSyntaxError(currentToken->getPos(), "{");}
+    advanceToken();
+    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+    advanceLine();
+    std::vector<std::unique_ptr<Node>> ifNodes = {};
+    std::vector<std::unique_ptr<Node>> elseNodes = {};
+    bool lineCheck = false;
+    do {
+        if (std::unique_ptr<Node> node = parse()) {
+            lineCheck = true;
+            ifNodes.push_back(std::move(node));
+        }
+    }
+    while (currentToken->getType() != TokenType::CLOSEBRACE);
+    if (not lineCheck) {throw InvalidSyntaxError("cannot have if statement with no contents");}
+    advanceToken();
+    if (currentToken->getType() != TokenType::EOL) {
+        if (not currentToken->matches(TokenType::KEYWORD, "else")) {
+            throw makeSyntaxError(currentToken->getPos(), "else");
+        }
+    }
+    else {while (currentToken->getType() == TokenType::EOL) {advanceLine();}}
+    if (currentToken->matches(TokenType::KEYWORD, "else")) {
+        advanceToken();
+        while (currentToken->getType() == TokenType::EOL) {advanceLine();}
+        if (currentToken->getType() != TokenType::OPENBRACE) {throw makeSyntaxError(currentToken->getPos(), "< { >");}
+        advanceToken();
+        if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+        advanceLine();
+        lineCheck = false;
+        do {
+            if (currentToken->getType() == TokenType::EOF_) {throw makeSyntaxError(currentToken->getPos(), "< } >");}
+            if (std::unique_ptr<Node> node = parse()) {
+                lineCheck = true;
+                elseNodes.push_back(std::move(node));
+            }
+        }
+        while (currentToken->getType() != TokenType::CLOSEBRACE);
+        if (not lineCheck) {throw InvalidSyntaxError("cannot have else statement with no contents");}
+        advanceToken();
+        if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+        advanceLine();
+    }
+    return std::make_unique<IfStmt>(std::move(ifExpression), std::move(ifNodes), std::move(elseNodes));
+}
+
 std::unique_ptr<Node> Parser::expression() {
     if (currentToken->matches(TokenType::KEYWORD, "var")) {
-        advance();
-        if (currentToken->getType() != TokenType::IDENTIFIER) {throw makeSyntaxError("identifier");}
-        const Token* varToken = currentToken;
-        advance();
-        if (currentToken->getType() != TokenType::EQUALS) {throw makeSyntaxError("equals");}
-        advance();
+        return varExpr();
+    }
+    else {
+        return compExpr();
+    }
+}
+
+std::unique_ptr<Node> Parser::varExpr() {
+    advanceToken();
+    if (currentToken->getType() != TokenType::IDENTIFIER) {throw makeSyntaxError(currentToken->getPos(), "identifier");}
+    const Token* varToken = currentToken;
+    advanceToken();
+    if (currentToken->getType() == TokenType::INCREMENT) {
+        advanceToken();
+        return std::make_unique<VarIncrement>(*varToken);
+    }
+    else if (currentToken->getType() == TokenType::DECREMENT) {
+        advanceToken();
+        return std::make_unique<VarDecrement>(*varToken);
+    }
+    else if (currentToken->getType() == TokenType::EQUALS) {
+        advanceToken();
         std::unique_ptr<Node> expression = this->expression();
         return std::make_unique<VarAssignment>(*varToken, std::move(expression));
     }
-    else {
-        return binaryOperation([this](){return comparision();},
-            std::vector<TokenType>{TokenType::KEYWORD}, std::vector<std::string>{"and", "not"});
-    }
+    else {throw makeSyntaxError(currentToken->getPos(), "EQUALS, INCREMENT, DECREMENT");}
+}
+
+std::unique_ptr<Node> Parser::compExpr() {
+    return binaryOperation([this](){return comparision();},
+            std::vector<TokenType>{TokenType::KEYWORD}, std::vector<std::string>{"and", "not", "or"});
 }
 
 std::unique_ptr<Node> Parser::comparision() {
     if (currentToken->matches(TokenType::KEYWORD, "not")) {
         Token* opToken = currentToken;
-        advance();
+        advanceToken();
         std::unique_ptr<Node> valueNode = comparision();
         return std::make_unique<UnaryOperator>(Operator(*opToken), std::move(valueNode));
     }
@@ -106,6 +328,7 @@ std::unique_ptr<Node> Parser::comparision() {
         return binaryOperation([this](){return arithmeticExpression();},
             std::vector{
                 TokenType::TRUEEQUALS,
+                TokenType::NOTEQUAL,
                 TokenType::LESSTHAN,
                 TokenType::GREATERTHAN,
                 TokenType::LESSEQUAL,
@@ -125,42 +348,62 @@ std::unique_ptr<Node> Parser::term() {
 std::unique_ptr<Node> Parser::factor() {
     Token* token = currentToken;
     if (token->getType() == TokenType::PLUS or token->getType() == TokenType::MINUS) {
-        advance();
-        Token* nextToken = currentToken;
-        if (nextToken->getType() == TokenType::INT or nextToken->getType() == TokenType::FLOAT) {
-            advance();
-            return std::make_unique<UnaryOperator>(Operator(*token), std::make_unique<Number>(*nextToken));
-        }
-        else{
-            throw makeSyntaxError("int or float");
-        }
+        advanceToken();
+        std::unique_ptr<Node> valueNode = call();
+        return std::make_unique<UnaryOperator>(Operator(*token), std::move(valueNode));
     }
-    return atom();
+    return call();
+}
+
+std::unique_ptr<Node> Parser::call() {
+    Token identifierToken = *currentToken;
+    std::unique_ptr<Node> node = atom();
+    if (currentToken->getType() == TokenType::OPENPAREN) {
+        advanceToken();
+        std::vector<std::unique_ptr<Node>> argumentNodes = {};
+        do {
+            if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+            if (std::unique_ptr<Node> expr = expression()) {argumentNodes.push_back(std::move(expr));}
+            else {throw ParseError("argument in function call returned null Node");}
+            if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+            else if (currentToken->getType() == TokenType::SEPERATOR){advanceToken();}
+            else {throw makeSyntaxError(currentToken->getPos(), ", OR )");}
+        }
+        while (true);
+        advanceToken();
+        node = std::make_unique<FuncCall>(identifierToken, std::move(argumentNodes));
+    }
+    return node;
 }
 
 std::unique_ptr<Node> Parser::atom() {
     Token* token = currentToken;
+    if (token->getType() == TokenType::EOL) {
+        advanceLine();
+        return nullptr;
+    }
+
     if (token->getType() == TokenType::INT or token->getType() == TokenType::FLOAT) {
-        advance();
+        advanceToken();
         return std::make_unique<Number>(*token);
     }
 
     if (token->getType() == TokenType::IDENTIFIER) {
-        advance();
+        advanceToken();
         return std::make_unique<VarAccess>(*token);
     }
 
     if (token->getType() == TokenType::OPENPAREN) {
-        advance();
+        advanceToken();
         std::unique_ptr<Node> expr = expression();
         if (currentToken->getType() == TokenType::CLOSEPAREN) {
-            advance();
+            advanceToken();
             return expr;
         }
-        throw makeSyntaxError("CLOSEPAREN");
+        throw makeSyntaxError(currentToken->getPos(), "CLOSEPAREN");
     }
 
-    throw makeSyntaxError("int, float or identifier");
+    throw makeSyntaxError(currentToken->getPos(), "int, float or identifier");
 }
 
 Parser::~Parser()= default;

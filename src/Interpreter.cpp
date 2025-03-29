@@ -2,14 +2,61 @@
 // Created by joshu on 29/10/2024.
 //
 
-#include "Interpreter.h"
-
 #include <error.h>
+#include <fstream>
 #include <iostream>
+
+#include "Interpreter.h"
+#include "PositionHandler.h"
+#include "Lexer.h"
+#include "Parser.h"
+#include "Literal.h"
+
+
+void printTokens(const std::map<int, std::vector<Token>>& tokenMap) {
+    for (const auto& [lineNumber, tokens] : tokenMap) {
+        std::cout << "Line " << lineNumber << ":" << std::endl;
+        for (const Token& token : tokens) {
+            std::cout << token << std::endl;
+        }
+        std::cout << std::endl;
+    }
+}
 
 
 //INTERPRETER DEFINTITION
-Interpreter::Interpreter() = default;
+Interpreter::Interpreter(const std::string &filename){
+    std::ifstream inputFile(filename);
+    if (!inputFile.is_open()) {throw std::runtime_error("Error: Could not open file: " + filename);}
+    PositionHandler positionHandler(filename, inputFile);
+    SymbolTable globalSymbolTable = SymbolTable();
+    globalSymbolTable.set("null", std::make_unique<BoolLiteral>(false));
+    globalSymbolTable.set("true", std::make_unique<BoolLiteral>(true));
+    globalSymbolTable.set("false", std::make_unique<BoolLiteral>(false));
+    Context globalContext = Context(filename);
+    globalContext.setSymbolTable(std::move(globalSymbolTable));
+
+    Lexer lexer(positionHandler);
+    std::map<int, std::vector<Token>> tokenList = lexer.tokenise();
+    //printTokens(tokenList); //print tokens
+
+    auto parser = Parser(tokenList);
+    std::unique_ptr<Node> nodeTree;
+    do {
+        nodeTree = parser.parse();
+        if (nodeTree) {  // only process non-null nodes
+            if (nodeTree->getType() == NodeType::EndOfFile) {
+                break; // exit if we get an EndOfFile node
+            }
+            std::cout << *nodeTree << std::endl; //print node
+            if (std::unique_ptr<Literal> returnLiteral = visit(nodeTree, &globalContext)) {std::cout << *returnLiteral << std::endl;}
+            std::cout << std::string(100, '-') << std::endl;
+        }
+    }
+    while (true);
+    /*std::cout << globalContext << std::endl; //print context
+    std::cout << "done" << std::endl;*/
+};
 
 std::unique_ptr<Literal> Interpreter::visit(const std::unique_ptr<Node> &node, Context *context) {
     switch (node->getType()) {
@@ -21,9 +68,22 @@ std::unique_ptr<Literal> Interpreter::visit(const std::unique_ptr<Node> &node, C
             return visitUnaryOpNode(dynamic_cast<UnaryOperator*>(node.get()), context);
         case NodeType::VarAccess:
             return visitVarAccessNode(dynamic_cast<VarAccess*>(node.get()), context);
-        break;
         case NodeType::VarAssgnment:
             return visitVarAssignNode(dynamic_cast<VarAssignment*>(node.get()), context);
+        case NodeType::VarIncrement:
+            return visitVarIncrementNode(dynamic_cast<VarIncrement*>(node.get()), context);
+        case NodeType::VarDecrement:
+            return visitVarDecrementNode(dynamic_cast<VarDecrement*>(node.get()), context);
+        case NodeType::IfStmt:
+            return visitIfStmtNode(dynamic_cast<IfStmt*>(node.get()), context);
+        case NodeType::WhileStmt:
+            return visitWhileStmtNode(dynamic_cast<WhileStmt*>(node.get()), context);
+        case NodeType::ForStmt:
+            return visitForStmtNode(dynamic_cast<ForStmt*>(node.get()), context);
+        case NodeType::FuncDef:
+            return visitFuncDefNode(dynamic_cast<FuncDef*>(node.get()), context);
+        case NodeType::FuncCall:
+            return visitFuncCallNode(dynamic_cast<FuncCall*>(node.get()), context);
         default:
             throw VisRunTimeError("visit node method not defined");
     }
@@ -134,13 +194,12 @@ std::unique_ptr<Literal> Interpreter::visitUnaryOpNode(const UnaryOperator* node
 std::unique_ptr<Literal> Interpreter::visitVarAssignNode(const VarAssignment *node, Context* context) {
     const std::string varName = std::get<std::string>(node->getToken().getValue());
     auto literalValue = std::unique_ptr(visit(node->getValue(), context));
-    std::unique_ptr clonedValue = literalValue->clone();
+    std::unique_ptr<Literal> clonedValue = literalValue->clone();
     context->getSymbolTable().set(varName, std::move(literalValue));
     return clonedValue;
 }
 
 std::unique_ptr<Literal> Interpreter::visitVarAccessNode(const VarAccess *node, Context* context) {
-    std::cout << "in var access node" << std::endl;
     const std::string varName = std::get<std::string>(node->getToken().getValue());
     std::unique_ptr<Literal> value = context->getSymbolTable().getLiteral(varName)->clone();
     if (not value) {
@@ -149,4 +208,87 @@ std::unique_ptr<Literal> Interpreter::visitVarAccessNode(const VarAccess *node, 
     return value;
 }
 
+std::unique_ptr<Literal> Interpreter::visitVarIncrementNode(const VarIncrement *node, Context* context) {
+    const std::string varName = std::get<std::string>(node->getToken().getValue());
+    std::unique_ptr<Literal> value = context->getSymbolTable().getLiteral(varName)->clone();
+    if (not value) {throw VisRunTimeError("unknown variable " + varName);}
+    value = value->add(IntLiteral(1));
+    std::unique_ptr<Literal> clonedValue = value->clone();
+    context->getSymbolTable().set(varName, std::move(value));
+    return clonedValue;
+}
 
+std::unique_ptr<Literal> Interpreter::visitVarDecrementNode(const VarDecrement *node, Context* context) {
+    const std::string varName = std::get<std::string>(node->getToken().getValue());
+    std::unique_ptr<Literal> value = context->getSymbolTable().getLiteral(varName)->clone();
+    if (not value) {throw VisRunTimeError("unknown variable " + varName);}
+    value = value->subtract(IntLiteral(1));
+    std::unique_ptr<Literal> clonedValue = value->clone();
+    context->getSymbolTable().set(varName, std::move(value));
+    return clonedValue;
+}
+
+std::unique_ptr<Literal> Interpreter::visitIfStmtNode(const IfStmt* node, Context* context) {
+    std::unique_ptr<Literal> comparisonResult = visit(node->getComparison(), context);
+    const std::vector<std::unique_ptr<Node>>& executableNodes =
+        comparisonResult->getBoolValue() ? node->getIfBlock() : node->getElseBlock();
+    for (const std::unique_ptr<Node>& executableNode : executableNodes) {
+        visit(executableNode, context);
+    }
+    return comparisonResult;
+}
+
+std::unique_ptr<Literal> Interpreter::visitWhileStmtNode(const WhileStmt* node, Context* context) {
+    std::unique_ptr<Literal> comparisonResult = visit(node->getComparison(), context);
+    const std::vector<std::unique_ptr<Node>>& executableNodes = node->getWhileBlock();
+    while (visit(node->getComparison(), context)->getBoolValue()) {
+        for (const std::unique_ptr<Node>& executableNode : executableNodes) {
+            visit(executableNode, context);
+        }
+    }
+    return comparisonResult;
+}
+
+std::unique_ptr<Literal> Interpreter::visitForStmtNode(const ForStmt* node, Context* context) {
+    visit(node->getVarDeclare(), context);
+    std::unique_ptr<Literal> comparisonResult = visit(node->getCondition(), context);
+    const std::vector<std::unique_ptr<Node>>& executableNodes = node->getForBlock();
+    while (visit(node->getCondition(), context)->getBoolValue()) {
+        for (const std::unique_ptr<Node>& executableNode : executableNodes) {
+            visit(executableNode, context);
+        }
+        visit(node->getStep(), context);
+    }
+    return comparisonResult;
+}
+
+std::unique_ptr<Literal> Interpreter::visitFuncDefNode(FuncDef* node, Context* context) {
+    auto contextForFunc = std::make_unique<Context>(node->getName());
+    contextForFunc->setParentContext(context);
+    contextForFunc->setSymbolTable(SymbolTable());
+    std::unique_ptr<FunctionLiteral> funcLiteral = std::make_unique<FunctionLiteral>(
+        node->getName(),
+        node,
+        std::move(contextForFunc)
+        );
+    funcLiteral->setContext(context);
+    funcLiteral->setPosition(funcLiteral->getNode().getToken().getPos());
+    const std::string funcName = funcLiteral->getName();
+    context->getSymbolTable().set(funcName, std::move(funcLiteral));
+    return nullptr;
+}
+
+std::unique_ptr<Literal> Interpreter::visitFuncCallNode(const FuncCall* node, Context* context) {
+    std::string name = node->getName();
+    Literal* func = context->getSymbolTable().getLiteral(name);
+    std::cout << *func << std::endl;
+    const FunctionLiteral* funcLiteral = dynamic_cast<FunctionLiteral*>(func);
+    if (!funcLiteral) {
+        throw VisRunTimeError("function >>> " + name + " <<< called but does not point to a function");
+    }
+    const auto& funcArgs = funcLiteral->getNode().getArguments();
+    if (funcArgs.size() != node->getArguments().size()) {
+        throw VisRunTimeError("function >>> " + name + " <<< was called with incorrect arguments");
+    }
+    return nullptr;
+}
