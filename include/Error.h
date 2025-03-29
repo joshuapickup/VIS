@@ -36,6 +36,11 @@ public:
     explicit ParseError(const std::string& message);
 };
 
+class InterpretError final : public Error {
+public:
+    explicit InterpretError(const std::string& message);
+};
+
 class VisRunTimeError final : public Error {
     public:
     explicit VisRunTimeError(const std::string& message);

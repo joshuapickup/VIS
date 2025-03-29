@@ -117,21 +117,22 @@ std::unique_ptr<Node> Parser::funcDef() {
     advanceToken();
     if (currentToken->getType() != TokenType::OPENPAREN) {throw makeSyntaxError(currentToken->getPos(), "(");}
     advanceToken();
-    std::vector<std::unique_ptr<Node>> argumentNodes = {};
+    std::vector<Token> funcArgTokens = {};
     do {
         if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
-        if (std::unique_ptr<Node> node = expression()) {argumentNodes.push_back(std::move(node));}
-        else {throw ParseError("funcDef was called in parser and argument returned null Node");}
+        else if (currentToken->getType() == TokenType::IDENTIFIER) {funcArgTokens.push_back(currentToken->clone());}
+        else {throw InvalidSyntaxError(
+            "Function >>> " + std::get<std::string>(identifierToken.getValue()) + " <<< "
+            + "expected argument of type IDENTIFIER instead recieved: "
+            + tokenTypeToStr(currentToken->getType())
+            );
+        }
+        advanceToken();
         if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
         else if (currentToken->getType() == TokenType::SEPERATOR){advanceToken();}
         else {throw makeSyntaxError(currentToken->getPos(), ", OR )");}
     }
     while (true);
-
-    while (currentToken->getType() != TokenType::CLOSEPAREN) {
-        if (std::unique_ptr<Node> node = expression()) {argumentNodes.push_back(std::move(node));}
-        else {throw ParseError("funcDef was called in parser and argument returned null Node");}
-    }
     advanceToken();
     while (currentToken->getType() == TokenType::EOL) {advanceLine();}
     if (currentToken->getType() != TokenType::OPENBRACE) {throw makeSyntaxError(currentToken->getPos(), "{");}
@@ -150,7 +151,7 @@ std::unique_ptr<Node> Parser::funcDef() {
     if (not lineCheck) {throw InvalidSyntaxError("cannot define function with no statements");}
     advanceToken();
     if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
-    return std::make_unique<FuncDef>(identifierToken, std::move(argumentNodes), std::move(funcNodes));
+    return std::make_unique<FuncDef>(identifierToken, std::move(funcArgTokens), std::move(funcNodes));
 }
 
 std::unique_ptr<Node> Parser::statement() {

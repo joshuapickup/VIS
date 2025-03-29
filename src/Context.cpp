@@ -13,6 +13,8 @@
 //SYMBOL TABLE DEFINITION
 SymbolTable::SymbolTable() : parentSymbolTable(nullptr), table() {}
 
+const std::unordered_map<std::string, std::unique_ptr<Literal>>& SymbolTable::getTable() const {return table;}
+
 Literal* SymbolTable::getLiteral(const std::string &name) {
     if (const auto it = table.find(name); it != table.end()) {
         return it->second.get();
@@ -61,6 +63,20 @@ std::string Context::getDisplayName() {return diplayName;}
 std::map<std::string, std::string> Context::getEntryPoint() {return entryPoint;}
 
 void Context::setEntryPoint(const std::map<std::string, std::string> &pos) { entryPoint = pos;}
+
+std::unique_ptr<Context> Context::clone() const {
+    auto newContext = std::make_unique<Context>(diplayName, parentContext, entryPoint);
+
+    // Deep copy symbol table
+    SymbolTable newTable;
+    for (const auto& [name, literalPtr] : symbolTable.getTable()) {
+        if (literalPtr) {
+            newTable.set(name, literalPtr->clone());
+        }
+    }
+    newContext->setSymbolTable(std::move(newTable));
+    return newContext;
+}
 
 std::ostream& operator<<(std::ostream& os, const Context& context) {
     os << "Context <" << context.diplayName << ">" << std::endl

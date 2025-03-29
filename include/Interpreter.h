@@ -28,7 +28,7 @@ private:
     std::unique_ptr<Literal> visitIfStmtNode(const IfStmt* node, Context* context);
     std::unique_ptr<Literal> visitWhileStmtNode(const WhileStmt* node, Context* context);
     std::unique_ptr<Literal> visitForStmtNode(const ForStmt* node, Context* context);
-    static std::unique_ptr<Literal> visitFuncDefNode(FuncDef* node, Context* context);
+    static std::unique_ptr<Literal> visitFuncDefNode(const FuncDef* node, Context* context);
     std::unique_ptr<Literal> visitFuncCallNode(const FuncCall* node, Context* context);
 };
 

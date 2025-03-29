@@ -53,6 +53,9 @@ bool Token::matches(const TokenType type_, const std::string &value_) const {
     return false;
 }
 
+Token Token::clone() const {return Token(type, position, value);}
+
+
 std::ostream& operator<<(std::ostream& os,  const Token& token) {
     os << "Token(Type: " << tokenTypeToStr(token.getType()) << ", ";
     os << "Position: {line: " << token.getPos()["line"] << " | Pos:" << token.getPos()["charPos"] << "}, ";

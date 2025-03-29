@@ -27,7 +27,7 @@ Context* Literal::getContext() const {return context;}
 
 void Literal::setPosition(const std::map<std::string, std::string> &pos) {position = pos;}
 
-std::map<std::string, std::string> Literal::getPosition() {return position;}
+std::map<std::string, std::string> Literal::getPosition() const {return position;}
 
 std::unique_ptr<Literal> Literal::compareLT(const Literal& other) const {
     return std::make_unique<BoolLiteral>(getNumberValue() < other.getNumberValue());
@@ -237,16 +237,20 @@ void FloatLiteral::printLiteral(std::ostream &os, const int tabCount) const {
 //FUNCTION LITERAL DEFINITION
 FunctionLiteral::FunctionLiteral(
     std::string name,
-    FuncDef* node,
+    std::vector<Token> args,
+    std::vector<std::unique_ptr<Node>> body,
     std::unique_ptr<Context> scope) :
 Literal(),
 name(std::move(name)),
-scopeContext(std::move(scope)),
-funcNode(node) {}
+argTokens(std::move(args)),
+bodyNodes(std::move(body)),
+scopeContext(std::move(scope)) {}
 
 std::string FunctionLiteral::getName() const {return name;}
 
-const FuncDef& FunctionLiteral::getNode() const {return *funcNode;}
+const std::vector<Token>& FunctionLiteral::getArgs() const {return argTokens;}
+
+const std::vector<std::unique_ptr<Node>>& FunctionLiteral::getBody() const {return bodyNodes;}
 
 std::unique_ptr<Literal> FunctionLiteral::add(const Literal &other) const {
     throw VisRunTimeError("cannot add a function");
@@ -284,7 +288,21 @@ std::string FunctionLiteral::getStringValue() const {
     throw VisRunTimeError("function contains no value");
 }
 
-std::unique_ptr<Literal> FunctionLiteral::clone() const {throw VisRunTimeError("cannot clone a Function");}
+std::unique_ptr<Literal> FunctionLiteral::clone() const {
+    std::vector<Token> clonedArgs;
+    clonedArgs.reserve(this->argTokens.size());
+    for (const Token& token : this->argTokens) {clonedArgs.push_back(token.clone());}
+    std::vector<std::unique_ptr<Node>> clonedBody = Node::cloneNodeVector(bodyNodes);
+    std::unique_ptr<Context> clonedContext;
+    if (scopeContext) {clonedContext = scopeContext->clone();}
+    else {clonedContext = nullptr;}
+    return std::make_unique<FunctionLiteral>(
+        name,
+        std::move(clonedArgs),
+        std::move(clonedBody),
+        std::move(clonedContext)
+    );
+}
 
 void FunctionLiteral::printLiteral(std::ostream &os, const int tabCount) const {
     os << std::string(tabCount, '\t') << "FunctionLiteral<" << std::endl;

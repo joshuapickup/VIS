@@ -1,6 +1,7 @@
 
 func myfunc(x, y){
     x + y
+    (8 + 2) * 3
 }
 
-myfunc(2, 3)
+myfunc(8, 3)

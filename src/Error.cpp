@@ -9,7 +9,7 @@ std::string Error::getMessage() const {
     return what();
 }
 
-// Definition of the IllegalCharError constructor
+
 IllegalCharError::IllegalCharError(const std::string& message): Error("Illegal Character Error: " + message) {
 }
 
@@ -23,6 +23,11 @@ ExpectedCharError::ExpectedCharError(const std::string& message): Error("Expecte
 }
 
 ParseError::ParseError(const std::string& message): Error("Parse Error: " + message) {
+}
+
+InterpretError::InterpretError(const std::string& message): Error(
+    "Interpreter Error (if you are seeing this logic has gone wrong): " + message
+    ) {
 }
 
 VisRunTimeError::VisRunTimeError(const std::string& message): Error("RunTime Error: " + message) {

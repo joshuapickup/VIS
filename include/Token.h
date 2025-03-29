@@ -46,7 +46,7 @@ public:
     [[nodiscard]] ValueLiteral getValue() const;
     [[nodiscard]] std::map<std::string, std::string> getPos() const;
     [[nodiscard]] bool matches(TokenType type_, const std::string &value_) const;
-
+    [[nodiscard]] Token clone() const;
     // overload the << operator to easily print tokens
     friend std::ostream& operator<<(std::ostream& os, const Token& token);
 private:

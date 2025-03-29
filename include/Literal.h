@@ -17,7 +17,7 @@ public:
     void setContext(Context* context);
     [[nodiscard]] Context* getContext() const;
     void setPosition(const std::map<std::string, std::string> &pos);
-    [[nodiscard]] virtual std::map<std::string, std::string> getPosition();
+    [[nodiscard]] std::map<std::string, std::string> getPosition() const;
 
     [[nodiscard]] virtual std::unique_ptr<Literal> add(const Literal& other) const = 0;
     [[nodiscard]] virtual std::unique_ptr<Literal> subtract(const Literal& other) const = 0;
@@ -116,9 +116,15 @@ private:
 
 class FunctionLiteral final : public Literal {
 public:
-    explicit FunctionLiteral(std::string name, FuncDef* node, std::unique_ptr<Context> scope);
+    explicit FunctionLiteral(
+        std::string name,
+        std::vector<Token> args,
+        std::vector<std::unique_ptr<Node>> body,
+        std::unique_ptr<Context> scope
+        );
     [[nodiscard]] std::string getName() const;
-    [[nodiscard]] const FuncDef& getNode() const;
+    [[nodiscard]] const std::vector<Token>& getArgs() const;
+    [[nodiscard]] const std::vector<std::unique_ptr<Node>>& getBody() const;
     [[nodiscard]] std::unique_ptr<Literal> add(const Literal &other) const override;
     [[nodiscard]] std::unique_ptr<Literal> subtract(const Literal &other) const override;
     [[nodiscard]] std::unique_ptr<Literal> multiply(const Literal &other) const override;
@@ -132,7 +138,8 @@ public:
     void printLiteral(std::ostream &os, int tabCount) const override;
 private:
     std::string name;
+    std::vector<Token> argTokens;
+    std::vector<std::unique_ptr<Node>> bodyNodes;
     std::unique_ptr<Context> scopeContext;
-    FuncDef* funcNode;
 };
 #endif //LITERAL_H

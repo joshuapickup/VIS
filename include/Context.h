@@ -15,6 +15,7 @@ class Literal; // decleration to allow use of context without circular loop
 class SymbolTable {
 public:
     SymbolTable();
+    [[nodiscard]] const std::unordered_map<std::string, std::unique_ptr<Literal>>& getTable() const;
     Literal* getLiteral(const std::string &name);
     void set(const std::string& name, std::unique_ptr<Literal> value);
     void remove(const std::string &name);
@@ -37,6 +38,7 @@ public:
     std::string getDisplayName();
     std::map<std::string, std::string> getEntryPoint();
     void setEntryPoint(const std::map<std::string, std::string> &pos);
+    [[nodiscard]] std::unique_ptr<Context> clone() const;
     friend std::ostream& operator<<(std::ostream& os, const Context& context);
 private:
     std::string diplayName;
