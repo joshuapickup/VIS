@@ -6,10 +6,12 @@ std::string tokenTypeToStr(TokenType type) {
     switch (type) {
         case TokenType::INT: return "INT";
         case TokenType::FLOAT: return "FLOAT";
+        case TokenType::STRING: return "STRING";
         case TokenType::PLUS: return "PLUS";
         case TokenType::MINUS: return "MINUS";
         case TokenType::MUL: return "MUL";
         case TokenType::DIV: return "DIV";
+        case TokenType::MOD: return "MOD";
         case TokenType::INCREMENT: return "INCREMENT";
         case TokenType::DECREMENT: return "DECREMENT";
         case TokenType::OPENPAREN: return "OPENPAREN";

@@ -53,6 +53,17 @@ void Number::printNode(std::ostream &os, const int tabCount) const {
 
 
 
+//NUMBER DEFINTITION
+StringNode::StringNode(const Token &token): Node(token, NodeType::String) {}
+
+std::unique_ptr<Node> StringNode::clone() const {return std::make_unique<StringNode>(*this);}
+
+void StringNode::printNode(std::ostream &os, const int tabCount) const {
+    os << std::string(tabCount, '\t') << "String Node <" << tokenVector[0] << ">" << std::endl;
+}
+
+
+
 //OPERATOR DEFINITION
 Operator::Operator(const Token &token) : Node(token, NodeType::Operator){}
 
@@ -174,6 +185,28 @@ void VarDecrement::printNode(std::ostream &os, const int tabCount) const {
     os << std::string(tabCount, '\t') << "VarDecrementNode>" << std::endl;
 }
 
+
+
+// LIBRARY CALL DEFINITION
+LibCall::LibCall(const Token &token, std::vector<std::unique_ptr<Node>> arguments):
+Node(token, NodeType::LibCall),
+argumentNodes(std::move(arguments)){}
+
+const std::vector<std::unique_ptr<Node>>& LibCall::getArgumentNodes() const {return argumentNodes;}
+
+std::unique_ptr<Node> LibCall::clone() const {
+    std::vector<std::unique_ptr<Node>> clonedBody = cloneNodeVector(argumentNodes);
+    return std::make_unique<LibCall>(getToken(), std::move(clonedBody));
+}
+
+void LibCall::printNode(std::ostream &os, const int tabCount) const {
+    os << std::string(tabCount, '\t') << "LibraryCallNode<" << std::endl;
+    os << std::string(tabCount+1, '\t') << "Name: " << std::get<std::string>(getToken().getValue()) << std::endl;
+    os << std::string(tabCount+1, '\t') << "Arguments<" << std::endl;
+    for (const auto& node : argumentNodes) {node->printNode(os, tabCount+2);}
+    os << std::string(tabCount+1, '\t') << "Arguments>" << std::endl;
+    os << std::string(tabCount, '\t') << "LibraryCallNode>" << std::endl;
+}
 
 
 // IF STATEMENT DEFINITION
@@ -375,4 +408,26 @@ void FuncCall::printNode(std::ostream &os, const int tabCount) const {
     for (const auto& node : argumentNodes) {node->printNode(os, tabCount+2);}
     os << std::string(tabCount+1, '\t') << "Arguments>" << std::endl;
     os << std::string(tabCount, '\t') << "FunctionCallNode>" << std::endl;
+}
+
+
+
+// RETURN CALL DEFINITION
+ReturnCall::ReturnCall(const Token &token, std::unique_ptr<Node> expressionNode) :
+Node(token, NodeType::ReturnCall),
+expression(std::move(expressionNode)){
+}
+
+const std::unique_ptr<Node> & ReturnCall::getExpression() const {return expression;}
+
+std::unique_ptr<Node> ReturnCall::clone() const {
+    return std::make_unique<ReturnCall>(getToken(), expression->clone());
+}
+
+void ReturnCall::printNode(std::ostream &os, const int tabCount) const {
+    os << std::string(tabCount, '\t') << "ReturnCallNode<" << std::endl;
+    os << std::string(tabCount+1, '\t') << "Expression<" << std::endl;
+    expression->printNode(os, tabCount+2);
+    os << std::string(tabCount+1, '\t') << "Expression>" << std::endl;
+    os << std::string(tabCount, '\t') << "ReturnCallNode>" << std::endl;
 }

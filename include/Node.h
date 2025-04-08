@@ -8,6 +8,7 @@
 enum class NodeType {
     EndOfFile,
     Number,
+    String,
     Operator,
     UnaryOperator,
     BinaryOperator,
@@ -15,11 +16,13 @@ enum class NodeType {
     VarAccess,
     VarIncrement,
     VarDecrement,
+    LibCall,
     IfStmt,
     WhileStmt,
     ForStmt,
     FuncDef,
     FuncCall,
+    ReturnCall,
 };
 
 class Node {
@@ -48,6 +51,13 @@ public:
 class Number final : public Node{
 public:
     explicit Number(const Token &token);
+    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+    void printNode(std::ostream &os, int tabCount) const override;
+};
+
+class StringNode final : public Node{
+public:
+    explicit StringNode(const Token &token);
     [[nodiscard]] std::unique_ptr<Node> clone() const override;
     void printNode(std::ostream &os, int tabCount) const override;
 };
@@ -116,6 +126,16 @@ public:
     explicit VarDecrement(const Token &token);
     [[nodiscard]] std::unique_ptr<Node> clone() const override;
     void printNode(std::ostream &os, int tabCount) const override;
+};
+
+class LibCall final : public Node {
+public:
+    explicit LibCall(const Token& token, std::vector<std::unique_ptr<Node>> argument);
+    [[nodiscard]] const std::vector<std::unique_ptr<Node>>& getArgumentNodes() const;
+    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+    void printNode(std::ostream &os, int tabCount) const override;
+private:
+    std::vector<std::unique_ptr<Node>> argumentNodes;
 };
 
 class IfStmt final : public Node{
@@ -199,6 +219,16 @@ public:
 private:
     std::string name;
     std::vector<std::unique_ptr<Node>> argumentNodes;
+};
+
+class ReturnCall final : public Node {
+public:
+    ReturnCall(const Token &token, std::unique_ptr<Node> expressionNode);
+    [[nodiscard]] const std::unique_ptr<Node>& getExpression() const;
+    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+    void printNode(std::ostream &os, int tabCount) const override;
+private:
+    std::unique_ptr<Node> expression;
 };
 
 #endif //NODE_H

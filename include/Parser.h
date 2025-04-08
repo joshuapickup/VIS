@@ -29,10 +29,12 @@ private:
                                             const std::vector<std::string> &tokenValues = {});
     std::unique_ptr<Node> funcDef();
     std::unique_ptr<Node> statement();
+    std::unique_ptr<Node> returnStmt();
     std::unique_ptr<Node> whileStmt();
     std::unique_ptr<Node> forStmt();
     std::unique_ptr<Node> ifStmt();
     std::unique_ptr<Node> expression();
+    std::unique_ptr<Node> libExpr();
     std::unique_ptr<Node> varExpr();
     std::unique_ptr<Node> compExpr();
     std::unique_ptr<Node> comparision();

@@ -23,6 +23,7 @@ public:
     [[nodiscard]] virtual std::unique_ptr<Literal> subtract(const Literal& other) const = 0;
     [[nodiscard]] virtual std::unique_ptr<Literal> multiply(const Literal &other) const = 0;
     [[nodiscard]] virtual std::unique_ptr<Literal> divide(const Literal& other) const = 0;
+    [[nodiscard]] virtual std::unique_ptr<Literal> modulo(const Literal& other) const = 0;
     [[nodiscard]] virtual std::unique_ptr<Literal> compareTE(const Literal& other) const = 0;
     [[nodiscard]] virtual std::unique_ptr<Literal> compareNE(const Literal& other) const = 0;
     [[nodiscard]] virtual std::unique_ptr<Literal> compareLT(const Literal& other) const;
@@ -41,6 +42,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Literal &literal);
     virtual ~Literal() = default;
 protected:
+    std::unique_ptr<Literal> setLiteral(std::unique_ptr<Literal> literal) const;
     std::map<std::string, std::string> position;
     Context* context;
 };
@@ -54,6 +56,7 @@ public:
     [[nodiscard]] std::unique_ptr<Literal> subtract(const Literal& other) const override;
     [[nodiscard]] std::unique_ptr<Literal> multiply(const Literal &other) const override;
     [[nodiscard]] std::unique_ptr<Literal> divide(const Literal& other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> modulo(const Literal& other) const override;
     [[nodiscard]] std::unique_ptr<Literal> compareTE(const Literal& other) const override;
     [[nodiscard]] std::unique_ptr<Literal> compareNE(const Literal& other) const override;
 
@@ -68,6 +71,28 @@ private:
 };
 
 
+class StringLiteral final : public Literal {
+public:
+    explicit StringLiteral(const std::string &value);
+
+    [[nodiscard]] std::unique_ptr<Literal> add(const Literal& other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> subtract(const Literal& other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> multiply(const Literal &other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> divide(const Literal& other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> modulo(const Literal& other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> compareTE(const Literal& other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> compareNE(const Literal& other) const override;
+
+    [[nodiscard]] double getNumberValue() const override;
+    [[nodiscard]] bool getBoolValue() const override;
+    [[nodiscard]] std::string getStringValue() const override;
+    [[nodiscard]] std::unique_ptr<Literal> clone() const override;
+    void printLiteral(std::ostream &os, int tabCount) const override;
+private:
+    std::string value;
+};
+
+
 class NumberLiteral : public Literal{
 public:
     NumberLiteral();
@@ -76,6 +101,7 @@ public:
     [[nodiscard]] std::unique_ptr<Literal> subtract(const Literal& other) const override;
     [[nodiscard]] std::unique_ptr<Literal> multiply(const Literal &other) const override;
     [[nodiscard]] std::unique_ptr<Literal> divide(const Literal& other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> modulo(const Literal& other) const override;
     [[nodiscard]] std::unique_ptr<Literal> compareTE(const Literal& other) const override;
     [[nodiscard]] std::unique_ptr<Literal> compareNE(const Literal& other) const override;
 
@@ -129,6 +155,7 @@ public:
     [[nodiscard]] std::unique_ptr<Literal> subtract(const Literal &other) const override;
     [[nodiscard]] std::unique_ptr<Literal> multiply(const Literal &other) const override;
     [[nodiscard]] std::unique_ptr<Literal> divide(const Literal &other) const override;
+    [[nodiscard]] std::unique_ptr<Literal> modulo(const Literal &other) const override;
     [[nodiscard]] std::unique_ptr<Literal> compareTE(const Literal &other) const override;
     [[nodiscard]] std::unique_ptr<Literal> compareNE(const Literal &other) const override;
     [[nodiscard]] double getNumberValue() const override;

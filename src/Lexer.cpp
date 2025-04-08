@@ -4,14 +4,14 @@
 
 #include "Error.h"
 
-
+const std::unordered_set<std::string> Lexer::LIBWORDS = {"out"};
 const std::unordered_set<std::string> Lexer::KEYWORDS = {
-    "var","and","or", "not", "if", "else", "while", "for", "func"
+    "var","and","or", "not", "if", "else", "while", "for", "func", "return"
 };
 const std::string Lexer::DIGITS = "0123456789";
 const std::string Lexer::LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_";
 const std::string Lexer::LETTERS_DIGITS = Lexer::LETTERS + Lexer::DIGITS;
-const std::string Lexer::OPERATORS = "+-*/";
+const std::string Lexer::OPERATORS = "+-*/%";
 const char Lexer::COMMENT = '~';
 
 Lexer::Lexer(PositionHandler& positionHandler) : positionHandler(positionHandler) {}
@@ -33,6 +33,7 @@ Token Lexer::makeOperatorToken(const char character) const {
             return Token(TokenType::MINUS, pos);
         case '*': return Token(TokenType::MUL, pos);
         case '/': return Token(TokenType::DIV, pos);
+        case '%': return Token(TokenType::MOD, pos);
         default: throw LexerError("operator token cant be created no case defined for character >>>" +
                                             std::string(1, character) + "<<<");
     }
@@ -68,6 +69,25 @@ Token Lexer::makeNumberToken (char character) const{// loop through line until n
     }
 }
 
+Token Lexer::makeStringToken (char character) const{
+    const std::map<std::string, std::string> pos = positionHandler.getPos();
+    std::string valueString = "";
+    character = positionHandler.advanceCharacter();
+    while (character != '\"') {
+        if (character == '\0') {
+            throw InvalidSyntaxError(
+                "\nError in file: " + pos.at("name")
+                + "\n>>> line: " + std::to_string(stoi(pos.at("line")) + 1)
+                + " | " + pos.at("lineText") + "<<<"
+                + "\nline ended without closing quotation marks"
+            );
+        }
+        valueString += character;
+        character = positionHandler.advanceCharacter();
+    }
+    return Token(TokenType::STRING, pos, valueString);
+}
+
 Token Lexer::makeIdentifierToken(char character) const{
     const std::map<std::string, std::string> pos = positionHandler.getPos();
     std::string identifierString;
@@ -80,7 +100,7 @@ Token Lexer::makeIdentifierToken(char character) const{
         }
         else {break;}
     } while (true);
-    if (Lexer::KEYWORDS.find(identifierString) != Lexer::KEYWORDS.end()) {
+    if (KEYWORDS.find(identifierString) != KEYWORDS.end() or LIBWORDS.find(identifierString) != LIBWORDS.end()) {
         return Token(TokenType::KEYWORD, pos, identifierString);
     }
     else {
@@ -183,6 +203,9 @@ std::map<int, std::vector<Token>> Lexer::tokenise() const {
                 break;
                 case '>':
                     lineTokens.push_back(makeGreaterThanToken(currentChar));
+                break;
+                case '\"':
+                    lineTokens.push_back(makeStringToken(currentChar));
                 break;
                 default:
                     if (OPERATORS.find(currentChar) != std::string::npos) {

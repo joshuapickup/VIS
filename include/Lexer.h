@@ -11,17 +11,19 @@
 // lexer class will tokenize a given string
 class Lexer {
 public:
+    static const std::unordered_set<std::string> LIBWORDS;
+    static const std::unordered_set<std::string> KEYWORDS;
     explicit Lexer(PositionHandler& positionHandler);
     [[nodiscard]] std::map<int, std::vector<Token>> tokenise() const;
     ~Lexer() = default;
 private:
-    static const std::unordered_set<std::string> KEYWORDS;
     static const std::string DIGITS;
     static const std::string LETTERS;
     static const std::string LETTERS_DIGITS;
     static const std::string OPERATORS;
     static const char COMMENT;
     [[nodiscard]] Token makeNumberToken(char character) const;
+    [[nodiscard]] Token makeStringToken(char character) const;
     [[nodiscard]] Token makeIdentifierToken(char character) const;
     [[nodiscard]] Token makeOperatorToken(char character) const;
     [[nodiscard]] Token makeEqualsToken(char character) const;

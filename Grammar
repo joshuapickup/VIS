@@ -1,10 +1,13 @@
 func def    ::= KEYWORD<func> IDENTIFIER OPENPAREN (expr (SEPERATOR expr)*)? CLOSEPAREN
                 OPENBRACE (stmt)+ CLOSEBRACE
 
-stmt        ::= while stmt
+stmt        ::= return stmt
+            ::= while stmt
             ::= for stmt
             ::= if stmt
             ::= expr
+
+return stmt ::= KEYWORD<return> expr?
 
 while stmt  ::= KEYWORD<while> OPENPAREN expr CLOSEPAREN OPENBRACE (expr)+ CLOSEBRACE
 
@@ -13,7 +16,9 @@ for stmt    ::= KEYWORD<for> OPENPAREN var expr SEPERATOR comp expr SEPERATOR va
 
 if stmt     ::= KEYWORD<if> OPENPAREN expr CLOSEPAREN OPENBRACE (stmt)+ CLOSEBRACE
 
-expr        ::= (var expr)* (comp expr)*
+expr        ::= lib expr | (var expr)* (comp expr)*
+
+lib expr    ::= KEYWORD<out> OPENPAREN (expr(SEPERATOR expr)*)? CLOSEPAREN
 
 var expr    ::= KEYWORD<var> IDENTIFIER ((INCREMENT | DECREMENT) | EQUALS expression)
 
@@ -24,12 +29,12 @@ comparison  ::= KEYWORD<not> comparison
 
 arith expr  ::= term | term (PLUS | MINUS) term
 
-term        ::= factor | factor (MUL | DIV) factor
+term        ::= factor | factor (MUL | DIV | MOD) factor
 
 factor      ::= call | (PLUS | MINUS) call
 
 call        ::= atom (OPENPAREN (expr (SEPERATOR expr)* )? CLOSEPAREN)?
 
-atom        ::= INT | FLOAT | IDENTIFIER
+atom        ::= INT | FLOAT | STRING | BOOL IDENTIFIER
                 LPAREN expression RPAREN
 

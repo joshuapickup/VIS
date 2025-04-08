@@ -4,13 +4,13 @@
 
 #include "Parser.h"
 
-#include <iostream>
-
-#include "Token.h"
 #include <sstream>
 #include <memory>
 #include <PositionHandler.h>
 #include <utility>
+
+#include "Lexer.h"
+#include "Token.h"
 
 
 Parser::Parser(std::map<int, std::vector<Token>> tokenizedFile):
@@ -63,8 +63,9 @@ std::unique_ptr<Node> Parser::parse() {
 InvalidSyntaxError Parser::makeSyntaxError(std::map<std::string, std::string> position,
                                             const std::string &expectedType) {
     std::ostringstream oss;
-    oss << "\nError in file: " << position["name"] << ", on line: " << std::to_string(stoi(position["line"]) + 1)
-    << "\n~" << position["lineText"] << "~"
+    oss << "\nError in file: " << position["name"]
+    << "\n>>> line: " << std::to_string(stoi(position["line"]) + 1)
+    << " | " << position["lineText"] << "<<<"
     << "\nexpected >>> " << expectedType << " <<< "
     << "instead recieved >>> " << PositionHandler::getWordFromLine(position) << " <<<";
     return InvalidSyntaxError(oss.str());
@@ -155,7 +156,10 @@ std::unique_ptr<Node> Parser::funcDef() {
 }
 
 std::unique_ptr<Node> Parser::statement() {
-    if (currentToken->matches(TokenType::KEYWORD, "while")) {
+    if (currentToken->matches(TokenType::KEYWORD, "return")) {
+        return returnStmt();
+    }
+    else if (currentToken->matches(TokenType::KEYWORD, "while")) {
         return whileStmt();
     }
     else if (currentToken->matches(TokenType::KEYWORD, "for")) {
@@ -167,6 +171,16 @@ std::unique_ptr<Node> Parser::statement() {
     else {
         return expression();
     }
+}
+
+std::unique_ptr<Node> Parser::returnStmt() {
+    Token returnToken = *currentToken;
+    advanceToken();
+    std::unique_ptr<Node> expressionNode =  expression();
+    if (currentToken->getType() != TokenType::EOL) {
+        throw InvalidSyntaxError("cannot have any thing after return statement");
+    }
+    return std::make_unique<ReturnCall>(returnToken, std::move(expressionNode));
 }
 
 std::unique_ptr<Node> Parser::whileStmt() {
@@ -284,12 +298,35 @@ std::unique_ptr<Node> Parser::ifStmt() {
 }
 
 std::unique_ptr<Node> Parser::expression() {
-    if (currentToken->matches(TokenType::KEYWORD, "var")) {
+    if (currentToken->getType() == TokenType::KEYWORD &&
+    Lexer::LIBWORDS.find(std::get<std::string>(currentToken->getValue())) != Lexer::LIBWORDS.end()) {
+        return libExpr();
+    }
+    else if (currentToken->matches(TokenType::KEYWORD, "var")) {
         return varExpr();
     }
     else {
         return compExpr();
     }
+}
+
+std::unique_ptr<Node> Parser::libExpr() {
+    Token identifierToken = *currentToken;
+    advanceToken();
+    if (currentToken->getType() != TokenType::OPENPAREN) {throw makeSyntaxError(currentToken->getPos(), "(");}
+    advanceToken();
+    std::vector<std::unique_ptr<Node>> argumentNodes = {};
+    do {
+        if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+        if (std::unique_ptr<Node> expr = expression()) {argumentNodes.push_back(std::move(expr));}
+        else {throw ParseError("argument in function call returned null Node");}
+        if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+        else if (currentToken->getType() == TokenType::SEPERATOR){advanceToken();}
+        else {throw makeSyntaxError(currentToken->getPos(), ", OR )");}
+    }
+    while (true);
+    advanceToken();
+    return std::make_unique<LibCall>(identifierToken, std::move(argumentNodes));
 }
 
 std::unique_ptr<Node> Parser::varExpr() {
@@ -343,7 +380,7 @@ std::unique_ptr<Node> Parser::arithmeticExpression() {
 }
 
 std::unique_ptr<Node> Parser::term() {
-    return binaryOperation([this]() {return factor();}, std::vector<TokenType>{TokenType::MUL, TokenType::DIV});
+    return binaryOperation([this]() {return factor();}, std::vector<TokenType>{TokenType::MUL, TokenType::DIV, TokenType::MOD});
 }
 
 std::unique_ptr<Node> Parser::factor() {
@@ -387,6 +424,11 @@ std::unique_ptr<Node> Parser::atom() {
     if (token->getType() == TokenType::INT or token->getType() == TokenType::FLOAT) {
         advanceToken();
         return std::make_unique<Number>(*token);
+    }
+
+    if (token->getType() == TokenType::STRING) {
+        advanceToken();
+        return std::make_unique<StringNode>(*token);
     }
 
     if (token->getType() == TokenType::IDENTIFIER) {

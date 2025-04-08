@@ -1,7 +1,7 @@
 
-func myfunc(x, y){
-    x + y
-    (8 + 2) * 3
+func x (a, b){
+a+b+"yoo"
+out(a+b)
 }
 
-myfunc(8, 3)
+x("hello ", "world")

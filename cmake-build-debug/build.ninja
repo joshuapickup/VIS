@@ -129,6 +129,7 @@ build CMakeFiles/VIS.dir/src/Context.cpp.obj: CXX_COMPILER__VIS_unscanned_Debug 
 
 build VIS.exe: CXX_EXECUTABLE_LINKER__VIS_Debug CMakeFiles/VIS.dir/src/main.cpp.obj CMakeFiles/VIS.dir/src/PositionHandler.cpp.obj CMakeFiles/VIS.dir/src/Lexer.cpp.obj CMakeFiles/VIS.dir/src/Error.cpp.obj CMakeFiles/VIS.dir/src/Interpreter.cpp.obj CMakeFiles/VIS.dir/src/Parser.cpp.obj CMakeFiles/VIS.dir/src/Node.cpp.obj CMakeFiles/VIS.dir/src/Token.cpp.obj CMakeFiles/VIS.dir/src/Literal.cpp.obj CMakeFiles/VIS.dir/src/Context.cpp.obj
   FLAGS = -g
+  LINK_FLAGS = -static -static-libgcc -static-libstdc++
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\VIS.dir
   POST_BUILD = cd .
