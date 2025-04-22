@@ -1,0 +1,192 @@
+@startuml ParserUML
+scale 2/3
+left to right direction
+skinparam linetype ortho
+
+
+enum NodeType {
+    Number
+    String
+    ...
+    ...
+    FuncCall
+    ReturnCall
+}
+
+abstract class Node {
+    + Node(Token&, NodeType)
+    + getType()
+    + getToken()
+    + clone()
+    + printNode(os, tabCount)
+}
+
+class EndOfFile {
+    + EndOfFile(Token&)
+    + clone()
+    + printNode(ostream&, int)
+}
+
+class Number {
+    + Number(Token&)
+    + clone()
+    + printNode(ostream&, int)
+}
+
+class StringNode {
+    + StringNode(Token&)
+    + clone()
+    + printNode(ostream&, int)
+}
+
+class Operator {
+    + Operator(Token&)
+    + clone()
+    + printNode(ostream&, int)
+}
+
+class UnaryOperator {
+    + UnaryOperator(Operator&, unique_ptr<Node>)
+    + getTokens()
+    + getOperator()
+    + getValue()
+    + clone()
+    + printNode(ostream&, int)
+    - operatorNode : Operator
+    - valueNode : unique_ptr<Node>
+}
+
+class BinaryOperator {
+    + BiaryOperator(unique_ptr<Node>, Operator&, unique_ptr<Node>)
+    + getTokens()
+    + getLeftNode()
+    + getOperationNode()
+    + getRightNode()
+    + clone()
+    + printNode(ostream&, int)
+    - leftNode : unique_ptr<Node>
+    - operatorNode : Operator
+    - rightNode : unique_ptr<Node>
+}
+
+class VarAssignment {
+    + VarAssignment(Token&, unique_ptr<Node>)
+    + getValue()
+    + clone()
+    + printNode(ostream&, int)
+    - value : unique_ptr<Node>
+}
+
+class VarAccess {
+    + VarAccess(Token&)
+    + clone()
+    + printNode(ostream&, int)
+}
+
+class VarIncrement{
+    + VarIncrement(Token&)
+    + clone()
+    + printNode(ostream&, int)
+}
+
+class VarDecrement{
+    + VarDecrement(Token&)
+    + clone()
+    + printNode(ostream&, int)
+}
+
+class LibCall{
+    + LibCall(Token&, vector<unique_ptr<Node>>);
+    + getArgumentNodes()
+    + clone()
+    + printNode(ostream&, int tabCount)
+    - argumentNodes : vector<unique_ptr<Node>>
+}
+
+class IfStmt{
+    + IfStmt(unique_ptr<Node>, vector<unique_ptr<Node>>, vector<unique_ptr<Node>>)
+    + getComparison()
+    + getIfBlock()
+    + getElseBlock()
+    + clone()
+    + printNode(ostream&, int)
+    - comparison : unique_ptr<Node> 
+    - ifBlockNodes : vector<unique_ptr<Node>>
+    - elseBlockNodes : vector<unique_ptr<Node>>
+}
+
+class WhileStmt{
+    + WhileStmt(unique_ptr<Node>, vector<unique_ptr<Node>>)
+    + getComparison()
+    + getWhileBlock()
+    + unique_ptr<Node> clone()
+    + printNode(ostream&, int)
+    - comparison : unique_ptr<Node>
+    - whileNodes : vector<unique_ptr<Node>>
+}
+
+class ForStmt{
+    + ForStmt(unique_ptr<Node>, unique_ptr<Node>, unique_ptr<Node>, vector<unique_ptr<Node>>)
+    + getVarDeclare()
+    + getCondition()
+    + getStep()
+    + getForBlock()
+    + clone()
+    + printNode(ostream&, int)
+    - varDeclare : unique_ptr<Node>
+    - condition : unique_ptr<Node>
+    - step : unique_ptr<Node>
+    - forNodes : vector<unique_ptr<Node>>
+}
+
+class FuncDef{
+    + FuncDef(Token&, vector<Token>, vector<unique_ptr<Node>>)
+    + getName()
+    + getArguments()
+    + getFunctionBody()
+    + clone()
+    + printNode(ostream&, int)
+    - arguments : vector<Token>
+    - bodyNodes : vector<unique_ptr<Node>>
+}
+
+class FuncCall{
+    + FuncCall(Token&, vector<unique_ptr<Node>>)
+    + getName()
+    + getArguments()
+    + clone()
+    + printNode(ostream&, int)
+    - name : string
+    - argumentNodes : vector<unique_ptr<Node>>
+}
+
+class ReturnCall {
+    + ReturnCall(Token&, unique_ptr<Node>)
+    + getExpression()
+    + unique_ptr<Node> clone()
+    + printNode(ostream&, int)
+    - expression : unique_ptr<Node>
+}
+
+Node <|-- EndOfFile
+Node <|-- Number
+Node <|-- StringNode
+Node <|-- Operator
+Node <|-- UnaryOperator
+Node <|-- BinaryOperator
+Node <|-- VarAssignment
+Node <|-- VarAccess
+Node <|-- VarIncrement
+Node <|-- VarDecrement
+LibCall --|> Node
+IfStmt --|> Node
+WhileStmt --|> Node
+ForStmt --|> Node
+FuncDef --|> Node
+FuncCall --|> Node
+ReturnCall --|> Node
+
+
+Node *- NodeType
+
+@enduml

@@ -1,0 +1,35 @@
+@startuml Token
+
+class Token {
+    + getType()
+    + getValue()
+    + getPos()
+    + matches(type, value)
+    + clone()
+    - type : TokenType
+    - value : ValueLiteral
+    - position : map<string, string>
+}
+
+enum TokenType {
+    INT
+    FLOAT
+    ...
+    ...
+    ...
+    LESSTHAN
+    GREATERTHAN
+}
+
+class ValueLiteral <<variant>> {
+    + monostate
+    + bool
+    + int
+    + float
+    + string
+}
+
+Token::type *-- TokenType
+Token::value *-- ValueLiteral
+
+@enduml

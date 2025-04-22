@@ -1,0 +1,34 @@
+func fizz(){
+	out("fizz")
+}
+func buzz(){
+	out("buzz")
+}
+func fizzBuzz(){
+	out("fizzBuzz")
+}
+
+
+func main(x){
+	while(x > 0){
+		if(x%3 == 0){
+			if(x%5 == 0){
+				fizzBuzz()
+			}
+			else{
+				fizz()
+			}
+		}
+		else{
+			if(x%5 == 0){
+				buzz()
+			}
+			else{
+				out(x)
+			}
+		}
+		var x --
+	}
+}
+
+main(20)

@@ -1,0 +1,29 @@
+@startuml
+
+actor User
+User -> Interpreter : interpretFile(filename)
+activate Interpreter #00FFFF
+Interpreter -> Lexer : tokenise()
+activate Lexer #FF8800
+Lexer --> Interpreter : tokenDict
+deactivate Lexer
+activate Parser #00FF88
+loop for each tokenVector in tokenDict
+    Interpreter -> Parser : parse(tokenVector)
+    Parser --> Node : creates AST
+    activate Node #0000FF
+    activate Node #000088
+    activate Node #000099
+    Node --> Interpreter : AST
+
+  Interpreter -> Node : visit(Node, Context)
+  Node -> Context : get/set variables
+  Node --> Interpreter : Literal result
+  deactivate Node
+  deactivate Node
+  deactivate Node
+  deactivate Parser
+end
+deactivate Interpreter
+
+@enduml

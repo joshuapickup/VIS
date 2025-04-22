@@ -1,0 +1,16 @@
+@startuml
+skinparam componentStyle rectangle
+
+rectangle "VIS Source Code" as source
+rectangle "Lexer\n(Tokenizes code)" as lexer
+rectangle "Parser\n(Creates AST)" as parser
+rectangle "AST\n(Node-based tree)" as ast
+rectangle "Interpreter\n(Executes logic)" as interpreter
+rectangle "Output\n(Printed to console)" as output
+
+source --> lexer
+lexer --> parser
+parser --> ast
+ast --> interpreter
+interpreter --> output
+@enduml

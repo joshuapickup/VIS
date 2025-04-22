@@ -1,0 +1,9 @@
+func sum(number){
+    var value = 0
+    for (var n = 0, n <= number, var n++){
+        var value = value + n
+    }
+    return value
+}
+
+out(sum(20))

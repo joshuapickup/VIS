@@ -1,0 +1,38 @@
+@startuml Parser
+
+class Parser {
+    + Parser(map<int, vector<Token>>)
+    + parse()
+    - lineIndex : int
+    - tokenIndex : int
+    - tokenDict : map<int, vector<Token>>
+    - tokenVector : vector<Token>
+    - currentToken Token*
+    - <<static>> InvalidSyntaxError makeSyntaxError(map<string, string>, string&)
+    - advanceLine()
+    - advanceToken()
+    - binaryOperation(const function<unique_ptr<Node>()>&,vector<TokenType>&, vector<string>&)
+    - funcDef()
+    - statement()
+    - returnStmt()
+    - whileStmt()
+    - forStmt()
+    - ifStmt()
+    - expression()
+    - libExpr()
+    - varExpr()
+    - compExpr()
+    - comparision()
+    - arithmeticExpression()
+    - term()
+    - factor()
+    - call()
+    - atom()
+}
+
+abstract class Node
+left to right direction
+
+Node --o Parser::parse : creates many
+
+@enduml

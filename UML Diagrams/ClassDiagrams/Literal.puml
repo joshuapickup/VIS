@@ -1,0 +1,136 @@
+@startuml Literal
+scale 2/3
+
+abstract class Literal {
+    + Literal()
+    + setContext(Context*)
+    + getContext()
+    + setPosition(map<string, string>&)
+    + getPosition() 
+    * add(Literal&)
+    * subtract(Literal&)
+    * multiply( Literal &other)
+    * divide(Literal&)
+    * modulo(Literal&)
+    * compareTE(Literal&)
+    * compareNE(Literal&)
+    + compareLT(Literal&)
+    + compareLTE(Literal&)
+    + compareGT(Literal&) 
+    + compareGTE(Literal&) 
+    + andWith(Literal&) 
+    + orWith(Literal&) 
+    + notSelf()
+    * getNumberValue()
+    * getBoolValue()
+    * getStringValue()
+    * clone()
+    + printLiteral(ostream&, int)
+    # setLiteral(unique_ptr<Literal>)
+    # position : map< string, string>
+    # context : Context*
+}
+
+class BoolLiteral{
+    + BoolLiteral(bool)
+    + add(Literal&)
+    + subtract(Literal&)
+    + multiply(Literal&)
+    + divide(Literal&)
+    + modulo(Literal&)
+    + compareTE(Literal&)
+    + compareNE(Literal&)
+    + getNumberValue()
+    + getBoolValue()
+    + getStringValue()
+    + clone()
+    + printLiteral(ostream&, int)
+    - value : bool
+
+}
+
+class StringLiteral{
+    + StringLiteral(string&)
+    + add(Literal&)
+    + subtract(Literal&)
+    + multiply(Literal &other)
+    + divide(Literal&)
+    + modulo(Literal&)
+    + compareTE(Literal&)
+    + compareNE(Literal&)
+    + getNumberValue()
+    + getBoolValue()
+    + getStringValue()
+    + clone()
+    + printLiteral(ostream&, int)
+    - value : string
+}
+
+abstract class NumberLiteral{
+    + NumberLiteral()
+    + add(Literal&)
+    + subtract(Literal&)
+    + multiply(Literal&)
+    + divide(Literal&)
+    + modulo(Literal&)
+    + compareTE(Literal&)
+    + compareNE(Literal&)
+    * getNumberValue()
+    * getBoolValue()
+    * getStringValue()
+    * clone()
+    + void printLiteral(ostream&, int)
+    - <<static>> makeResultLiteral(float) 
+} 
+
+class IntLiteral{
+    + IntLiteral(int)
+    + getNumberValue()
+    + getBoolValue()
+    + getStringValue()
+    + clone()
+    + printLiteral(ostream&, int)
+    - value : int
+}
+
+class FloatLiteral{
+    + FloatLiteral(float)
+    + getNumberValue()
+    + getBoolValue()
+    + getStringValue()
+    + clone()
+    + printLiteral(ostream&, int)
+    - value float
+} 
+
+class FunctionLiteral  {
+    + FunctionLiteral(string, vector<Token>, vector<unique_ptr<Node>>, unique_ptr<Context> )
+    + getName()
+    + getArgs()
+    + getBody()
+    + add(Literal&)
+    + subtract(Literal&)
+    + multiply(Literal&)
+    + divide(Literal&)
+    + modulo(Literal&)
+    + compareTE(Literal&)
+    + compareNE(Literal&)
+    + getNumberValue()
+    + getBoolValue()
+    + getStringValue()
+    + clone()
+    + printLiteral(ostream&, int)
+    - name : string
+    - argTokens : vector<Token>
+    - bodyNodes : vector<unique_ptr<Node>>
+    - scopeContext : unique_ptr<Context>
+}
+
+Literal <|-- BoolLiteral
+Literal <|-- StringLiteral
+Literal <|-- FunctionLiteral
+Literal <|-- NumberLiteral
+NumberLiteral <|-- IntLiteral
+NumberLiteral <|-- FloatLiteral
+
+@enduml

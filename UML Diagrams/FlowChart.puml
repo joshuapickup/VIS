@@ -1,0 +1,21 @@
+@startuml
+
+
+start
+
+:open file;
+:Tokenize with Lexer;
+
+repeat :Parse Tokens;
+    if (AST created?) then (yes)
+          :Visit Nodes in AST;
+    else (no)
+    endif
+repeat while (token != End Of File)
+
+stop
+
+
+
+
+@enduml

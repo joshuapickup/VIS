@@ -20,7 +20,6 @@ private:
     std::unique_ptr<Literal> returnValue;
 };
 
-
 class Interpreter {
 public:
     explicit Interpreter(const std::string &filename, bool verboseFlag);

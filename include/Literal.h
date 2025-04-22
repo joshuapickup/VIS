@@ -106,6 +106,7 @@ public:
     [[nodiscard]] std::unique_ptr<Literal> compareNE(const Literal& other) const override;
 
     [[nodiscard]] double getNumberValue() const override = 0;
+    [[nodiscard]] bool getBoolValue() const override = 0;
     [[nodiscard]] std::string getStringValue() const override = 0;
     [[nodiscard]] std::unique_ptr<Literal> clone() const override = 0;
     void printLiteral(std::ostream &os, int tabCount) const override;

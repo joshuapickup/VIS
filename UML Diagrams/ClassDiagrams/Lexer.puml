@@ -1,0 +1,52 @@
+@startuml Lexer
+!include Token.puml
+
+
+class Lexer {
+    + <<static>> unordered_set<string> LIBWORDS
+    + <<static>> unordered_set<string> KEYWORDS
+    - <<static>> DIGITS : string
+    - <<static>> LETTERS : string
+    - <<static>> LETTERS_DIGITS : string
+    - <<static>> OPERATORS : string
+    - <<static>> COMMENT : char
+    - positionHandler : PositionHandler&
+    --
+    + Lexer(PositionHandler& positionHandler);
+    + tokenise()
+    ==
+    - makeNumberToken(char)
+    - makeStringToken(char)
+    - makeIdentifierToken(char)
+    - makeOperatorToken(char)
+    - makeEqualsToken(char)
+    - makeNotEqualsToken(char)
+    - makeLessThanToken(char)
+    - makeGreaterThanToken(char)
+}
+
+
+class PositionHandler {
+    <<static>> nullPos : map<string, string> 
+    + PositionHandler(string, ifstream&)
+    + advanceCharacter()
+    + advanceLine()
+    + peek()
+    + resetPos()
+    + getWordFromLine(map<string, string>&)
+    + getChar()
+    + getLineNumber()
+    + getPos()
+    - file : ifstream&
+    - charPos : int
+    - currentChar : char
+    - line : int
+    - fileName : string
+    - lineText : string
+}
+
+Lexer --> PositionHandler : uses
+Lexer o-- Token : creates many
+
+
+@enduml

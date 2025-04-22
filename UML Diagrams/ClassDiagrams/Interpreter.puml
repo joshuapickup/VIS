@@ -1,0 +1,52 @@
+@startuml Interpreter
+
+class Interpreter {
+    + Interpreter(string&, bool)
+    - <<static>> interpretFile(string&, bool)
+    - <<static>> visit(unique_ptr<Node>&, Context)
+    - <<static>> visitNumberNode(Number*, Context)
+    - <<static>> visitStringNode(StringNode*, Context)
+    - <<static>> visitBinaryOpNode(BinaryOperator*, Context)
+    - <<static>> visitUnaryOpNode(UnaryOperator*, Context)
+    - <<static>> visitVarAccessNode(VarAccess*, Context)
+    - <<static>> visitVarAssignNode(VarAssignment*, Context)
+    - <<static>> visitVarIncrementNode(VarIncrement*, Context)
+    - <<static>> visitVarDecrementNode(VarDecrement*, Context)
+    - <<static>> visitLibCallNode(LibCall*, Context)
+    - <<static>> visitIfStmtNode(IfStmt*, Context)
+    - <<static>> visitWhileStmtNode(WhileStmt*, Context)
+    - <<static>> visitForStmtNode(ForStmt*, Context)
+    - <<static>> visitFuncDefNode(FuncDef*, Context)
+    - <<static>> visitFuncCallNode(FuncCall*, Context)
+    - <<static>> visitReturnCallNode(ReturnCall*, Context)
+}
+
+class SymbolTable {
+    + SymbolTable()
+    + getTable()
+    + getLiteral(string&)
+    + set(string&, unique_ptr<Literal>)
+    + remove(string&)
+    - parentSymbolTable : SymbolTable*
+    - table : unordered_map<string, unique_ptr<Literal>>
+}
+
+class Context {
+    + Context(string, Context*, map<string, string>)
+    + getSymbolTable()
+    + setSymbolTable(SymbolTable&&)
+    + setParentContext(Context*)
+    + getDisplayName()
+    + getEntryPoint()
+    + setEntryPoint(map<string, string>&)
+    + clone()
+    - diplayName : string
+    - parentContext : Context*
+    - entryPoint : map<string, string>
+    - symbolTable : SymbolTable
+}
+
+Interpreter *-- Context : owns one
+Context *-- SymbolTable : owns one
+
+@enduml

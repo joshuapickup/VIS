@@ -35,6 +35,6 @@ factor      ::= call | (PLUS | MINUS) call
 
 call        ::= atom (OPENPAREN (expr (SEPERATOR expr)* )? CLOSEPAREN)?
 
-atom        ::= INT | FLOAT | STRING | BOOL IDENTIFIER
+atom        ::= INT | FLOAT | STRING | BOOL | IDENTIFIER
                 LPAREN expression RPAREN
 
