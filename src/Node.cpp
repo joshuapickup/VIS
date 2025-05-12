@@ -371,7 +371,7 @@ void FuncDef::printNode(std::ostream &os, const int tabCount) const {
     os << std::string(tabCount+1, '\t') << "Name: " << std::get<std::string>(getToken().getValue()) << std::endl;
     os << std::string(tabCount+1, '\t') << "Arguments<" << std::endl;
     for (const auto& token : arguments) {
-        os << std::string(tabCount+1, '\t') << "Name: " << std::get<std::string>(token.getValue()) << std::endl;
+        os << std::string(tabCount+2, '\t') << "Name: " << std::get<std::string>(token.getValue()) << std::endl;
     }
     os << std::string(tabCount+1, '\t') << "Arguments>" << std::endl;
     os << std::string(tabCount+1, '\t') << "StatementNodes<" << std::endl;

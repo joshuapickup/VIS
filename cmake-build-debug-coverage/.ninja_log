@@ -1,0 +1,99 @@
+# ninja log v6
+18	1233	7673483258288195	CMakeFiles/VIS.dir/src/Error.cpp.obj	8535c28a0a5e6259
+49	2001	7673483258594018	CMakeFiles/VIS.dir/src/PositionHandler.cpp.obj	90f3fb2a284b6bf0
+5	2175	7673483258152836	CMakeFiles/VIS.dir/src/main.cpp.obj	a2b82ed22058c0bf
+12	2551	7673483258232821	CMakeFiles/VIS.dir/src/Token.cpp.obj	d18c5d3ce6b4247d
+42	2990	7673483258528878	CMakeFiles/VIS.dir/src/Context.cpp.obj	fcd9630ddbad4f72
+60	3784	7673483258709583	CMakeFiles/VIS.dir/src/Lexer.cpp.obj	b10bbb68ac012a03
+25	4029	7673483258358240	CMakeFiles/VIS.dir/src/Literal.cpp.obj	7c27fa63c329ef70
+77	4031	7673483258875198	CMakeFiles/VIS.dir/src/Interpreter.cpp.obj	aee06109b90f4d0f
+32	4504	7673483258433391	CMakeFiles/VIS.dir/src/Node.cpp.obj	4b14cf7dd902a431
+70	5133	7673483258804714	CMakeFiles/VIS.dir/src/Parser.cpp.obj	3bfe588f7b41b2e0
+5133	8396	7673483309437879	VIS.exe	28ceccef17404fae
+65	851	7673483407113097	tests/CMakeFiles/vis_tests.dir/__/src/Error.cpp.obj	38eb0c345644b4de
+57	1918	7673483407027991	tests/CMakeFiles/vis_tests.dir/__/src/Token.cpp.obj	aa0f6c0ae1a3e025
+24	2190	7673483406691882	googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj	3553fb1f4613321
+17	2651	7673483406621190	googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.obj	d1403c6a82b82646
+30	3431	7673483406753521	tests/CMakeFiles/vis_tests.dir/TestToken.cpp.obj	a0d6cfcd2b3ad01f
+2651	3785	7673483432971877	tests/CMakeFiles/vis_tests.dir/__/src/PositionHandler.cpp.obj	499aacaa08676bd8
+2191	3993	7673483428369529	tests/CMakeFiles/vis_tests.dir/__/src/Context.cpp.obj	2f8dc8493faa0e9c
+852	4155	7673483414968339	tests/CMakeFiles/vis_tests.dir/__/src/Literal.cpp.obj	c7befa39e9c5ad53
+49	5019	7673483406942622	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+11	5106	7673483406569767	googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.obj	9e0baa5944c6e331
+35	5283	7673483406812180	tests/CMakeFiles/vis_tests.dir/TestLexer.cpp.obj	b4db958c3a860f5a
+42	5645	7673483406877521	tests/CMakeFiles/vis_tests.dir/TestParser.cpp.obj	81b662608982cc87
+1918	5724	7673483425635430	tests/CMakeFiles/vis_tests.dir/__/src/Node.cpp.obj	9a266ca4cbd69fc7
+3431	6287	7673483440771802	tests/CMakeFiles/vis_tests.dir/__/src/Lexer.cpp.obj	57578ca6ff41ca3c
+3993	6630	7673483446387381	tests/CMakeFiles/vis_tests.dir/__/src/Interpreter.cpp.obj	9d027261ef71b03f
+3786	7573	7673483444309749	tests/CMakeFiles/vis_tests.dir/__/src/Parser.cpp.obj	ccd67c8ede8c464e
+5	11332	7673483406504686	googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj	ae94dd05c0bed0fa
+11333	14443	7673483519788600	lib/libgtest.a	ce47b6dfc2b34d5f
+14450	14522	7673483550949312	lib/libgtest_main.a	15a541cfedb5c6df
+14443	14829	7673483550879633	lib/libgmock.a	8918341524f11244
+14829	14894	7673483554742520	lib/libgmock_main.a	270da160eb6508a0
+14894	23916	7673483645528351	tests/vis_tests.exe	ce9f7ecd72208a0d
+14894	23916	7673483645528351	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+14894	23916	7673483645528351	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+11	3186	7673486434886142	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+3186	12392	7673486558603274	tests/vis_tests.exe	ce9f7ecd72208a0d
+3186	12392	7673486558603274	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+3186	12392	7673486558603274	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+9	3176	7673488754348656	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+3177	12449	7673488878652240	tests/vis_tests.exe	ce9f7ecd72208a0d
+3177	12449	7673488878652240	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+3177	12449	7673488878652240	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+11	3235	7673492054320274	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+3235	12527	7673492179392864	tests/vis_tests.exe	ce9f7ecd72208a0d
+3235	12527	7673492179392864	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+3235	12527	7673492179392864	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+10	3198	7673495278187715	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+3198	12448	7673495402474216	tests/vis_tests.exe	ce9f7ecd72208a0d
+3198	12448	7673495402474216	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+3198	12448	7673495402474216	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+8	3613	7673506949571187	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+3613	13010	7673507079493331	tests/vis_tests.exe	ce9f7ecd72208a0d
+3613	13010	7673507079493331	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+3613	13010	7673507079493331	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+9	3934	7673515542890429	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+3935	13513	7673515677839684	tests/vis_tests.exe	ce9f7ecd72208a0d
+3935	13513	7673515677839684	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+3935	13513	7673515677839684	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+10	3772	7673517855336229	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+3772	13281	7673517987964120	tests/vis_tests.exe	ce9f7ecd72208a0d
+3772	13281	7673517987964120	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+3772	13281	7673517987964120	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+8	3814	7673519416770313	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+3814	13437	7673519550965650	tests/vis_tests.exe	ce9f7ecd72208a0d
+3814	13437	7673519550965650	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+3814	13437	7673519550965650	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+8	1759	7673526451441545	tests/CMakeFiles/vis_tests.dir/__/src/Interpreter.cpp.obj	9d027261ef71b03f
+1760	11343	7673526564703965	tests/vis_tests.exe	ce9f7ecd72208a0d
+1760	11343	7673526564703965	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+1760	11343	7673526564703965	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+8	3818	7673528239068948	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+3818	13284	7673528371743849	tests/vis_tests.exe	ce9f7ecd72208a0d
+3818	13284	7673528371743849	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+3818	13284	7673528371743849	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+8	1874	7673529062906988	tests/CMakeFiles/vis_tests.dir/__/src/Interpreter.cpp.obj	9d027261ef71b03f
+1874	11372	7673529176456179	tests/vis_tests.exe	ce9f7ecd72208a0d
+1874	11372	7673529176456179	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+1874	11372	7673529176456179	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+218	2965	7673875125169574	CMakeFiles/VIS.dir/src/Interpreter.cpp.obj	aee06109b90f4d0f
+2965	7718	7673875152636133	VIS.exe	28ceccef17404fae
+46	3480	7673919901215040	tests/CMakeFiles/vis_tests.dir/TestLexer.cpp.obj	b4db958c3a860f5a
+156	3564	7673919902308606	tests/CMakeFiles/vis_tests.dir/TestParser.cpp.obj	81b662608982cc87
+160	4397	7673919902355404	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+4397	15206	7673920052733997	tests/vis_tests.exe	ce9f7ecd72208a0d
+4397	15206	7673920052733997	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+4397	15206	7673920052733997	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+35	2293	7673921086162887	tests/CMakeFiles/vis_tests.dir/TestToken.cpp.obj	a0d6cfcd2b3ad01f
+40	3452	7673921086204580	tests/CMakeFiles/vis_tests.dir/TestParser.cpp.obj	81b662608982cc87
+44	4070	7673921086242353	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+30	2145	7673921421309624	tests/CMakeFiles/vis_tests.dir/TestToken.cpp.obj	a0d6cfcd2b3ad01f
+35	3536	7673921421352311	tests/CMakeFiles/vis_tests.dir/TestParser.cpp.obj	81b662608982cc87
+38	4282	7673921421393197	tests/CMakeFiles/vis_tests.dir/TestInterpreter.cpp.obj	45087f4761b8982f
+4282	14172	7673921562659537	tests/vis_tests.exe	ce9f7ecd72208a0d
+4282	14172	7673921562659537	tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+4282	14172	7673921562659537	D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake	ce9f7ecd72208a0d
+6	2600	7673988415555228	CMakeFiles/VIS.dir/src/Node.cpp.obj	4b14cf7dd902a431
+2601	5461	7673988441496324	VIS.exe	28ceccef17404fae

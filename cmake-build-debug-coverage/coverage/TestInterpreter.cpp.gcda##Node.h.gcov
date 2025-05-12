@@ -1,0 +1,241 @@
+        -:    0:Source:D:/Project Workspace/Year3/VIS/include/Node.h
+        -:    0:Graph:D:\Project Workspace\Year3\VIS\cmake-build-debug-coverage\tests\CMakeFiles\vis_tests.dir\TestInterpreter.cpp.gcno
+        -:    0:Data:D:\Project Workspace\Year3\VIS\cmake-build-debug-coverage\tests\CMakeFiles\vis_tests.dir\TestInterpreter.cpp.gcda
+        -:    0:Runs:1
+        -:    1:#ifndef NODE_H
+        -:    2:#define NODE_H
+        -:    3:
+        -:    4:#include <memory>
+        -:    5:#include <vector>
+        -:    6:#include "Token.h"
+        -:    7:
+        -:    8:enum class NodeType {
+        -:    9:    EndOfFile,
+        -:   10:    Number,
+        -:   11:    String,
+        -:   12:    Operator,
+        -:   13:    UnaryOperator,
+        -:   14:    BinaryOperator,
+        -:   15:    VarAssgnment,
+        -:   16:    VarAccess,
+        -:   17:    VarIncrement,
+        -:   18:    VarDecrement,
+        -:   19:    LibCall,
+        -:   20:    IfStmt,
+        -:   21:    WhileStmt,
+        -:   22:    ForStmt,
+        -:   23:    FuncDef,
+        -:   24:    FuncCall,
+        -:   25:    ReturnCall,
+        -:   26:};
+        -:   27:
+        -:   28:class Node {
+        -:   29:public:
+function _ZN4NodeD2Ev called 0 returned 0% blocks executed 0%
+    #####:   30:    virtual ~Node() = default;
+    %%%%%:   30-block  0
+call    0 never executed
+        -:   31:    explicit Node(const Token &token, NodeType type_);
+        -:   32:    [[nodiscard]] Token getToken() const;
+        -:   33:    [[nodiscard]] NodeType getType() const;
+        -:   34:    [[nodiscard]] virtual std::unique_ptr<Node> clone() const = 0;
+        -:   35:    virtual void printNode(std::ostream& os, int tabCount) const;
+        -:   36:
+        -:   37:    static std::vector<std::unique_ptr<Node>> cloneNodeVector(const std::vector<std::unique_ptr<Node>>& nodes);
+        -:   38:    friend std::ostream& operator<<(std::ostream& os, const Node &node);
+        -:   39:protected:
+        -:   40:    std::vector<Token> tokenVector;
+        -:   41:    NodeType type;
+        -:   42:};
+        -:   43:
+        -:   44:class EndOfFile final : public Node{
+        -:   45:public:
+        -:   46:    explicit EndOfFile(const Token &token);
+        -:   47:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:   48:    void printNode(std::ostream &os, int tabCount) const override;
+        -:   49:};
+        -:   50:
+        -:   51:class Number final : public Node{
+        -:   52:public:
+        -:   53:    explicit Number(const Token &token);
+        -:   54:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:   55:    void printNode(std::ostream &os, int tabCount) const override;
+        -:   56:};
+        -:   57:
+        -:   58:class StringNode final : public Node{
+        -:   59:public:
+        -:   60:    explicit StringNode(const Token &token);
+        -:   61:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:   62:    void printNode(std::ostream &os, int tabCount) const override;
+        -:   63:};
+        -:   64:
+        -:   65:class Operator final : public Node{
+        -:   66:public:
+        -:   67:    explicit Operator(const Token &token);
+        -:   68:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:   69:    void printNode(std::ostream &os, int tabCount) const override;
+        -:   70:};
+        -:   71:
+        -:   72:class UnaryOperator final : public Node{
+        -:   73:public:
+        -:   74:    UnaryOperator(const Operator &operator_, std::unique_ptr<Node> node);
+        -:   75:    [[nodiscard]] std::vector<Token> getTokens() const;
+        -:   76:    [[nodiscard]] Operator getOperator() const;
+        -:   77:    [[nodiscard]] const std::unique_ptr<Node>& getValue() const;
+        -:   78:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:   79:    void printNode(std::ostream &os, int tabCount) const override;
+        -:   80:private:
+        -:   81:    Operator operatorNode;
+        -:   82:    std::unique_ptr<Node> valueNode;
+        -:   83:};
+        -:   84:
+        -:   85:class BinaryOperator final : public Node{
+        -:   86:public:
+        -:   87:    BinaryOperator(std::unique_ptr<Node> leftNode, const Operator &operatorNode, std::unique_ptr<Node> rightNode);
+        -:   88:    std::vector<Token> getTokens();
+        -:   89:    [[nodiscard]] const std::unique_ptr<Node>& getLeftNode() const;
+        -:   90:    [[nodiscard]] Operator getOperatorNode() const;
+        -:   91:    [[nodiscard]] const std::unique_ptr<Node>& getRightNode() const;
+        -:   92:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:   93:    void printNode(std::ostream &os, int tabCount) const override;
+        -:   94:private:
+        -:   95:    std::unique_ptr<Node> leftNode;
+        -:   96:    Operator operatorNode;
+        -:   97:    std::unique_ptr<Node> rightNode;
+        -:   98:};
+        -:   99:
+        -:  100:class VarAssignment final : public Node{
+        -:  101:public:
+        -:  102:    VarAssignment(const Token &token, std::unique_ptr<Node> valueNode);
+        -:  103:    [[nodiscard]] const std::unique_ptr<Node>& getValue() const;
+        -:  104:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:  105:    void printNode(std::ostream &os, int tabCount) const override;
+        -:  106:private:
+        -:  107:    std::unique_ptr<Node> value;
+        -:  108:};
+        -:  109:
+        -:  110:class VarAccess final : public Node{
+        -:  111:public:
+        -:  112:    explicit VarAccess(const Token &token);
+        -:  113:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:  114:    void printNode(std::ostream &os, int tabCount) const override;
+        -:  115:};
+        -:  116:
+        -:  117:class VarIncrement final : public Node{
+        -:  118:public:
+        -:  119:    explicit VarIncrement(const Token &token);
+        -:  120:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:  121:    void printNode(std::ostream &os, int tabCount) const override;
+        -:  122:};
+        -:  123:
+        -:  124:class VarDecrement final : public Node{
+        -:  125:public:
+        -:  126:    explicit VarDecrement(const Token &token);
+        -:  127:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:  128:    void printNode(std::ostream &os, int tabCount) const override;
+        -:  129:};
+        -:  130:
+        -:  131:class LibCall final : public Node {
+        -:  132:public:
+        -:  133:    explicit LibCall(const Token& token, std::vector<std::unique_ptr<Node>> argument);
+        -:  134:    [[nodiscard]] const std::vector<std::unique_ptr<Node>>& getArgumentNodes() const;
+        -:  135:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:  136:    void printNode(std::ostream &os, int tabCount) const override;
+        -:  137:private:
+        -:  138:    std::vector<std::unique_ptr<Node>> argumentNodes;
+        -:  139:};
+        -:  140:
+        -:  141:class IfStmt final : public Node{
+        -:  142:public:
+        -:  143:    explicit IfStmt(
+        -:  144:        std::unique_ptr<Node> comparisonNode,
+        -:  145:        std::vector<std::unique_ptr<Node>> ifBlockNodes,
+        -:  146:        std::vector<std::unique_ptr<Node>> elseBlockNodes
+        -:  147:        );
+        -:  148:    [[nodiscard]] const std::unique_ptr<Node>& getComparison() const;
+        -:  149:    [[nodiscard]] const std::vector<std::unique_ptr<Node>>& getIfBlock() const;
+        -:  150:    [[nodiscard]] const std::vector<std::unique_ptr<Node>>& getElseBlock() const;
+        -:  151:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:  152:    void printNode(std::ostream &os, int tabCount) const override;
+        -:  153:private:
+        -:  154:    std::unique_ptr<Node> comparison;
+        -:  155:    std::vector<std::unique_ptr<Node>> ifBlockNodes;
+        -:  156:    std::vector<std::unique_ptr<Node>> elseBlockNodes;
+        -:  157:};
+        -:  158:
+        -:  159:class WhileStmt final : public Node{
+        -:  160:public:
+        -:  161:    explicit WhileStmt(
+        -:  162:        std::unique_ptr<Node> comparisonNode,
+        -:  163:        std::vector<std::unique_ptr<Node>> whileNodes
+        -:  164:        );
+        -:  165:    [[nodiscard]] const std::unique_ptr<Node>& getComparison() const;
+        -:  166:    [[nodiscard]] const std::vector<std::unique_ptr<Node>>& getWhileBlock() const;
+        -:  167:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:  168:    void printNode(std::ostream &os, int tabCount) const override;
+        -:  169:private:
+        -:  170:    std::unique_ptr<Node> comparison;
+        -:  171:    std::vector<std::unique_ptr<Node>> whileNodes;
+        -:  172:};
+        -:  173:
+        -:  174:class ForStmt final : public Node{
+        -:  175:public:
+        -:  176:    explicit ForStmt(
+        -:  177:        std::unique_ptr<Node> varInitialisation,
+        -:  178:        std::unique_ptr<Node> condition,
+        -:  179:        std::unique_ptr<Node> step,
+        -:  180:        std::vector<std::unique_ptr<Node>> forNodes
+        -:  181:        );
+        -:  182:    [[nodiscard]] const std::unique_ptr<Node>& getVarDeclare() const;
+        -:  183:    [[nodiscard]] const std::unique_ptr<Node>& getCondition() const;
+        -:  184:    [[nodiscard]] const std::unique_ptr<Node>& getStep() const;
+        -:  185:    [[nodiscard]] const std::vector<std::unique_ptr<Node>>& getForBlock() const;
+        -:  186:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:  187:    void printNode(std::ostream &os, int tabCount) const override;
+        -:  188:private:
+        -:  189:    std::unique_ptr<Node> varDeclare;
+        -:  190:    std::unique_ptr<Node> condition;
+        -:  191:    std::unique_ptr<Node> step;
+        -:  192:    std::vector<std::unique_ptr<Node>> forNodes;
+        -:  193:};
+        -:  194:
+        -:  195:class FuncDef final : public Node{
+        -:  196:public:
+        -:  197:    explicit FuncDef(
+        -:  198:        const Token &token,
+        -:  199:        std::vector<Token> arguments,
+        -:  200:        std::vector<std::unique_ptr<Node>> bodyNodes
+        -:  201:        );
+        -:  202:    [[nodiscard]] std::string getName() const;
+        -:  203:    [[nodiscard]] const std::vector<Token>& getArguments() const;
+        -:  204:    [[nodiscard]] const std::vector<std::unique_ptr<Node>>& getFunctionBody() const;
+        -:  205:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:  206:    void printNode(std::ostream &os, int tabCount) const override;
+        -:  207:private:
+        -:  208:    std::vector<Token> arguments;
+        -:  209:    std::vector<std::unique_ptr<Node>> bodyNodes;
+        -:  210:};
+        -:  211:
+        -:  212:class FuncCall final : public Node{
+        -:  213:public:
+        -:  214:    explicit FuncCall(const Token &token, std::vector<std::unique_ptr<Node>> argumentNodes);
+        -:  215:    [[nodiscard]] std::string getName() const;
+        -:  216:    [[nodiscard]] const std::vector<std::unique_ptr<Node>>& getArguments() const;
+        -:  217:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:  218:    void printNode(std::ostream &os, int tabCount) const override;
+        -:  219:private:
+        -:  220:    std::string name;
+        -:  221:    std::vector<std::unique_ptr<Node>> argumentNodes;
+        -:  222:};
+        -:  223:
+        -:  224:class ReturnCall final : public Node {
+        -:  225:public:
+        -:  226:    ReturnCall(const Token &token, std::unique_ptr<Node> expressionNode);
+        -:  227:    [[nodiscard]] const std::unique_ptr<Node>& getExpression() const;
+        -:  228:    [[nodiscard]] std::unique_ptr<Node> clone() const override;
+        -:  229:    void printNode(std::ostream &os, int tabCount) const override;
+        -:  230:private:
+        -:  231:    std::unique_ptr<Node> expression;
+        -:  232:};
+        -:  233:
+        -:  234:#endif //NODE_H

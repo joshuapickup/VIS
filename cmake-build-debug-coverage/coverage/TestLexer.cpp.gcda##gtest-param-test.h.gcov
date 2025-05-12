@@ -1,0 +1,782 @@
+        -:    0:Source:D:/Project Workspace/Year3/VIS/googletest/googletest/include/gtest/gtest-param-test.h
+        -:    0:Graph:D:\Project Workspace\Year3\VIS\cmake-build-debug-coverage\tests\CMakeFiles\vis_tests.dir\TestLexer.cpp.gcno
+        -:    0:Data:D:\Project Workspace\Year3\VIS\cmake-build-debug-coverage\tests\CMakeFiles\vis_tests.dir\TestLexer.cpp.gcda
+        -:    0:Runs:1
+        -:    1:// Copyright 2008, Google Inc.
+        -:    2:// All rights reserved.
+        -:    3://
+        -:    4:// Redistribution and use in source and binary forms, with or without
+        -:    5:// modification, are permitted provided that the following conditions are
+        -:    6:// met:
+        -:    7://
+        -:    8://     * Redistributions of source code must retain the above copyright
+        -:    9:// notice, this list of conditions and the following disclaimer.
+        -:   10://     * Redistributions in binary form must reproduce the above
+        -:   11:// copyright notice, this list of conditions and the following disclaimer
+        -:   12:// in the documentation and/or other materials provided with the
+        -:   13:// distribution.
+        -:   14://     * Neither the name of Google Inc. nor the names of its
+        -:   15:// contributors may be used to endorse or promote products derived from
+        -:   16:// this software without specific prior written permission.
+        -:   17://
+        -:   18:// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+        -:   19:// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+        -:   20:// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+        -:   21:// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+        -:   22:// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+        -:   23:// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+        -:   24:// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+        -:   25:// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+        -:   26:// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+        -:   27:// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        -:   28:// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        -:   29:
+        -:   30:// Macros and functions for implementing parameterized tests
+        -:   31:// in Google C++ Testing and Mocking Framework (Google Test)
+        -:   32:
+        -:   33:// IWYU pragma: private, include "gtest/gtest.h"
+        -:   34:// IWYU pragma: friend gtest/.*
+        -:   35:// IWYU pragma: friend gmock/.*
+        -:   36:
+        -:   37:#ifndef GOOGLETEST_INCLUDE_GTEST_GTEST_PARAM_TEST_H_
+        -:   38:#define GOOGLETEST_INCLUDE_GTEST_GTEST_PARAM_TEST_H_
+        -:   39:
+        -:   40:// Value-parameterized tests allow you to test your code with different
+        -:   41:// parameters without writing multiple copies of the same test.
+        -:   42://
+        -:   43:// Here is how you use value-parameterized tests:
+        -:   44:
+        -:   45:#if 0
+        -:   46:
+        -:   47:// To write value-parameterized tests, first you should define a fixture
+        -:   48:// class. It is usually derived from testing::TestWithParam<T> (see below for
+        -:   49:// another inheritance scheme that's sometimes useful in more complicated
+        -:   50:// class hierarchies), where the type of your parameter values.
+        -:   51:// TestWithParam<T> is itself derived from testing::Test. T can be any
+        -:   52:// copyable type. If it's a raw pointer, you are responsible for managing the
+        -:   53:// lifespan of the pointed values.
+        -:   54:
+        -:   55:class FooTest : public ::testing::TestWithParam<const char*> {
+        -:   56:  // You can implement all the usual class fixture members here.
+        -:   57:};
+        -:   58:
+        -:   59:// Then, use the TEST_P macro to define as many parameterized tests
+        -:   60:// for this fixture as you want. The _P suffix is for "parameterized"
+        -:   61:// or "pattern", whichever you prefer to think.
+        -:   62:
+        -:   63:TEST_P(FooTest, DoesBlah) {
+        -:   64:  // Inside a test, access the test parameter with the GetParam() method
+        -:   65:  // of the TestWithParam<T> class:
+        -:   66:  EXPECT_TRUE(foo.Blah(GetParam()));
+        -:   67:  ...
+        -:   68:}
+        -:   69:
+        -:   70:TEST_P(FooTest, HasBlahBlah) {
+        -:   71:  ...
+        -:   72:}
+        -:   73:
+        -:   74:// Finally, you can use INSTANTIATE_TEST_SUITE_P to instantiate the test
+        -:   75:// case with any set of parameters you want. Google Test defines a number
+        -:   76:// of functions for generating test parameters. They return what we call
+        -:   77:// (surprise!) parameter generators. Here is a summary of them, which
+        -:   78:// are all in the testing namespace:
+        -:   79://
+        -:   80://
+        -:   81://  Range(begin, end [, step]) - Yields values {begin, begin+step,
+        -:   82://                               begin+step+step, ...}. The values do not
+        -:   83://                               include end. step defaults to 1.
+        -:   84://  Values(v1, v2, ..., vN)    - Yields values {v1, v2, ..., vN}.
+        -:   85://  ValuesIn(container)        - Yields values from a C-style array, an STL
+        -:   86://  ValuesIn(begin,end)          container, or an iterator range [begin, end).
+        -:   87://  Bool()                     - Yields sequence {false, true}.
+        -:   88://  Combine(g1, g2, ..., gN)   - Yields all combinations (the Cartesian product
+        -:   89://                               for the math savvy) of the values generated
+        -:   90://                               by the N generators.
+        -:   91://
+        -:   92:// For more details, see comments at the definitions of these functions below
+        -:   93:// in this file.
+        -:   94://
+        -:   95:// The following statement will instantiate tests from the FooTest test suite
+        -:   96:// each with parameter values "meeny", "miny", and "moe".
+        -:   97:
+        -:   98:INSTANTIATE_TEST_SUITE_P(InstantiationName,
+        -:   99:                         FooTest,
+        -:  100:                         Values("meeny", "miny", "moe"));
+        -:  101:
+        -:  102:// To distinguish different instances of the pattern, (yes, you
+        -:  103:// can instantiate it more than once) the first argument to the
+        -:  104:// INSTANTIATE_TEST_SUITE_P macro is a prefix that will be added to the
+        -:  105:// actual test suite name. Remember to pick unique prefixes for different
+        -:  106:// instantiations. The tests from the instantiation above will have
+        -:  107:// these names:
+        -:  108://
+        -:  109://    * InstantiationName/FooTest.DoesBlah/0 for "meeny"
+        -:  110://    * InstantiationName/FooTest.DoesBlah/1 for "miny"
+        -:  111://    * InstantiationName/FooTest.DoesBlah/2 for "moe"
+        -:  112://    * InstantiationName/FooTest.HasBlahBlah/0 for "meeny"
+        -:  113://    * InstantiationName/FooTest.HasBlahBlah/1 for "miny"
+        -:  114://    * InstantiationName/FooTest.HasBlahBlah/2 for "moe"
+        -:  115://
+        -:  116:// You can use these names in --gtest_filter.
+        -:  117://
+        -:  118:// This statement will instantiate all tests from FooTest again, each
+        -:  119:// with parameter values "cat" and "dog":
+        -:  120:
+        -:  121:const char* pets[] = {"cat", "dog"};
+        -:  122:INSTANTIATE_TEST_SUITE_P(AnotherInstantiationName, FooTest, ValuesIn(pets));
+        -:  123:
+        -:  124:// The tests from the instantiation above will have these names:
+        -:  125://
+        -:  126://    * AnotherInstantiationName/FooTest.DoesBlah/0 for "cat"
+        -:  127://    * AnotherInstantiationName/FooTest.DoesBlah/1 for "dog"
+        -:  128://    * AnotherInstantiationName/FooTest.HasBlahBlah/0 for "cat"
+        -:  129://    * AnotherInstantiationName/FooTest.HasBlahBlah/1 for "dog"
+        -:  130://
+        -:  131:// Please note that INSTANTIATE_TEST_SUITE_P will instantiate all tests
+        -:  132:// in the given test suite, whether their definitions come before or
+        -:  133:// AFTER the INSTANTIATE_TEST_SUITE_P statement.
+        -:  134://
+        -:  135:// Please also note that generator expressions (including parameters to the
+        -:  136:// generators) are evaluated in InitGoogleTest(), after main() has started.
+        -:  137:// This allows the user on one hand, to adjust generator parameters in order
+        -:  138:// to dynamically determine a set of tests to run and on the other hand,
+        -:  139:// give the user a chance to inspect the generated tests with Google Test
+        -:  140:// reflection API before RUN_ALL_TESTS() is executed.
+        -:  141://
+        -:  142:// You can see samples/sample7_unittest.cc and samples/sample8_unittest.cc
+        -:  143:// for more examples.
+        -:  144://
+        -:  145:// In the future, we plan to publish the API for defining new parameter
+        -:  146:// generators. But for now this interface remains part of the internal
+        -:  147:// implementation and is subject to change.
+        -:  148://
+        -:  149://
+        -:  150:// A parameterized test fixture must be derived from testing::Test and from
+        -:  151:// testing::WithParamInterface<T>, where T is the type of the parameter
+        -:  152:// values. Inheriting from TestWithParam<T> satisfies that requirement because
+        -:  153:// TestWithParam<T> inherits from both Test and WithParamInterface. In more
+        -:  154:// complicated hierarchies, however, it is occasionally useful to inherit
+        -:  155:// separately from Test and WithParamInterface. For example:
+        -:  156:
+        -:  157:class BaseTest : public ::testing::Test {
+        -:  158:  // You can inherit all the usual members for a non-parameterized test
+        -:  159:  // fixture here.
+        -:  160:};
+        -:  161:
+        -:  162:class DerivedTest : public BaseTest, public ::testing::WithParamInterface<int> {
+        -:  163:  // The usual test fixture members go here too.
+        -:  164:};
+        -:  165:
+        -:  166:TEST_F(BaseTest, HasFoo) {
+        -:  167:  // This is an ordinary non-parameterized test.
+        -:  168:}
+        -:  169:
+        -:  170:TEST_P(DerivedTest, DoesBlah) {
+        -:  171:  // GetParam works just the same here as if you inherit from TestWithParam.
+        -:  172:  EXPECT_TRUE(foo.Blah(GetParam()));
+        -:  173:}
+        -:  174:
+        -:  175:#endif  // 0
+        -:  176:
+        -:  177:#include <iterator>
+        -:  178:#include <utility>
+        -:  179:
+        -:  180:#include "gtest/internal/gtest-internal.h"
+        -:  181:#include "gtest/internal/gtest-param-util.h"
+        -:  182:#include "gtest/internal/gtest-port.h"
+        -:  183:
+        -:  184:namespace testing {
+        -:  185:
+        -:  186:// Functions producing parameter generators.
+        -:  187://
+        -:  188:// Google Test uses these generators to produce parameters for value-
+        -:  189:// parameterized tests. When a parameterized test suite is instantiated
+        -:  190:// with a particular generator, Google Test creates and runs tests
+        -:  191:// for each element in the sequence produced by the generator.
+        -:  192://
+        -:  193:// In the following sample, tests from test suite FooTest are instantiated
+        -:  194:// each three times with parameter values 3, 5, and 8:
+        -:  195://
+        -:  196:// class FooTest : public TestWithParam<int> { ... };
+        -:  197://
+        -:  198:// TEST_P(FooTest, TestThis) {
+        -:  199:// }
+        -:  200:// TEST_P(FooTest, TestThat) {
+        -:  201:// }
+        -:  202:// INSTANTIATE_TEST_SUITE_P(TestSequence, FooTest, Values(3, 5, 8));
+        -:  203://
+        -:  204:
+        -:  205:// Range() returns generators providing sequences of values in a range.
+        -:  206://
+        -:  207:// Synopsis:
+        -:  208:// Range(start, end)
+        -:  209://   - returns a generator producing a sequence of values {start, start+1,
+        -:  210://     start+2, ..., }.
+        -:  211:// Range(start, end, step)
+        -:  212://   - returns a generator producing a sequence of values {start, start+step,
+        -:  213://     start+step+step, ..., }.
+        -:  214:// Notes:
+        -:  215://   * The generated sequences never include end. For example, Range(1, 5)
+        -:  216://     returns a generator producing a sequence {1, 2, 3, 4}. Range(1, 9, 2)
+        -:  217://     returns a generator producing {1, 3, 5, 7}.
+        -:  218://   * start and end must have the same type. That type may be any integral or
+        -:  219://     floating-point type or a user defined type satisfying these conditions:
+        -:  220://     * It must be assignable (have operator=() defined).
+        -:  221://     * It must have operator+() (operator+(int-compatible type) for
+        -:  222://       two-operand version).
+        -:  223://     * It must have operator<() defined.
+        -:  224://     Elements in the resulting sequences will also have that type.
+        -:  225://   * Condition start < end must be satisfied in order for resulting sequences
+        -:  226://     to contain any elements.
+        -:  227://
+        -:  228:template <typename T, typename IncrementT>
+        -:  229:internal::ParamGenerator<T> Range(T start, T end, IncrementT step) {
+        -:  230:  return internal::ParamGenerator<T>(
+        -:  231:      new internal::RangeGenerator<T, IncrementT>(start, end, step));
+        -:  232:}
+        -:  233:
+        -:  234:template <typename T>
+        -:  235:internal::ParamGenerator<T> Range(T start, T end) {
+        -:  236:  return Range(start, end, 1);
+        -:  237:}
+        -:  238:
+        -:  239:// ValuesIn() function allows generation of tests with parameters coming from
+        -:  240:// a container.
+        -:  241://
+        -:  242:// Synopsis:
+        -:  243:// ValuesIn(const T (&array)[N])
+        -:  244://   - returns a generator producing sequences with elements from
+        -:  245://     a C-style array.
+        -:  246:// ValuesIn(const Container& container)
+        -:  247://   - returns a generator producing sequences with elements from
+        -:  248://     an STL-style container.
+        -:  249:// ValuesIn(Iterator begin, Iterator end)
+        -:  250://   - returns a generator producing sequences with elements from
+        -:  251://     a range [begin, end) defined by a pair of STL-style iterators. These
+        -:  252://     iterators can also be plain C pointers.
+        -:  253://
+        -:  254:// Please note that ValuesIn copies the values from the containers
+        -:  255:// passed in and keeps them to generate tests in RUN_ALL_TESTS().
+        -:  256://
+        -:  257:// Examples:
+        -:  258://
+        -:  259:// This instantiates tests from test suite StringTest
+        -:  260:// each with C-string values of "foo", "bar", and "baz":
+        -:  261://
+        -:  262:// const char* strings[] = {"foo", "bar", "baz"};
+        -:  263:// INSTANTIATE_TEST_SUITE_P(StringSequence, StringTest, ValuesIn(strings));
+        -:  264://
+        -:  265:// This instantiates tests from test suite StlStringTest
+        -:  266:// each with STL strings with values "a" and "b":
+        -:  267://
+        -:  268:// ::std::vector< ::std::string> GetParameterStrings() {
+        -:  269://   ::std::vector< ::std::string> v;
+        -:  270://   v.push_back("a");
+        -:  271://   v.push_back("b");
+        -:  272://   return v;
+        -:  273:// }
+        -:  274://
+        -:  275:// INSTANTIATE_TEST_SUITE_P(CharSequence,
+        -:  276://                          StlStringTest,
+        -:  277://                          ValuesIn(GetParameterStrings()));
+        -:  278://
+        -:  279://
+        -:  280:// This will also instantiate tests from CharTest
+        -:  281:// each with parameter values 'a' and 'b':
+        -:  282://
+        -:  283:// ::std::list<char> GetParameterChars() {
+        -:  284://   ::std::list<char> list;
+        -:  285://   list.push_back('a');
+        -:  286://   list.push_back('b');
+        -:  287://   return list;
+        -:  288:// }
+        -:  289:// ::std::list<char> l = GetParameterChars();
+        -:  290:// INSTANTIATE_TEST_SUITE_P(CharSequence2,
+        -:  291://                          CharTest,
+        -:  292://                          ValuesIn(l.begin(), l.end()));
+        -:  293://
+        -:  294:template <typename ForwardIterator>
+        -:  295:internal::ParamGenerator<
+        -:  296:    typename std::iterator_traits<ForwardIterator>::value_type>
+function _ZN7testing8ValuesInIN9__gnu_cxx17__normal_iteratorIPK10LexerInputSt6vectorIS3_SaIS3_EEEEEENS_8internal14ParamGeneratorINSt15iterator_traitsIT_E10value_typeEEESD_SD_ called 6 returned 100% blocks executed 75%
+        6:  297:ValuesIn(ForwardIterator begin, ForwardIterator end) {
+        -:  298:  typedef typename std::iterator_traits<ForwardIterator>::value_type ParamType;
+        -:  299:  return internal::ParamGenerator<ParamType>(
+        6:  300:      new internal::ValuesInIteratorRangeGenerator<ParamType>(begin, end));
+        6:  300-block  0
+call    0 returned 6
+call    1 returned 6
+branch  2 taken 6 (fallthrough)
+branch  3 taken 0 (throw)
+        6:  300-block  1
+call    4 returned 6
+branch  5 taken 6 (fallthrough)
+branch  6 taken 0 (throw)
+        6:  300-block  2
+        6:  300-block  3
+    $$$$$:  300-block  4
+branch  7 never executed (fallthrough)
+branch  8 never executed
+    $$$$$:  300-block  5
+call    9 never executed
+        -:  301:}
+        -:  302:
+        -:  303:template <typename T, size_t N>
+        -:  304:internal::ParamGenerator<T> ValuesIn(const T (&array)[N]) {
+        -:  305:  return ValuesIn(array, array + N);
+        -:  306:}
+        -:  307:
+        -:  308:template <class Container>
+function _ZN7testing8ValuesInISt6vectorI10LexerInputSaIS2_EEEENS_8internal14ParamGeneratorINT_10value_typeEEERKS7_ called 6 returned 100% blocks executed 100%
+        6:  309:internal::ParamGenerator<typename Container::value_type> ValuesIn(
+        -:  310:    const Container& container) {
+        6:  311:  return ValuesIn(container.begin(), container.end());
+        6:  311-block  0
+call    0 returned 6
+call    1 returned 6
+call    2 returned 6
+        -:  312:}
+        -:  313:
+        -:  314:// Values() allows generating tests from explicitly specified list of
+        -:  315:// parameters.
+        -:  316://
+        -:  317:// Synopsis:
+        -:  318:// Values(T v1, T v2, ..., T vN)
+        -:  319://   - returns a generator producing sequences with elements v1, v2, ..., vN.
+        -:  320://
+        -:  321:// For example, this instantiates tests from test suite BarTest each
+        -:  322:// with values "one", "two", and "three":
+        -:  323://
+        -:  324:// INSTANTIATE_TEST_SUITE_P(NumSequence,
+        -:  325://                          BarTest,
+        -:  326://                          Values("one", "two", "three"));
+        -:  327://
+        -:  328:// This instantiates tests from test suite BazTest each with values 1, 2, 3.5.
+        -:  329:// The exact type of values will depend on the type of parameter in BazTest.
+        -:  330://
+        -:  331:// INSTANTIATE_TEST_SUITE_P(FloatingNumbers, BazTest, Values(1, 2, 3.5));
+        -:  332://
+        -:  333://
+        -:  334:template <typename... T>
+function _ZN7testing6ValuesIJ10LexerInputS1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_S1_EEENS_8internal10ValueArrayIJDpT_EEES5_ called 6 returned 100% blocks executed 51%
+        6:  335:internal::ValueArray<T...> Values(T... v) {
+        6:  336:  return internal::ValueArray<T...>(std::move(v)...);
+        6:  336-block  0
+call    0 returned 6
+call    1 returned 6
+call    2 returned 6
+call    3 returned 6
+call    4 returned 6
+call    5 returned 6
+call    6 returned 6
+call    7 returned 6
+call    8 returned 6
+call    9 returned 6
+call   10 returned 6
+call   11 returned 6
+call   12 returned 6
+call   13 returned 6
+call   14 returned 6
+call   15 returned 6
+call   16 returned 6
+call   17 returned 6
+call   18 returned 6
+call   19 returned 6
+call   20 returned 6
+call   21 returned 6
+call   22 returned 6
+call   23 returned 6
+call   24 returned 6
+call   25 returned 6
+call   26 returned 6
+call   27 returned 6
+call   28 returned 6
+call   29 returned 6
+call   30 returned 6
+call   31 returned 6
+call   32 returned 6
+call   33 returned 6
+call   34 returned 6
+call   35 returned 6
+call   36 returned 6
+call   37 returned 6
+call   38 returned 6
+call   39 returned 6
+call   40 returned 6
+call   41 returned 6
+call   42 returned 6
+call   43 returned 6
+call   44 returned 6
+call   45 returned 6
+call   46 returned 6
+call   47 returned 6
+call   48 returned 6
+call   49 returned 6
+call   50 returned 6
+call   51 returned 6
+call   52 returned 6
+call   53 returned 6
+call   54 returned 6
+call   55 returned 6
+call   56 returned 6
+call   57 returned 6
+call   58 returned 6
+call   59 returned 6
+call   60 returned 6
+call   61 returned 6
+call   62 returned 6
+call   63 returned 6
+call   64 returned 6
+call   65 returned 6
+call   66 returned 6
+call   67 returned 6
+call   68 returned 6
+branch 69 taken 6 (fallthrough)
+branch 70 taken 0 (throw)
+        6:  336-block  1
+call   71 returned 6
+call   72 returned 6
+call   73 returned 6
+call   74 returned 6
+call   75 returned 6
+call   76 returned 6
+call   77 returned 6
+call   78 returned 6
+call   79 returned 6
+call   80 returned 6
+call   81 returned 6
+call   82 returned 6
+call   83 returned 6
+call   84 returned 6
+call   85 returned 6
+call   86 returned 6
+call   87 returned 6
+call   88 returned 6
+call   89 returned 6
+call   90 returned 6
+call   91 returned 6
+call   92 returned 6
+call   93 returned 6
+call   94 returned 6
+call   95 returned 6
+call   96 returned 6
+call   97 returned 6
+call   98 returned 6
+call   99 returned 6
+call   100 returned 6
+call   101 returned 6
+call   102 returned 6
+call   103 returned 6
+call   104 returned 6
+        6:  336-block  2
+    $$$$$:  336-block  3
+call   105 never executed
+    $$$$$:  336-block  4
+    $$$$$:  336-block  5
+call   106 never executed
+    $$$$$:  336-block  6
+    $$$$$:  336-block  7
+call   107 never executed
+    $$$$$:  336-block  8
+    $$$$$:  336-block  9
+call   108 never executed
+    $$$$$:  336-block 10
+    $$$$$:  336-block 11
+call   109 never executed
+    $$$$$:  336-block 12
+    $$$$$:  336-block 13
+call   110 never executed
+    $$$$$:  336-block 14
+    $$$$$:  336-block 15
+call   111 never executed
+    $$$$$:  336-block 16
+    $$$$$:  336-block 17
+call   112 never executed
+    $$$$$:  336-block 18
+    $$$$$:  336-block 19
+call   113 never executed
+    $$$$$:  336-block 20
+    $$$$$:  336-block 21
+call   114 never executed
+    $$$$$:  336-block 22
+    $$$$$:  336-block 23
+call   115 never executed
+    $$$$$:  336-block 24
+    $$$$$:  336-block 25
+call   116 never executed
+    $$$$$:  336-block 26
+    $$$$$:  336-block 27
+call   117 never executed
+    $$$$$:  336-block 28
+    $$$$$:  336-block 29
+call   118 never executed
+    $$$$$:  336-block 30
+    $$$$$:  336-block 31
+call   119 never executed
+    $$$$$:  336-block 32
+    $$$$$:  336-block 33
+call   120 never executed
+    $$$$$:  336-block 34
+    $$$$$:  336-block 35
+call   121 never executed
+    $$$$$:  336-block 36
+    $$$$$:  336-block 37
+call   122 never executed
+    $$$$$:  336-block 38
+    $$$$$:  336-block 39
+call   123 never executed
+    $$$$$:  336-block 40
+    $$$$$:  336-block 41
+call   124 never executed
+    $$$$$:  336-block 42
+    $$$$$:  336-block 43
+call   125 never executed
+    $$$$$:  336-block 44
+    $$$$$:  336-block 45
+call   126 never executed
+    $$$$$:  336-block 46
+    $$$$$:  336-block 47
+call   127 never executed
+    $$$$$:  336-block 48
+    $$$$$:  336-block 49
+call   128 never executed
+    $$$$$:  336-block 50
+    $$$$$:  336-block 51
+call   129 never executed
+    $$$$$:  336-block 52
+    $$$$$:  336-block 53
+call   130 never executed
+    $$$$$:  336-block 54
+    $$$$$:  336-block 55
+call   131 never executed
+    $$$$$:  336-block 56
+    $$$$$:  336-block 57
+call   132 never executed
+    $$$$$:  336-block 58
+    $$$$$:  336-block 59
+call   133 never executed
+    $$$$$:  336-block 60
+    $$$$$:  336-block 61
+call   134 never executed
+    $$$$$:  336-block 62
+    $$$$$:  336-block 63
+call   135 never executed
+    $$$$$:  336-block 64
+    $$$$$:  336-block 65
+call   136 never executed
+    $$$$$:  336-block 66
+    $$$$$:  336-block 67
+call   137 never executed
+    $$$$$:  336-block 68
+    $$$$$:  336-block 69
+call   138 never executed
+        -:  337:}
+        -:  338:
+        -:  339:// Bool() allows generating tests with parameters in a set of (false, true).
+        -:  340://
+        -:  341:// Synopsis:
+        -:  342:// Bool()
+        -:  343://   - returns a generator producing sequences with elements {false, true}.
+        -:  344://
+        -:  345:// It is useful when testing code that depends on Boolean flags. Combinations
+        -:  346:// of multiple flags can be tested when several Bool()'s are combined using
+        -:  347:// Combine() function.
+        -:  348://
+        -:  349:// In the following example all tests in the test suite FlagDependentTest
+        -:  350:// will be instantiated twice with parameters false and true.
+        -:  351://
+        -:  352:// class FlagDependentTest : public testing::TestWithParam<bool> {
+        -:  353://   virtual void SetUp() {
+        -:  354://     external_flag = GetParam();
+        -:  355://   }
+        -:  356:// }
+        -:  357:// INSTANTIATE_TEST_SUITE_P(BoolSequence, FlagDependentTest, Bool());
+        -:  358://
+        -:  359:inline internal::ParamGenerator<bool> Bool() { return Values(false, true); }
+        -:  360:
+        -:  361:// Combine() allows the user to combine two or more sequences to produce
+        -:  362:// values of a Cartesian product of those sequences' elements.
+        -:  363://
+        -:  364:// Synopsis:
+        -:  365:// Combine(gen1, gen2, ..., genN)
+        -:  366://   - returns a generator producing sequences with elements coming from
+        -:  367://     the Cartesian product of elements from the sequences generated by
+        -:  368://     gen1, gen2, ..., genN. The sequence elements will have a type of
+        -:  369://     std::tuple<T1, T2, ..., TN> where T1, T2, ..., TN are the types
+        -:  370://     of elements from sequences produces by gen1, gen2, ..., genN.
+        -:  371://
+        -:  372:// Example:
+        -:  373://
+        -:  374:// This will instantiate tests in test suite AnimalTest each one with
+        -:  375:// the parameter values tuple("cat", BLACK), tuple("cat", WHITE),
+        -:  376:// tuple("dog", BLACK), and tuple("dog", WHITE):
+        -:  377://
+        -:  378:// enum Color { BLACK, GRAY, WHITE };
+        -:  379:// class AnimalTest
+        -:  380://     : public testing::TestWithParam<std::tuple<const char*, Color> > {...};
+        -:  381://
+        -:  382:// TEST_P(AnimalTest, AnimalLooksNice) {...}
+        -:  383://
+        -:  384:// INSTANTIATE_TEST_SUITE_P(AnimalVariations, AnimalTest,
+        -:  385://                          Combine(Values("cat", "dog"),
+        -:  386://                                  Values(BLACK, WHITE)));
+        -:  387://
+        -:  388:// This will instantiate tests in FlagDependentTest with all variations of two
+        -:  389:// Boolean flags:
+        -:  390://
+        -:  391:// class FlagDependentTest
+        -:  392://     : public testing::TestWithParam<std::tuple<bool, bool> > {
+        -:  393://   virtual void SetUp() {
+        -:  394://     // Assigns external_flag_1 and external_flag_2 values from the tuple.
+        -:  395://     std::tie(external_flag_1, external_flag_2) = GetParam();
+        -:  396://   }
+        -:  397:// };
+        -:  398://
+        -:  399:// TEST_P(FlagDependentTest, TestFeature1) {
+        -:  400://   // Test your code using external_flag_1 and external_flag_2 here.
+        -:  401:// }
+        -:  402:// INSTANTIATE_TEST_SUITE_P(TwoBoolSequence, FlagDependentTest,
+        -:  403://                          Combine(Bool(), Bool()));
+        -:  404://
+        -:  405:template <typename... Generator>
+        -:  406:internal::CartesianProductHolder<Generator...> Combine(const Generator&... g) {
+        -:  407:  return internal::CartesianProductHolder<Generator...>(g...);
+        -:  408:}
+        -:  409:
+        -:  410:// ConvertGenerator() wraps a parameter generator in order to cast each produced
+        -:  411:// value through a known type before supplying it to the test suite
+        -:  412://
+        -:  413:// Synopsis:
+        -:  414:// ConvertGenerator<T>(gen)
+        -:  415://   - returns a generator producing the same elements as generated by gen, but
+        -:  416://     each element is static_cast to type T before being returned
+        -:  417://
+        -:  418:// It is useful when using the Combine() function to get the generated
+        -:  419:// parameters in a custom type instead of std::tuple
+        -:  420://
+        -:  421:// Example:
+        -:  422://
+        -:  423:// This will instantiate tests in test suite AnimalTest each one with
+        -:  424:// the parameter values tuple("cat", BLACK), tuple("cat", WHITE),
+        -:  425:// tuple("dog", BLACK), and tuple("dog", WHITE):
+        -:  426://
+        -:  427:// enum Color { BLACK, GRAY, WHITE };
+        -:  428:// struct ParamType {
+        -:  429://   using TupleT = std::tuple<const char*, Color>;
+        -:  430://   std::string animal;
+        -:  431://   Color color;
+        -:  432://   ParamType(TupleT t) : animal(std::get<0>(t)), color(std::get<1>(t)) {}
+        -:  433:// };
+        -:  434:// class AnimalTest
+        -:  435://     : public testing::TestWithParam<ParamType> {...};
+        -:  436://
+        -:  437:// TEST_P(AnimalTest, AnimalLooksNice) {...}
+        -:  438://
+        -:  439:// INSTANTIATE_TEST_SUITE_P(AnimalVariations, AnimalTest,
+        -:  440://                          ConvertGenerator<ParamType::TupleT>(
+        -:  441://                              Combine(Values("cat", "dog"),
+        -:  442://                                      Values(BLACK, WHITE))));
+        -:  443://
+        -:  444:template <typename T>
+        -:  445:internal::ParamConverterGenerator<T> ConvertGenerator(
+        -:  446:    internal::ParamGenerator<T> gen) {
+        -:  447:  return internal::ParamConverterGenerator<T>(gen);
+        -:  448:}
+        -:  449:
+        -:  450:#define TEST_P(test_suite_name, test_name)                                     \
+        -:  451:  class GTEST_TEST_CLASS_NAME_(test_suite_name, test_name)                     \
+        -:  452:      : public test_suite_name,                                                \
+        -:  453:        private ::testing::internal::GTestNonCopyable {                        \
+        -:  454:   public:                                                                     \
+        -:  455:    GTEST_TEST_CLASS_NAME_(test_suite_name, test_name)() {}                    \
+        -:  456:    void TestBody() override;                                                  \
+        -:  457:                                                                               \
+        -:  458:   private:                                                                    \
+        -:  459:    static int AddToRegistry() {                                               \
+        -:  460:      ::testing::UnitTest::GetInstance()                                       \
+        -:  461:          ->parameterized_test_registry()                                      \
+        -:  462:          .GetTestSuitePatternHolder<test_suite_name>(                         \
+        -:  463:              GTEST_STRINGIFY_(test_suite_name),                               \
+        -:  464:              ::testing::internal::CodeLocation(__FILE__, __LINE__))           \
+        -:  465:          ->AddTestPattern(                                                    \
+        -:  466:              GTEST_STRINGIFY_(test_suite_name), GTEST_STRINGIFY_(test_name),  \
+        -:  467:              new ::testing::internal::TestMetaFactory<GTEST_TEST_CLASS_NAME_( \
+        -:  468:                  test_suite_name, test_name)>(),                              \
+        -:  469:              ::testing::internal::CodeLocation(__FILE__, __LINE__));          \
+        -:  470:      return 0;                                                                \
+        -:  471:    }                                                                          \
+        -:  472:    static int gtest_registering_dummy_ GTEST_ATTRIBUTE_UNUSED_;               \
+        -:  473:  };                                                                           \
+        -:  474:  int GTEST_TEST_CLASS_NAME_(test_suite_name,                                  \
+        -:  475:                             test_name)::gtest_registering_dummy_ =            \
+        -:  476:      GTEST_TEST_CLASS_NAME_(test_suite_name, test_name)::AddToRegistry();     \
+        -:  477:  void GTEST_TEST_CLASS_NAME_(test_suite_name, test_name)::TestBody()
+        -:  478:
+        -:  479:// The last argument to INSTANTIATE_TEST_SUITE_P allows the user to specify
+        -:  480:// generator and an optional function or functor that generates custom test name
+        -:  481:// suffixes based on the test parameters. Such a function or functor should
+        -:  482:// accept one argument of type testing::TestParamInfo<class ParamType>, and
+        -:  483:// return std::string.
+        -:  484://
+        -:  485:// testing::PrintToStringParamName is a builtin test suffix generator that
+        -:  486:// returns the value of testing::PrintToString(GetParam()).
+        -:  487://
+        -:  488:// Note: test names must be non-empty, unique, and may only contain ASCII
+        -:  489:// alphanumeric characters or underscore. Because PrintToString adds quotes
+        -:  490:// to std::string and C strings, it won't work for these types.
+        -:  491:
+        -:  492:#define GTEST_EXPAND_(arg) arg
+        -:  493:#define GTEST_GET_FIRST_(first, ...) first
+        -:  494:#define GTEST_GET_SECOND_(first, second, ...) second
+        -:  495:
+        -:  496:#define INSTANTIATE_TEST_SUITE_P(prefix, test_suite_name, ...)               \
+        -:  497:  static ::testing::internal::ParamGenerator<test_suite_name::ParamType>     \
+        -:  498:      gtest_##prefix##test_suite_name##_EvalGenerator_() {                   \
+        -:  499:    return GTEST_EXPAND_(GTEST_GET_FIRST_(__VA_ARGS__, DUMMY_PARAM_));       \
+        -:  500:  }                                                                          \
+        -:  501:  static ::std::string gtest_##prefix##test_suite_name##_EvalGenerateName_(  \
+        -:  502:      const ::testing::TestParamInfo<test_suite_name::ParamType>& info) {    \
+        -:  503:    if (::testing::internal::AlwaysFalse()) {                                \
+        -:  504:      ::testing::internal::TestNotEmpty(GTEST_EXPAND_(GTEST_GET_SECOND_(     \
+        -:  505:          __VA_ARGS__,                                                       \
+        -:  506:          ::testing::internal::DefaultParamName<test_suite_name::ParamType>, \
+        -:  507:          DUMMY_PARAM_)));                                                   \
+        -:  508:      auto t = std::make_tuple(__VA_ARGS__);                                 \
+        -:  509:      static_assert(std::tuple_size<decltype(t)>::value <= 2,                \
+        -:  510:                    "Too Many Args!");                                       \
+        -:  511:    }                                                                        \
+        -:  512:    return ((GTEST_EXPAND_(GTEST_GET_SECOND_(                                \
+        -:  513:        __VA_ARGS__,                                                         \
+        -:  514:        ::testing::internal::DefaultParamName<test_suite_name::ParamType>,   \
+        -:  515:        DUMMY_PARAM_))))(info);                                              \
+        -:  516:  }                                                                          \
+        -:  517:  static int gtest_##prefix##test_suite_name##_dummy_                        \
+        -:  518:      GTEST_ATTRIBUTE_UNUSED_ =                                              \
+        -:  519:          ::testing::UnitTest::GetInstance()                                 \
+        -:  520:              ->parameterized_test_registry()                                \
+        -:  521:              .GetTestSuitePatternHolder<test_suite_name>(                   \
+        -:  522:                  GTEST_STRINGIFY_(test_suite_name),                         \
+        -:  523:                  ::testing::internal::CodeLocation(__FILE__, __LINE__))     \
+        -:  524:              ->AddTestSuiteInstantiation(                                   \
+        -:  525:                  GTEST_STRINGIFY_(prefix),                                  \
+        -:  526:                  &gtest_##prefix##test_suite_name##_EvalGenerator_,         \
+        -:  527:                  &gtest_##prefix##test_suite_name##_EvalGenerateName_,      \
+        -:  528:                  __FILE__, __LINE__)
+        -:  529:
+        -:  530:// Allow Marking a Parameterized test class as not needing to be instantiated.
+        -:  531:#define GTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(T)                  \
+        -:  532:  namespace gtest_do_not_use_outside_namespace_scope {}                   \
+        -:  533:  static const ::testing::internal::MarkAsIgnored gtest_allow_ignore_##T( \
+        -:  534:      GTEST_STRINGIFY_(T))
+        -:  535:
+        -:  536:// Legacy API is deprecated but still available
+        -:  537:#ifndef GTEST_REMOVE_LEGACY_TEST_CASEAPI_
+        -:  538:#define INSTANTIATE_TEST_CASE_P                                            \
+        -:  539:  static_assert(::testing::internal::InstantiateTestCase_P_IsDeprecated(), \
+        -:  540:                "");                                                       \
+        -:  541:  INSTANTIATE_TEST_SUITE_P
+        -:  542:#endif  // GTEST_REMOVE_LEGACY_TEST_CASEAPI_
+        -:  543:
+        -:  544:}  // namespace testing
+        -:  545:
+        -:  546:#endif  // GOOGLETEST_INCLUDE_GTEST_GTEST_PARAM_TEST_H_

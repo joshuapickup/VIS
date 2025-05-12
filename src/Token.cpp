@@ -37,8 +37,8 @@ std::string tokenTypeToStr(TokenType type) {
 
 Token::Token(const TokenType type_, const std::map<std::string, std::string>& pos, ValueLiteral  value_):
     type(type_),
-    position(pos),
-    value(std::move(value_)) {}
+    value(std::move(value_)),
+    position(pos) {}
 
 TokenType Token::getType() const {return type;}
 
@@ -57,10 +57,9 @@ bool Token::matches(const TokenType type_, const std::string &value_) const {
 
 Token Token::clone() const {return Token(type, position, value);}
 
-
 std::ostream& operator<<(std::ostream& os,  const Token& token) {
     os << "Token(Type: " << tokenTypeToStr(token.getType()) << ", ";
-    os << "Position: {line: " << token.getPos()["line"] << " | Pos:" << token.getPos()["charPos"] << "}, ";
+    os << "Position: {line: " << token.getPos()["line"] << " | Pos: " << token.getPos()["charPos"] << "}, ";
     os << "Value: ";
 
     if (std::holds_alternative<std::monostate>(token.getValue())) {
@@ -84,3 +83,6 @@ std::ostream& operator<<(std::ostream& os,  const Token& token) {
     os << ")";
     return os;
 }
+
+
+

@@ -46,7 +46,7 @@ class Context {
     - symbolTable : SymbolTable
 }
 
-Interpreter *-- Context : owns one
-Context *-- SymbolTable : owns one
+Interpreter *- Context : owns one
+Context *- SymbolTable : owns one
 
 @enduml

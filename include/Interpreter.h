@@ -23,9 +23,9 @@ private:
 class Interpreter {
 public:
     explicit Interpreter(const std::string &filename, bool verboseFlag);
-private:
     static void interpretFile(const std::string &filename, bool verboseFlag);
     static std::unique_ptr<Literal> visit(const std::unique_ptr<Node> &node, Context* context);
+private:
     static std::unique_ptr<Literal> visitNumberNode(const Number* node, Context* context);
     static std::unique_ptr<Literal> visitStringNode(const StringNode* node, Context* context);
     static std::unique_ptr<Literal> visitBinaryOpNode(const BinaryOperator* node, Context* context);

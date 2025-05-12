@@ -1,27 +1,17 @@
-func fizz(){
-	out("fizz")
-}
-func buzz(){
-	out("buzz")
-}
-func fizzBuzz(){
-	out("fizzBuzz")
-}
-
 
 func main(x){
 	while(x > 0){
 		if(x%3 == 0){
 			if(x%5 == 0){
-				fizzBuzz()
+				out("fizzBuzz")
 			}
 			else{
-				fizz()
+				out("fizz")
 			}
 		}
 		else{
 			if(x%5 == 0){
-				buzz()
+				out("buzz")
 			}
 			else{
 				out(x)
@@ -32,3 +22,4 @@ func main(x){
 }
 
 main(20)
+

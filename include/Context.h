@@ -14,14 +14,15 @@ class Literal; // decleration to allow use of context without circular loop
 
 class SymbolTable {
 public:
-    SymbolTable();
+    SymbolTable(SymbolTable* parentTable = nullptr);
     [[nodiscard]] const std::unordered_map<std::string, std::unique_ptr<Literal>>& getTable() const;
     Literal* getLiteral(const std::string &name);
     void set(const std::string& name, std::unique_ptr<Literal> value);
     void remove(const std::string &name);
+    [[nodiscard]] std::unique_ptr<SymbolTable> clone() const;
     friend std::ostream& operator<<(std::ostream& os, const SymbolTable& table);
 private:
-    SymbolTable *parentSymbolTable;
+    SymbolTable* parentSymbolTable;
     std::unordered_map<std::string, std::unique_ptr<Literal>> table;
 };
 

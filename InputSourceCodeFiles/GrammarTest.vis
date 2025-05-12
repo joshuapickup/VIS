@@ -1,11 +1,10 @@
+
 5                           ~ Single positive integer
 7.45                        ~ Single decimal number
 -10                         ~ Single negative integer
 1 + 2                       ~ Simple addition
 2 * 3                       ~ Simple multiplication
 6 + 4 / 4                   ~ Addition with division
-~6 / 0                       ~ Division by zero
-                            ~ Empty line
 10 / (2 + 3)                ~ Division with parentheses
 (3 + 4) * 2                 ~ Parentheses with multiplication
 10 - 5 * 2                  ~ Subtraction and multiplication
@@ -59,5 +58,11 @@ while (x < 50) {            ~ WHILE loop
     var x = x + 1
 }
 for (var y = 1, y < 10, var y++) {  ~FOR loop
-        y
-    }
+    y
+}
+func testFunc(x, y){        ~ Func Definition
+    return x + y
+}
+testFunc((9+10), 4 - 8)     ~ Func Call
+out("Hello World")          ~ Library call
+

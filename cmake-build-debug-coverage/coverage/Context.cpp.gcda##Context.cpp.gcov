@@ -1,0 +1,300 @@
+        -:    0:Source:D:/Project Workspace/Year3/VIS/src/Context.cpp
+        -:    0:Graph:D:\Project Workspace\Year3\VIS\cmake-build-debug-coverage\tests\CMakeFiles\vis_tests.dir\__\src\Context.cpp.gcno
+        -:    0:Data:D:\Project Workspace\Year3\VIS\cmake-build-debug-coverage\tests\CMakeFiles\vis_tests.dir\__\src\Context.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by joshu on 06/03/2025.
+        -:    3://
+        -:    4:
+        -:    5:#include "Context.h"
+        -:    6:
+        -:    7:#include <ostream>
+        -:    8:#include <utility>
+        -:    9:#include "Error.h"
+        -:   10:#include "Literal.h"
+        -:   11:
+        -:   12:
+        -:   13://SYMBOL TABLE DEFINITION
+function _ZN11SymbolTableC2EPS_ called 34 returned 100% blocks executed 100%
+       34:   14:SymbolTable::SymbolTable(SymbolTable* parentTable) : parentSymbolTable(parentTable), table() {}
+       34:   14-block  0
+call    0 returned 34
+        -:   15:
+function _ZNK11SymbolTable8getTableB5cxx11Ev called 0 returned 0% blocks executed 0%
+    #####:   16:const std::unordered_map<std::string, std::unique_ptr<Literal>>& SymbolTable::getTable() const {return table;}
+    %%%%%:   16-block  0
+        -:   17:
+function _ZN11SymbolTable10getLiteralERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 28 returned 100% blocks executed 33%
+       28:   18:Literal* SymbolTable::getLiteral(const std::string &name) {
+       28:   19:    if (const auto it = table.find(name); it != table.end()) {
+       28:   19-block  0
+call    0 returned 28
+branch  1 taken 28 (fallthrough)
+branch  2 taken 0 (throw)
+       28:   19-block  1
+call    3 returned 28
+call    4 returned 28
+branch  5 taken 28 (fallthrough)
+branch  6 taken 0
+       28:   20:        return it->second.get();
+       28:   20-block  0
+call    0 returned 28
+call    1 returned 28
+        -:   21:    }
+    #####:   22:    if (parentSymbolTable) {
+    %%%%%:   22-block  0
+branch  0 never executed
+branch  1 never executed
+    #####:   23:        return parentSymbolTable->getLiteral(name);
+    %%%%%:   23-block  0
+call    0 never executed
+        -:   24:    }
+    #####:   25:    throw VisRunTimeError("symbol '" + name + "' was not found in lookup tables");
+    %%%%%:   25-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:   25-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:   25-block  2
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:   25-block  3
+call   10 never executed
+call   11 never executed
+call   12 never executed
+    $$$$$:   25-block  4
+call   13 never executed
+    $$$$$:   25-block  5
+call   14 never executed
+    $$$$$:   25-block  6
+    $$$$$:   25-block  7
+    $$$$$:   25-block  8
+call   15 never executed
+        -:   26:}
+        -:   27:
+function _ZN11SymbolTable3setERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt10unique_ptrI7LiteralSt14default_deleteIS9_EE called 61 returned 100% blocks executed 100%
+       61:   28:void SymbolTable::set(const std::string& name, std::unique_ptr<Literal> value) {
+       61:   29:    table[name] = std::move(value);
+       61:   29-block  0
+call    0 returned 61
+call    1 returned 61
+call    2 returned 61
+       61:   30:}
+        -:   31:
+function _ZN11SymbolTable6removeERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 0 returned 0% blocks executed 0%
+    #####:   32:void SymbolTable::remove(const std::string& name) {table.erase(name);}
+    %%%%%:   32-block  0
+call    0 never executed
+        -:   33:
+function _ZNK11SymbolTable5cloneEv called 2 returned 100% blocks executed 80%
+        2:   34:std::unique_ptr<SymbolTable> SymbolTable::clone() const {
+        2:   35:    auto newTable = std::make_unique<SymbolTable>(parentSymbolTable);
+        2:   35-block  0
+call    0 returned 2
+        5:   36:    for (const auto& [name, literalPtr] : table) {
+call    0 returned 2
+call    1 returned 2
+        3:   36-block  0
+call    2 returned 3
+call    3 returned 3
+call    4 returned 3
+        3:   36-block  1
+call    5 returned 3
+        5:   36-block  2
+call    6 returned 5
+branch  7 taken 3
+branch  8 taken 2 (fallthrough)
+        3:   37:        if (literalPtr) {
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0
+        3:   38:            newTable->set(name, literalPtr->clone());
+        3:   38-block  0
+call    0 returned 3
+call    1 returned 3
+call    2 returned 3
+branch  3 taken 3 (fallthrough)
+branch  4 taken 0 (throw)
+        3:   38-block  1
+call    5 returned 3
+branch  6 taken 3 (fallthrough)
+branch  7 taken 0 (throw)
+        3:   38-block  2
+call    8 returned 3
+    $$$$$:   38-block  3
+call    9 never executed
+    $$$$$:   38-block  4
+        -:   39:        }
+        -:   40:    }
+        2:   41:    return newTable;
+        2:   41-block  0
+        2:   41-block  1
+    =====:   42:}
+    $$$$$:   42-block  0
+call    0 never executed
+        -:   43:
+function _ZlsRSoRK11SymbolTable called 1 returned 100% blocks executed 21%
+        1:   44:std::ostream& operator<<(std::ostream& os, const SymbolTable& table) {
+       1*:   45:    for (const auto& [name, literal] : table.table) {
+        1:   45-block  0
+call    0 returned 1
+call    1 returned 1
+    %%%%%:   45-block  1
+call    2 never executed
+call    3 never executed
+call    4 never executed
+    %%%%%:   45-block  2
+call    5 never executed
+        1:   45-block  3
+call    6 returned 1
+branch  7 taken 0
+branch  8 taken 1 (fallthrough)
+    #####:   46:        os << name << std::endl;
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   46-block  0
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    #####:   47:        if (literal) os << *literal << std::endl << std::string(100, '-') << std::endl;
+    %%%%%:   47-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+    %%%%%:   47-block  1
+call    3 never executed
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:   47-block  2
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:   47-block  3
+    %%%%%:   47-block  4
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    %%%%%:   47-block  5
+call   13 never executed
+branch 14 never executed (fallthrough)
+branch 15 never executed (throw)
+    %%%%%:   47-block  6
+call   16 never executed
+branch 17 never executed (fallthrough)
+branch 18 never executed (throw)
+    %%%%%:   47-block  7
+call   19 never executed
+    $$$$$:   47-block  8
+call   20 never executed
+    $$$$$:   47-block  9
+    $$$$$:   47-block 10
+    #####:   48:        else os << "REFERENCE WAS NULL";
+    %%%%%:   48-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:   49:        os << "\n";
+    %%%%%:   49-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+        -:   50:    }
+        1:   51:    return os;
+        1:   51-block  0
+        1:   51-block  1
+        -:   52:}
+        -:   53:
+        -:   54:
+        -:   55:
+        -:   56://CONTEXT DEFINITION
+function _ZN7ContextC2ENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPS_St3mapIS5_S5_St4lessIS5_ESaISt4pairIKS5_S5_EEE called 16 returned 100% blocks executed 100%
+       16:   57:Context::Context(std::string displayName, Context* parentContext, std::map<std::string, std::string> entryPos) :
+       16:   58:diplayName(std::move(displayName)),
+       16:   58-block  0
+call    0 returned 16
+call    1 returned 16
+       16:   59:parentContext(parentContext),
+       16:   60:entryPoint(std::move(entryPos)),
+call    0 returned 16
+call    1 returned 16
+       16:   61:symbolTable(SymbolTable()) {
+call    0 returned 16
+        -:   62:
+       16:   63:}
+        -:   64:
+function _ZN7Context14getSymbolTableEv called 48 returned 100% blocks executed 100%
+       48:   65:SymbolTable& Context::getSymbolTable() {return symbolTable;}
+       48:   65-block  0
+        -:   66:
+function _ZN7Context14setSymbolTableEO11SymbolTable called 16 returned 100% blocks executed 100%
+       16:   67:void Context::setSymbolTable(SymbolTable&& symbolTable) {this->symbolTable = std::move(symbolTable);}
+       16:   67-block  0
+call    0 returned 16
+call    1 returned 16
+        -:   68:
+function _ZN7Context16setParentContextEPS_ called 1 returned 100% blocks executed 100%
+        1:   69:void Context::setParentContext(Context *context) {this->parentContext = context;}
+        -:   70:
+function _ZN7Context14getDisplayNameB5cxx11Ev called 0 returned 0% blocks executed 0%
+    #####:   71:std::string Context::getDisplayName() {return diplayName;}
+    %%%%%:   71-block  0
+call    0 never executed
+        -:   72:
+function _ZN7Context13getEntryPointB5cxx11Ev called 0 returned 0% blocks executed 0%
+    #####:   73:std::map<std::string, std::string> Context::getEntryPoint() {return entryPoint;}
+    %%%%%:   73-block  0
+call    0 never executed
+        -:   74:
+function _ZN7Context13setEntryPointERKSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES6_St4lessIS6_ESaISt4pairIKS6_S6_EEE called 107 returned 100% blocks executed 100%
+      107:   75:void Context::setEntryPoint(const std::map<std::string, std::string> &pos) { entryPoint = pos;}
+      107:   75-block  0
+call    0 returned 107
+        -:   76:
+function _ZNK7Context5cloneEv called 2 returned 100% blocks executed 86%
+        2:   77:std::unique_ptr<Context> Context::clone() const {
+        2:   78:    auto newContext = std::make_unique<Context>(diplayName, parentContext, entryPoint);
+        2:   78-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   79:
+        2:   80:    std::unique_ptr<SymbolTable> newTable = symbolTable.clone();
+        2:   80-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:   81:    newContext->setSymbolTable(newTable.get());
+        2:   81-block  0
+call    0 returned 2
+call    1 returned 2
+call    2 returned 2
+call    3 returned 2
+call    4 returned 2
+        4:   82:    return newContext;
+        2:   82-block  0
+        2:   83:}
+        2:   83-block  0
+call    0 returned 2
+    $$$$$:   83-block  1
+call    1 never executed
+        -:   84:
+function _ZlsRSoRK7Context called 1 returned 100% blocks executed 100%
+        1:   85:std::ostream& operator<<(std::ostream& os, const Context& context) {
+        1:   86:    os << "Context <" << context.diplayName << ">" << std::endl
+        1:   86-block  0
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+call    3 returned 1
+        1:   87:    << context.symbolTable;
+call    0 returned 1
+        1:   88:    return os;
+        -:   89:}
+        -:   90:

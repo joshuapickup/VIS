@@ -1,4 +1,5 @@
 "D:\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/JetBrains/CLion 2024.1.4/bin/ninja/win/x64/ninja.exe" "-DCMAKE_EXE_LINKER_FLAGS=-static -static-libgcc -static-libstdc++" -G Ninja -S "D:\Project Workspace\Year3\VIS" -B "D:\Project Workspace\Year3\VIS\cmake-build-debug"
--- Configuring done (0.2s)
--- Generating done (0.0s)
+-- Adding coverage flags for vis_tests
+-- Configuring done (0.8s)
+-- Generating done (0.1s)
 -- Build files have been written to: D:/Project Workspace/Year3/VIS/cmake-build-debug

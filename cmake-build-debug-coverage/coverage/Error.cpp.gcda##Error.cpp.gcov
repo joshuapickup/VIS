@@ -1,0 +1,141 @@
+        -:    0:Source:D:/Project Workspace/Year3/VIS/src/Error.cpp
+        -:    0:Graph:D:\Project Workspace\Year3\VIS\cmake-build-debug-coverage\tests\CMakeFiles\vis_tests.dir\__\src\Error.cpp.gcno
+        -:    0:Data:D:\Project Workspace\Year3\VIS\cmake-build-debug-coverage\tests\CMakeFiles\vis_tests.dir\__\src\Error.cpp.gcda
+        -:    0:Runs:1
+        -:    1:#include "error.h"
+        -:    2:
+        -:    3:// Definition of the Error constructor
+function _ZN5ErrorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 137 returned 100% blocks executed 100%
+      137:    4:Error::Error(const std::string& message): std::runtime_error(message) {
+      137:    4-block  0
+call    0 returned 137
+      137:    5:}
+        -:    6:
+        -:    7:// Definition of the getMessage method
+function _ZNK5Error10getMessageB5cxx11Ev called 0 returned 0% blocks executed 0%
+    #####:    8:std::string Error::getMessage() const {
+    %%%%%:    8-block  0
+    #####:    9:    return what();
+    %%%%%:    9-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:    9-block  1
+        -:   10:}
+        -:   11:
+        -:   12:
+function _ZN16IllegalCharErrorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 68 returned 100% blocks executed 71%
+       68:   13:IllegalCharError::IllegalCharError(const std::string& message): Error("Illegal Character Error: " + message) {
+       68:   13-block  0
+call    0 returned 68
+branch  1 taken 68 (fallthrough)
+branch  2 taken 0 (throw)
+       68:   13-block  1
+call    3 returned 68
+branch  4 taken 68 (fallthrough)
+branch  5 taken 0 (throw)
+       68:   13-block  2
+call    6 returned 68
+    $$$$$:   13-block  3
+call    7 never executed
+       68:   14:}
+        -:   15:
+function _ZN10LexerErrorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 0 returned 0% blocks executed 0%
+    #####:   16:LexerError::LexerError(const std::string& message): Error("Lexer Error: " + message) {
+    %%%%%:   16-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   16-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   16-block  2
+call    6 never executed
+    $$$$$:   16-block  3
+call    7 never executed
+    #####:   17:}
+        -:   18:
+function _ZN18InvalidSyntaxErrorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 35 returned 100% blocks executed 71%
+       35:   19:InvalidSyntaxError::InvalidSyntaxError(const std::string& message): Error("Syntax Error: " + message) {
+       35:   19-block  0
+call    0 returned 35
+branch  1 taken 35 (fallthrough)
+branch  2 taken 0 (throw)
+       35:   19-block  1
+call    3 returned 35
+branch  4 taken 35 (fallthrough)
+branch  5 taken 0 (throw)
+       35:   19-block  2
+call    6 returned 35
+    $$$$$:   19-block  3
+call    7 never executed
+       35:   20:}
+        -:   21:
+function _ZN17ExpectedCharErrorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 34 returned 100% blocks executed 71%
+       34:   22:ExpectedCharError::ExpectedCharError(const std::string& message): Error("Expected Char Error: " + message) {
+       34:   22-block  0
+call    0 returned 34
+branch  1 taken 34 (fallthrough)
+branch  2 taken 0 (throw)
+       34:   22-block  1
+call    3 returned 34
+branch  4 taken 34 (fallthrough)
+branch  5 taken 0 (throw)
+       34:   22-block  2
+call    6 returned 34
+    $$$$$:   22-block  3
+call    7 never executed
+       34:   23:}
+        -:   24:
+function _ZN10ParseErrorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 0 returned 0% blocks executed 0%
+    #####:   25:ParseError::ParseError(const std::string& message): Error("Parse Error: " + message) {
+    %%%%%:   25-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   25-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   25-block  2
+call    6 never executed
+    $$$$$:   25-block  3
+call    7 never executed
+    #####:   26:}
+        -:   27:
+function _ZN14InterpretErrorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 0 returned 0% blocks executed 0%
+    #####:   28:InterpretError::InterpretError(const std::string& message): Error(
+    #####:   29:    "Interpreter Error (if you are seeing this logic has gone wrong): " + message
+    %%%%%:   29-block  0
+call    0 never executed
+    $$$$$:   29-block  1
+call    1 never executed
+    #####:   30:    ) {
+    %%%%%:   30-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   30-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    #####:   31:}
+        -:   32:
+function _ZN15VisRunTimeErrorC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 0 returned 0% blocks executed 0%
+    #####:   33:VisRunTimeError::VisRunTimeError(const std::string& message): Error("RunTime Error: " + message) {
+    %%%%%:   33-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   33-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   33-block  2
+call    6 never executed
+    $$$$$:   33-block  3
+call    7 never executed
+    #####:   34:}
+        -:   35:

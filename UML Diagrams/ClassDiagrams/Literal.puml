@@ -1,6 +1,8 @@
 @startuml Literal
 scale 2/3
 
+left to right direction
+
 abstract class Literal {
     + Literal()
     + setContext(Context*)
@@ -129,7 +131,7 @@ class FunctionLiteral  {
 Literal <|-- BoolLiteral
 Literal <|-- StringLiteral
 Literal <|-- FunctionLiteral
-Literal <|-- NumberLiteral
+Literal <|--- NumberLiteral
 NumberLiteral <|-- IntLiteral
 NumberLiteral <|-- FloatLiteral
 

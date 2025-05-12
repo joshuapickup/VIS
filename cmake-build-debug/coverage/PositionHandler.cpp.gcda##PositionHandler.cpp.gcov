@@ -1,0 +1,338 @@
+        -:    0:Source:D:/Project Workspace/Year3/VIS/src/PositionHandler.cpp
+        -:    0:Graph:D:\Project Workspace\Year3\VIS\cmake-build-debug\tests\CMakeFiles\vis_tests.dir\__\src\PositionHandler.cpp.gcno
+        -:    0:Data:D:\Project Workspace\Year3\VIS\cmake-build-debug\tests\CMakeFiles\vis_tests.dir\__\src\PositionHandler.cpp.gcda
+        -:    0:Runs:1
+        -:    1:#include <string>
+        -:    2:#include "PositionHandler.h"
+        -:    3:#include <fstream>
+        -:    4:#include <utility>
+        -:    5:
+        -:    6:const std::map<std::string, std::string> PositionHandler::nullPos = {
+        -:    7:    {"name", "null"},
+        -:    8:    {"line", "null"},
+        -:    9:    {"charPos", "null"},
+        -:   10:    {"lineText", "null"},
+        -:   11:    {"character", "null"}
+        -:   12:};
+        -:   13:
+function _ZN15PositionHandlerC2ENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERSi called 40 returned 100% blocks executed 100%
+       40:   14:PositionHandler::PositionHandler(std::string fileName, std::istream &file):
+       40:   15:file(file),
+       40:   16:charPos(-1),
+       40:   17:currentChar('\0'),
+       40:   18:line(-1),
+       40:   19:fileName(std::move(fileName)) {}
+       40:   19-block  0
+call    0 returned 40
+call    1 returned 40
+call    2 returned 40
+        -:   20:
+        -:   21:// advance to the next character
+function _ZN15PositionHandler16advanceCharacterEv called 114 returned 100% blocks executed 100%
+      114:   22:char PositionHandler::advanceCharacter() {
+      114:   23:    if (charPos < static_cast<int>(lineText.length()) - 1) {
+      114:   23-block  0
+call    0 returned 114
+branch  1 taken 77 (fallthrough)
+branch  2 taken 37
+       77:   24:        charPos++;
+       77:   25:        currentChar = lineText[charPos];
+       77:   25-block  0
+call    0 returned 77
+        -:   26:    }
+        -:   27:    else {
+       37:   28:        currentChar = '\0'; // set currentChar to '\0' when at the end of the line
+       37:   28-block  0
+        -:   29:    }
+      114:   30:    return currentChar;
+      114:   30-block  0
+        -:   31:}
+        -:   32:
+        -:   33:// advance to the next line returns false if line dosent exist
+function _ZN15PositionHandler11advanceLineEv called 77 returned 100% blocks executed 86%
+       77:   34:bool PositionHandler::advanceLine() {
+      77*:   35:    if (!file) return false; // Stream might already be in bad state
+       77:   35-block  0
+call    0 returned 77
+branch  1 taken 0 (fallthrough)
+branch  2 taken 77
+    %%%%%:   35-block  1
+        -:   36:
+       77:   37:    if (std::getline(file, lineText)) {
+       77:   37-block  0
+call    0 returned 77
+call    1 returned 77
+branch  2 taken 41 (fallthrough)
+branch  3 taken 36
+       41:   38:        line++;
+       41:   39:        charPos = 0;
+      41*:   40:        currentChar = lineText.empty() ? '\0' : lineText[charPos];
+       41:   40-block  0
+call    0 returned 41
+branch  1 taken 0 (fallthrough)
+branch  2 taken 41
+    %%%%%:   40-block  1
+       41:   40-block  2
+call    3 returned 41
+       41:   41:        return true;
+       41:   41-block  0
+        -:   42:    }
+        -:   43:
+       36:   44:    return false; // No file.close() — not needed for istream
+       36:   44-block  0
+        -:   45:}
+        -:   46:
+        -:   47:// returns next character without advancing
+function _ZNK15PositionHandler4peekEv called 74 returned 100% blocks executed 100%
+       74:   48:char PositionHandler::peek() const{
+       74:   49:    if (charPos < static_cast<int>(lineText.length()) - 1) {return lineText[charPos+1];}
+       74:   49-block  0
+call    0 returned 74
+branch  1 taken 52 (fallthrough)
+branch  2 taken 22
+       52:   49-block  1
+call    3 returned 52
+       22:   50:    else {return '\0';}
+       22:   50-block  0
+        -:   51:}
+        -:   52:
+        -:   53:// reset position
+function _ZN15PositionHandler8resetPosEv called 0 returned 0% blocks executed 0%
+    #####:   54:void PositionHandler::resetPos() {
+    #####:   55:    charPos = -1;
+    #####:   56:    line = -1;
+    #####:   57:    currentChar = '\0';
+    #####:   58:    lineText.clear();
+    %%%%%:   58-block  0
+call    0 never executed
+    #####:   59:}
+        -:   60:
+function _ZN15PositionHandler15getWordFromLineERKSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES6_St4lessIS6_ESaISt4pairIKS6_S6_EEE called 2 returned 100% blocks executed 71%
+        2:   61:std::string PositionHandler::getWordFromLine(const std::map<std::string, std::string>& pos) {
+        2:   61-block  0
+        4:   62:    const auto lineTextIt = pos.find("lineText");
+        2:   62-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:   62-block  1
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+        2:   62-block  2
+call    6 returned 2
+    $$$$$:   62-block  3
+call    7 never executed
+    $$$$$:   62-block  4
+    $$$$$:   62-block  5
+        2:   63:    const auto charPosIt = pos.find("charPos");
+        2:   63-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:   63-block  1
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+        2:   63-block  2
+call    6 returned 2
+    $$$$$:   63-block  3
+call    7 never executed
+    $$$$$:   63-block  4
+    $$$$$:   63-block  5
+       2*:   64:    if (lineTextIt == pos.end() || charPosIt == pos.end()) {return "";}
+call    0 returned 2
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0
+        2:   64-block  0
+call    4 returned 2
+call    5 returned 2
+branch  6 taken 0 (fallthrough)
+branch  7 taken 2
+    %%%%%:   64-block  1
+        2:   64-block  2
+        2:   64-block  3
+branch  8 taken 0 (fallthrough)
+branch  9 taken 2
+    %%%%%:   64-block  4
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    $$$$$:   64-block  5
+        2:   65:    const std::string& lineText = lineTextIt->second;
+        2:   65-block  0
+call    0 returned 2
+        2:   66:    const int position = std::stoi(charPosIt->second);
+call    0 returned 2
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0 (throw)
+        4:   67:    if (position < 0 || position >= static_cast<int>(lineText.length())) {return "";}
+        2:   67-block  0
+branch  0 taken 2 (fallthrough)
+branch  1 taken 0
+        2:   67-block  1
+call    2 returned 2
+branch  3 taken 1 (fallthrough)
+branch  4 taken 1
+        1:   67-block  2
+        1:   67-block  3
+        2:   67-block  4
+branch  5 taken 1 (fallthrough)
+branch  6 taken 1
+        1:   67-block  5
+call    7 returned 1
+branch  8 taken 1 (fallthrough)
+branch  9 taken 0 (throw)
+    $$$$$:   67-block  6
+function _ZZN15PositionHandler15getWordFromLineERKSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES6_St4lessIS6_ESaISt4pairIKS6_S6_EEEENKUlcE_clEc called 4 returned 100% blocks executed 86%
+        4:   68:    auto isWordChar = [](char c) {
+       4*:   69:        return std::isalnum(static_cast<unsigned char>(c)) || c == '_' || c == '.';
+        4:   69-block  0
+branch  0 taken 1 (fallthrough)
+branch  1 taken 3
+        1:   69-block  1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0
+        1:   69-block  2
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0
+        4:   69-block  3
+    %%%%%:   69-block  4
+        4:   69-block  5
+        -:   70:    };
+        1:   71:    int start = position;
+        4:   72:    while (start > 0 && isWordChar(lineText[start - 1])) {
+        1:   72-block  0
+        4:   72-block  1
+branch  0 taken 3 (fallthrough)
+branch  1 taken 1
+        3:   72-block  2
+call    2 returned 3
+call    3 returned 3
+branch  4 taken 3 (fallthrough)
+branch  5 taken 0
+        3:   72-block  3
+        1:   72-block  4
+        4:   72-block  5
+branch  6 taken 3
+branch  7 taken 1 (fallthrough)
+        3:   73:        --start;
+        3:   73-block  0
+        -:   74:    }
+        1:   75:    int end = position;
+        2:   76:    while (end < static_cast<int>(lineText.length()) - 1 && isWordChar(lineText[end + 1])) {
+        1:   76-block  0
+        2:   76-block  1
+call    0 returned 2
+branch  1 taken 1 (fallthrough)
+branch  2 taken 1
+        1:   76-block  2
+call    3 returned 1
+call    4 returned 1
+branch  5 taken 1 (fallthrough)
+branch  6 taken 0
+        1:   76-block  3
+        1:   76-block  4
+        2:   76-block  5
+branch  7 taken 1
+branch  8 taken 1 (fallthrough)
+        1:   77:        ++end;
+        1:   77-block  0
+        -:   78:    }
+        1:   79:    return lineText.substr(start, end - start + 1);
+        1:   79-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   80:}
+        -:   81:
+function _ZNK15PositionHandler7getCharEv called 41 returned 100% blocks executed 100%
+       41:   82:char PositionHandler::getChar() const {return currentChar;}
+       41:   82-block  0
+        -:   83:
+function _ZNK15PositionHandler13getLineNumberEv called 73 returned 100% blocks executed 100%
+       73:   84:int PositionHandler::getLineNumber() const {return line;}
+       73:   84-block  0
+        -:   85:
+        -:   86:// get current position details
+function _ZNK15PositionHandler6getPosB5cxx11Ev called 180 returned 100% blocks executed 49%
+      180:   87:std::map<std::string, std::string> PositionHandler::getPos() const {
+        -:   88:    return {
+      180:   89:            {"name", fileName},
+    #####:   90:            {"line", std::to_string(line)},
+    $$$$$:   90-block  0
+call    0 never executed
+    $$$$$:   90-block  1
+      180:   91:            {"charPos", std::to_string(charPos)},
+call    0 returned 180
+    $$$$$:   91-block  0
+call    1 never executed
+    $$$$$:   91-block  1
+      180:   92:            {"lineText", lineText},
+      540:   93:            {"character", std::string(1, currentChar)}
+      180:   93-block  0
+call    0 returned 180
+branch  1 taken 180 (fallthrough)
+branch  2 taken 0 (throw)
+      180:   93-block  1
+call    3 returned 180
+call    4 returned 180
+    $$$$$:   93-block  2
+call    5 never executed
+    $$$$$:   93-block  3
+    $$$$$:   93-block  4
+     1440:   94:    };
+      180:   94-block  0
+call    0 returned 180
+branch  1 taken 180 (fallthrough)
+branch  2 taken 0 (throw)
+     1080:   94-block  1
+branch  3 taken 900 (fallthrough)
+branch  4 taken 180
+      900:   94-block  2
+call    5 returned 900
+      180:   94-block  3
+    $$$$$:   94-block  4
+    $$$$$:   94-block  5
+    $$$$$:   94-block  6
+    $$$$$:   94-block  7
+branch  6 never executed (fallthrough)
+branch  7 never executed
+    $$$$$:   94-block  8
+call    8 never executed
+      360:   95:}
+      180:   95-block  0
+call    0 returned 180
+branch  1 taken 180 (fallthrough)
+branch  2 taken 0 (throw)
+      180:   95-block  1
+call    3 returned 180
+call    4 returned 180
+branch  5 taken 180 (fallthrough)
+branch  6 taken 0 (throw)
+      180:   95-block  2
+call    7 returned 180
+call    8 returned 180
+branch  9 taken 180 (fallthrough)
+branch 10 taken 0 (throw)
+      180:   95-block  3
+call   11 returned 180
+branch 12 taken 180 (fallthrough)
+branch 13 taken 0 (throw)
+      180:   95-block  4
+      180:   95-block  5
+call   14 returned 180
+branch 15 taken 180 (fallthrough)
+branch 16 taken 0 (throw)
+      180:   95-block  6
+    $$$$$:   95-block  7
+branch 17 never executed (fallthrough)
+branch 18 never executed
+    $$$$$:   95-block  8
+    $$$$$:   95-block  9
+branch 19 never executed (fallthrough)
+branch 20 never executed
+    $$$$$:   95-block 10
+call   21 never executed

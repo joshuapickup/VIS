@@ -1,10 +1,11 @@
 @startuml
 scale 2/3
 !include Interpreter.puml
-!include Literal.puml
 !include Parser.puml
 !include Lexer.puml
-!include Token.puml
+
+abstract class Literal
+
 
 SymbolTable::table *-- Literal : contains many
 Interpreter *-- Parser : creates one

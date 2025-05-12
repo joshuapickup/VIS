@@ -11,7 +11,7 @@
 
 
 //SYMBOL TABLE DEFINITION
-SymbolTable::SymbolTable() : parentSymbolTable(nullptr), table() {}
+SymbolTable::SymbolTable(SymbolTable* parentTable) : parentSymbolTable(parentTable), table() {}
 
 const std::unordered_map<std::string, std::unique_ptr<Literal>>& SymbolTable::getTable() const {return table;}
 
@@ -31,10 +31,20 @@ void SymbolTable::set(const std::string& name, std::unique_ptr<Literal> value) {
 
 void SymbolTable::remove(const std::string& name) {table.erase(name);}
 
+std::unique_ptr<SymbolTable> SymbolTable::clone() const {
+    auto newTable = std::make_unique<SymbolTable>(parentSymbolTable);
+    for (const auto& [name, literalPtr] : table) {
+        if (literalPtr) {
+            newTable->set(name, literalPtr->clone());
+        }
+    }
+    return newTable;
+}
+
 std::ostream& operator<<(std::ostream& os, const SymbolTable& table) {
     for (const auto& [name, literal] : table.table) {
         os << name << std::endl;
-        if (literal) os << *literal;
+        if (literal) os << *literal << std::endl << std::string(100, '-') << std::endl;
         else os << "REFERENCE WAS NULL";
         os << "\n";
     }
@@ -67,14 +77,8 @@ void Context::setEntryPoint(const std::map<std::string, std::string> &pos) { ent
 std::unique_ptr<Context> Context::clone() const {
     auto newContext = std::make_unique<Context>(diplayName, parentContext, entryPoint);
 
-    // Deep copy symbol table
-    SymbolTable newTable;
-    for (const auto& [name, literalPtr] : symbolTable.getTable()) {
-        if (literalPtr) {
-            newTable.set(name, literalPtr->clone());
-        }
-    }
-    newContext->setSymbolTable(std::move(newTable));
+    std::unique_ptr<SymbolTable> newTable = symbolTable.clone();
+    newContext->setSymbolTable(newTable.get());
     return newContext;
 }
 

@@ -1,0 +1,5 @@
+if(EXISTS "D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake")
+  include("D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage/tests/vis_tests[1]_tests.cmake")
+else()
+  add_test(vis_tests_NOT_BUILT vis_tests_NOT_BUILT)
+endif()

@@ -1,7 +1,5 @@
 #include "Lexer.h"
-
 #include <iostream>
-
 #include "Error.h"
 
 const std::unordered_set<std::string> Lexer::LIBWORDS = {"out"};
@@ -38,7 +36,6 @@ Token Lexer::makeOperatorToken(const char character) const {
                                             std::string(1, character) + "<<<");
     }
 }
-
 Token Lexer::makeNumberToken (char character) const{// loop through line until next char isnt digit
     const std::map<std::string, std::string> pos = positionHandler.getPos();
     bool dotFlag = false;
@@ -68,7 +65,6 @@ Token Lexer::makeNumberToken (char character) const{// loop through line until n
         return Token(TokenType::INT, pos, std::stoi(stringNum));
     }
 }
-
 Token Lexer::makeStringToken (char character) const{
     const std::map<std::string, std::string> pos = positionHandler.getPos();
     std::string valueString = "";
@@ -87,7 +83,6 @@ Token Lexer::makeStringToken (char character) const{
     }
     return Token(TokenType::STRING, pos, valueString);
 }
-
 Token Lexer::makeIdentifierToken(char character) const{
     const std::map<std::string, std::string> pos = positionHandler.getPos();
     std::string identifierString;
@@ -107,7 +102,6 @@ Token Lexer::makeIdentifierToken(char character) const{
         return Token(TokenType::IDENTIFIER, pos, identifierString);
     }
 }
-
 Token Lexer::makeEqualsToken(char character) const {
     const std::map<std::string, std::string> pos = positionHandler.getPos();
     const char peekChar = this->positionHandler.peek();
@@ -119,7 +113,6 @@ Token Lexer::makeEqualsToken(char character) const {
         return Token(TokenType::EQUALS, pos);
     }
 }
-
 Token Lexer::makeNotEqualsToken(char character) const {
     std::map<std::string, std::string> pos = positionHandler.getPos();
     if (const char peekChar = this->positionHandler.peek(); peekChar == '=') {
@@ -133,7 +126,6 @@ Token Lexer::makeNotEqualsToken(char character) const {
         "Expected >>> != <<< instead recieved >>> !" + std::string(1, peekChar) + " <<<");
     }
 }
-
 Token Lexer::makeLessThanToken(char character) const {
     const std::map<std::string, std::string> pos = positionHandler.getPos();
     const char peekChar = this->positionHandler.peek();
@@ -145,7 +137,6 @@ Token Lexer::makeLessThanToken(char character) const {
         return Token(TokenType::LESSTHAN, pos);
     }
 }
-
 Token Lexer::makeGreaterThanToken(char character) const {
     const std::map<std::string, std::string> pos = positionHandler.getPos();
     const char peekChar = this->positionHandler.peek();
@@ -161,13 +152,11 @@ Token Lexer::makeGreaterThanToken(char character) const {
 std::map<int, std::vector<Token>> Lexer::tokenise() const {
     std::map<int, std::vector<Token>> tokenDict = {};
     bool isLine = positionHandler.advanceLine();
-
     while (isLine) { // loop through lines
         std::vector<Token> lineTokens = {};
         std::map<std::string, std::string> pos = positionHandler.getPos();
         char currentChar = positionHandler.getChar();
         bool escapeFlag = false;
-
         while (currentChar != '\0' and not escapeFlag) { // loop through characters
             pos = positionHandler.getPos();
             switch(currentChar){
@@ -233,3 +222,5 @@ std::map<int, std::vector<Token>> Lexer::tokenise() const {
     tokenDict[positionHandler.getLineNumber()+1].emplace_back(TokenType::EOF_, PositionHandler::nullPos);
     return tokenDict;
 }
+
+

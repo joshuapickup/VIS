@@ -1,0 +1,2527 @@
+        -:    0:Source:D:/Project Workspace/Year3/VIS/src/Literal.cpp
+        -:    0:Graph:D:\Project Workspace\Year3\VIS\cmake-build-debug\tests\CMakeFiles\vis_tests.dir\__\src\Literal.cpp.gcno
+        -:    0:Data:D:\Project Workspace\Year3\VIS\cmake-build-debug\tests\CMakeFiles\vis_tests.dir\__\src\Literal.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by joshu on 05/03/2025.
+        -:    3://
+        -:    4:
+        -:    5:#include <iostream>
+        -:    6:#include <cmath>
+        -:    7:#include <utility>
+        -:    8:
+        -:    9:
+        -:   10:#include "Context.h"
+        -:   11:#include "Error.h"
+        -:   12:#include "Literal.h"
+        -:   13:#include "PositionHandler.h"
+        -:   14:
+        -:   15:
+        -:   16://LITERAL DEFINITION
+function _ZN7LiteralC2Ev called 154 returned 100% blocks executed 100%
+      154:   17:Literal::Literal() : position(PositionHandler::nullPos), context(nullptr){
+      154:   17-block  0
+call    0 returned 154
+        -:   18:
+      154:   19:}
+        -:   20:
+function _ZN7Literal10setContextEP7Context called 107 returned 100% blocks executed 100%
+      107:   21:void Literal::setContext(Context* context) {
+      107:   22:    this->context = context;
+      107:   23:    this->context->setEntryPoint(position);
+      107:   23-block  0
+call    0 returned 107
+      107:   24:}
+        -:   25:
+function _ZNK7Literal10getContextEv called 1 returned 100% blocks executed 100%
+        1:   26:Context* Literal::getContext() const {return context;}
+        1:   26-block  0
+        -:   27:
+function _ZN7Literal11setPositionERKSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES6_St4lessIS6_ESaISt4pairIKS6_S6_EEE called 134 returned 100% blocks executed 100%
+      134:   28:void Literal::setPosition(const std::map<std::string, std::string> &pos) {position = pos;}
+      134:   28-block  0
+call    0 returned 134
+        -:   29:
+function _ZNK7Literal11getPositionB5cxx11Ev called 1 returned 100% blocks executed 100%
+        1:   30:std::map<std::string, std::string> Literal::getPosition() const {return position;}
+        1:   30-block  0
+call    0 returned 1
+        -:   31:
+function _ZNK7Literal9compareLTERKS_ called 13 returned 100% blocks executed 62%
+       13:   32:std::unique_ptr<Literal> Literal::compareLT(const Literal& other) const {
+       13:   33:    return setLiteral(std::make_unique<BoolLiteral>(getNumberValue() < other.getNumberValue()));
+       13:   33-block  0
+call    0 returned 13
+branch  1 taken 13 (fallthrough)
+branch  2 taken 0 (throw)
+       13:   33-block  1
+call    3 returned 13
+branch  4 taken 13 (fallthrough)
+branch  5 taken 0 (throw)
+       13:   33-block  2
+call    6 returned 13
+branch  7 taken 13 (fallthrough)
+branch  8 taken 0 (throw)
+       13:   33-block  3
+call    9 returned 13
+call   10 returned 13
+branch 11 taken 13 (fallthrough)
+branch 12 taken 0 (throw)
+       13:   33-block  4
+call   13 returned 13
+call   14 returned 13
+       13:   33-block  5
+    $$$$$:   33-block  6
+call   15 never executed
+    $$$$$:   33-block  7
+call   16 never executed
+    $$$$$:   33-block  8
+    $$$$$:   33-block  9
+        -:   34:}
+        -:   35:
+function _ZNK7Literal10compareLTEERKS_ called 1 returned 100% blocks executed 62%
+        1:   36:std::unique_ptr<Literal> Literal::compareLTE(const Literal& other) const {
+        1:   37:    return setLiteral(std::make_unique<BoolLiteral>(getNumberValue() <= other.getNumberValue()));
+        1:   37-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   37-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   37-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:   37-block  3
+call    9 returned 1
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:   37-block  4
+call   13 returned 1
+call   14 returned 1
+        1:   37-block  5
+    $$$$$:   37-block  6
+call   15 never executed
+    $$$$$:   37-block  7
+call   16 never executed
+    $$$$$:   37-block  8
+    $$$$$:   37-block  9
+        -:   38:}
+        -:   39:
+function _ZNK7Literal9compareGTERKS_ called 1 returned 100% blocks executed 62%
+        1:   40:std::unique_ptr<Literal> Literal::compareGT(const Literal& other) const {
+        1:   41:    return setLiteral(std::make_unique<BoolLiteral>(getNumberValue() > other.getNumberValue()));
+        1:   41-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   41-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   41-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:   41-block  3
+call    9 returned 1
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:   41-block  4
+call   13 returned 1
+call   14 returned 1
+        1:   41-block  5
+    $$$$$:   41-block  6
+call   15 never executed
+    $$$$$:   41-block  7
+call   16 never executed
+    $$$$$:   41-block  8
+    $$$$$:   41-block  9
+        -:   42:}
+        -:   43:
+function _ZNK7Literal10compareGTEERKS_ called 1 returned 100% blocks executed 62%
+        1:   44:std::unique_ptr<Literal> Literal::compareGTE(const Literal& other) const {
+        1:   45:    return setLiteral(std::make_unique<BoolLiteral>(getNumberValue() >= other.getNumberValue()));
+        1:   45-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   45-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   45-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:   45-block  3
+call    9 returned 1
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:   45-block  4
+call   13 returned 1
+call   14 returned 1
+        1:   45-block  5
+    $$$$$:   45-block  6
+call   15 never executed
+    $$$$$:   45-block  7
+call   16 never executed
+    $$$$$:   45-block  8
+    $$$$$:   45-block  9
+        -:   46:}
+        -:   47:
+function _ZNK7Literal7andWithERKS_ called 2 returned 100% blocks executed 70%
+        2:   48:std::unique_ptr<Literal> Literal::andWith(const Literal& other) const {
+        2:   49:    return setLiteral(std::make_unique<BoolLiteral>(getBoolValue() and other.getBoolValue()));
+        2:   49-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:   49-block  1
+branch  3 taken 2 (fallthrough)
+branch  4 taken 0
+        2:   49-block  2
+call    5 returned 2
+branch  6 taken 2 (fallthrough)
+branch  7 taken 0 (throw)
+        2:   49-block  3
+branch  8 taken 1 (fallthrough)
+branch  9 taken 1
+        1:   49-block  4
+        1:   49-block  5
+        2:   49-block  6
+call   10 returned 2
+branch 11 taken 2 (fallthrough)
+branch 12 taken 0 (throw)
+        2:   49-block  7
+call   13 returned 2
+call   14 returned 2
+branch 15 taken 2 (fallthrough)
+branch 16 taken 0 (throw)
+        2:   49-block  8
+call   17 returned 2
+call   18 returned 2
+        2:   49-block  9
+    $$$$$:   49-block 10
+call   19 never executed
+    $$$$$:   49-block 11
+call   20 never executed
+    $$$$$:   49-block 12
+    $$$$$:   49-block 13
+        -:   50:}
+        -:   51:
+function _ZNK7Literal6orWithERKS_ called 2 returned 100% blocks executed 70%
+        2:   52:std::unique_ptr<Literal> Literal::orWith(const Literal& other) const {
+        2:   53:    return setLiteral(std::make_unique<BoolLiteral>(getBoolValue() or other.getBoolValue()));
+        2:   53-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:   53-block  1
+branch  3 taken 2 (fallthrough)
+branch  4 taken 0
+        2:   53-block  2
+call    5 returned 2
+branch  6 taken 2 (fallthrough)
+branch  7 taken 0 (throw)
+        2:   53-block  3
+branch  8 taken 1 (fallthrough)
+branch  9 taken 1
+        1:   53-block  4
+        1:   53-block  5
+        2:   53-block  6
+call   10 returned 2
+branch 11 taken 2 (fallthrough)
+branch 12 taken 0 (throw)
+        2:   53-block  7
+call   13 returned 2
+call   14 returned 2
+branch 15 taken 2 (fallthrough)
+branch 16 taken 0 (throw)
+        2:   53-block  8
+call   17 returned 2
+call   18 returned 2
+        2:   53-block  9
+    $$$$$:   53-block 10
+call   19 never executed
+    $$$$$:   53-block 11
+call   20 never executed
+    $$$$$:   53-block 12
+    $$$$$:   53-block 13
+        -:   54:}
+        -:   55:
+function _ZNK7Literal7notSelfEv called 1 returned 100% blocks executed 60%
+        1:   56:std::unique_ptr<Literal> Literal::notSelf() const {
+        1:   57:    return setLiteral(std::make_unique<BoolLiteral>(not getBoolValue()));
+        1:   57-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   57-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   57-block  2
+call    6 returned 1
+call    7 returned 1
+branch  8 taken 1 (fallthrough)
+branch  9 taken 0 (throw)
+        1:   57-block  3
+call   10 returned 1
+call   11 returned 1
+        1:   57-block  4
+    $$$$$:   57-block  5
+call   12 never executed
+    $$$$$:   57-block  6
+call   13 never executed
+    $$$$$:   57-block  7
+    $$$$$:   57-block  8
+        -:   58:}
+        -:   59:
+function _ZNK7Literal10setLiteralESt10unique_ptrIS_St14default_deleteIS_EE called 47 returned 100% blocks executed 100%
+       47:   60:std::unique_ptr<Literal> Literal::setLiteral(std::unique_ptr<Literal> literal) const {
+       47:   61:    if (context) {literal->setContext(context);}
+       47:   61-block  0
+branch  0 taken 20 (fallthrough)
+branch  1 taken 27
+       20:   61-block  1
+call    2 returned 20
+call    3 returned 20
+       47:   62:    literal->setPosition(position);
+       47:   62-block  0
+call    0 returned 47
+call    1 returned 47
+       47:   63:    return literal;
+call    0 returned 47
+        -:   64:}
+        -:   65:
+function _ZNK7Literal12printLiteralERSoi called 0 returned 0% blocks executed 0%
+    #####:   66:void Literal::printLiteral(std::ostream &os, const int tabCount) const {
+    %%%%%:   66-block  0
+    #####:   67:    os << std::string(tabCount, '\t') << "Literal<" << std::endl;
+    %%%%%:   67-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   67-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   67-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   67-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:   67-block  4
+call   12 never executed
+    $$$$$:   67-block  5
+call   13 never executed
+    $$$$$:   67-block  6
+    $$$$$:   67-block  7
+call   14 never executed
+    #####:   68:    os << std::string(tabCount, '\t') << "Literal>" << std::endl;
+    %%%%%:   68-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   68-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   68-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   68-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:   68-block  4
+call   12 never executed
+    $$$$$:   68-block  5
+call   13 never executed
+    $$$$$:   68-block  6
+    #####:   69:}
+        -:   70:
+function _ZlsRSoRK7Literal called 0 returned 0% blocks executed 0%
+    #####:   71:std::ostream& operator<<(std::ostream& os, const Literal &literal) {
+    #####:   72:    literal.printLiteral(os, 0);
+    %%%%%:   72-block  0
+call    0 never executed
+    #####:   73:    return os;
+        -:   74:}
+        -:   75:
+        -:   76:
+        -:   77:
+        -:   78://BOOL LITERAL DEFINITION
+function _ZN11BoolLiteralC2Eb called 62 returned 100% blocks executed 100%
+       62:   79:BoolLiteral::BoolLiteral(const bool value) : Literal(), value(value) {}
+       62:   79-block  0
+call    0 returned 62
+        -:   80:
+function _ZNK11BoolLiteral14getNumberValueEv called 1 returned 100% blocks executed 75%
+        1:   81:double BoolLiteral::getNumberValue() const {
+        1:   82:    if (value) {
+        1:   82-block  0
+branch  0 taken 1 (fallthrough)
+branch  1 taken 0
+        1:   83:        return 1;
+        1:   83-block  0
+        -:   84:    }
+    #####:   85:    return 0;
+    %%%%%:   85-block  0
+        -:   86:}
+        -:   87:
+function _ZNK11BoolLiteral12getBoolValueEv called 22 returned 100% blocks executed 100%
+       22:   88:bool BoolLiteral::getBoolValue() const{
+       22:   89:    return value;
+       22:   89-block  0
+        -:   90:};
+        -:   91:
+function _ZNK11BoolLiteral14getStringValueB5cxx11Ev called 0 returned 0% blocks executed 0%
+    #####:   92:std::string BoolLiteral::getStringValue() const {
+    #####:   93:    if (value) {
+    %%%%%:   93-block  0
+branch  0 never executed (fallthrough)
+branch  1 never executed
+    #####:   94:        return "true";
+    %%%%%:   94-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    $$$$$:   94-block  1
+call    3 never executed
+        -:   95:    }
+    #####:   96:    return "false";
+    %%%%%:   96-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+        -:   97:}
+        -:   98:
+function _ZNK11BoolLiteral3addERK7Literal called 0 returned 0% blocks executed 0%
+    #####:   99:std::unique_ptr<Literal> BoolLiteral::add(const Literal& other) const {
+    #####:  100:    if (const auto* otherBool = dynamic_cast<const BoolLiteral*>(&other)) {
+    %%%%%:  100-block  0
+branch  0 never executed (fallthrough)
+branch  1 never executed
+    %%%%%:  100-block  1
+    %%%%%:  100-block  2
+    %%%%%:  100-block  3
+branch  2 never executed (fallthrough)
+branch  3 never executed
+    #####:  101:        return setLiteral(std::make_unique<BoolLiteral>(this->getBoolValue() || otherBool->getBoolValue()));
+    %%%%%:  101-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+    %%%%%:  101-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed
+    %%%%%:  101-block  2
+    %%%%%:  101-block  3
+    %%%%%:  101-block  4
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  101-block  5
+call    9 never executed
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    %%%%%:  101-block  6
+call   13 never executed
+call   14 never executed
+    %%%%%:  101-block  7
+    $$$$$:  101-block  8
+call   15 never executed
+    $$$$$:  101-block  9
+call   16 never executed
+    $$$$$:  101-block 10
+    $$$$$:  101-block 11
+    $$$$$:  101-block 12
+call   17 never executed
+        -:  102:    }
+        -:  103:    else {
+    #####:  104:        throw VisRunTimeError("cannot add a non boolean value to a boolean value");
+    %%%%%:  104-block  0
+call    0 never executed
+    %%%%%:  104-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  104-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  104-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  104-block  4
+call    9 never executed
+    $$$$$:  104-block  5
+    $$$$$:  104-block  6
+    $$$$$:  104-block  7
+call   10 never executed
+        -:  105:    }
+        -:  106:}
+        -:  107:
+function _ZNK11BoolLiteral8subtractERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  108:std::unique_ptr<Literal> BoolLiteral::subtract(const Literal& other) const {
+    #####:  109:    throw VisRunTimeError("cannot subtract with a bool");
+    %%%%%:  109-block  0
+call    0 never executed
+    %%%%%:  109-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  109-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  109-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  109-block  4
+call    9 never executed
+    $$$$$:  109-block  5
+    $$$$$:  109-block  6
+    $$$$$:  109-block  7
+call   10 never executed
+        -:  110:}
+        -:  111:
+function _ZNK11BoolLiteral8multiplyERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  112:std::unique_ptr<Literal> BoolLiteral::multiply(const Literal& other) const {
+    #####:  113:    throw VisRunTimeError("cannot multiply with a bool");
+    %%%%%:  113-block  0
+call    0 never executed
+    %%%%%:  113-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  113-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  113-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  113-block  4
+call    9 never executed
+    $$$$$:  113-block  5
+    $$$$$:  113-block  6
+    $$$$$:  113-block  7
+call   10 never executed
+        -:  114:}
+        -:  115:
+function _ZNK11BoolLiteral6divideERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  116:std::unique_ptr<Literal> BoolLiteral::divide(const Literal& other) const {
+    #####:  117:    throw VisRunTimeError("cannot divide with a bool");
+    %%%%%:  117-block  0
+call    0 never executed
+    %%%%%:  117-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  117-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  117-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  117-block  4
+call    9 never executed
+    $$$$$:  117-block  5
+    $$$$$:  117-block  6
+    $$$$$:  117-block  7
+call   10 never executed
+        -:  118:}
+        -:  119:
+function _ZNK11BoolLiteral6moduloERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  120:std::unique_ptr<Literal> BoolLiteral::modulo(const Literal& other) const {
+    #####:  121:    throw VisRunTimeError("cannot modulo with a bool");
+    %%%%%:  121-block  0
+call    0 never executed
+    %%%%%:  121-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  121-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  121-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  121-block  4
+call    9 never executed
+    $$$$$:  121-block  5
+    $$$$$:  121-block  6
+    $$$$$:  121-block  7
+call   10 never executed
+        -:  122:}
+        -:  123:
+function _ZNK11BoolLiteral9compareTEERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  124:std::unique_ptr<Literal> BoolLiteral::compareTE(const Literal& other) const {
+    #####:  125:    return setLiteral(std::make_unique<BoolLiteral>(getBoolValue() == other.getBoolValue()));
+    %%%%%:  125-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  125-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  125-block  2
+call    7 never executed
+call    8 never executed
+branch  9 never executed (fallthrough)
+branch 10 never executed (throw)
+    %%%%%:  125-block  3
+call   11 never executed
+call   12 never executed
+    %%%%%:  125-block  4
+    $$$$$:  125-block  5
+call   13 never executed
+    $$$$$:  125-block  6
+call   14 never executed
+    $$$$$:  125-block  7
+    $$$$$:  125-block  8
+        -:  126:}
+        -:  127:
+function _ZNK11BoolLiteral9compareNEERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  128:std::unique_ptr<Literal> BoolLiteral::compareNE(const Literal& other) const {
+    #####:  129:    return setLiteral(std::make_unique<BoolLiteral>(getBoolValue() != other.getBoolValue()));
+    %%%%%:  129-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  129-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  129-block  2
+call    7 never executed
+call    8 never executed
+branch  9 never executed (fallthrough)
+branch 10 never executed (throw)
+    %%%%%:  129-block  3
+call   11 never executed
+call   12 never executed
+    %%%%%:  129-block  4
+    $$$$$:  129-block  5
+call   13 never executed
+    $$$$$:  129-block  6
+call   14 never executed
+    $$$$$:  129-block  7
+    $$$$$:  129-block  8
+        -:  130:}
+        -:  131:
+function _ZNK11BoolLiteral5cloneEv called 3 returned 100% blocks executed 62%
+        3:  132:std::unique_ptr<Literal> BoolLiteral::clone() const {return setLiteral(std::make_unique<BoolLiteral>(*this));}
+        3:  132-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:  132-block  1
+call    3 returned 3
+call    4 returned 3
+branch  5 taken 3 (fallthrough)
+branch  6 taken 0 (throw)
+        3:  132-block  2
+call    7 returned 3
+call    8 returned 3
+        3:  132-block  3
+    $$$$$:  132-block  4
+call    9 never executed
+    $$$$$:  132-block  5
+call   10 never executed
+    $$$$$:  132-block  6
+        -:  133:
+function _ZNK11BoolLiteral12printLiteralERSoi called 0 returned 0% blocks executed 0%
+    #####:  134:void BoolLiteral::printLiteral(std::ostream &os, const int tabCount) const {
+    %%%%%:  134-block  0
+    #####:  135:    os << std::string(tabCount, '\t') << "BoolLiteral<" << std::endl;
+    %%%%%:  135-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  135-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  135-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  135-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  135-block  4
+call   12 never executed
+    $$$$$:  135-block  5
+call   13 never executed
+    $$$$$:  135-block  6
+    $$$$$:  135-block  7
+call   14 never executed
+    #####:  136:    os << std::string(tabCount+1, '\t') << "Value: " << getStringValue() << std::endl;
+    %%%%%:  136-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  136-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  136-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  136-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  136-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  136-block  5
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  136-block  6
+call   18 never executed
+call   19 never executed
+    $$$$$:  136-block  7
+call   20 never executed
+    $$$$$:  136-block  8
+    $$$$$:  136-block  9
+call   21 never executed
+    $$$$$:  136-block 10
+    $$$$$:  136-block 11
+call   22 never executed
+    #####:  137:    os << std::string(tabCount+1, '\t') <<"Position: {line: " << position.at("line");
+    %%%%%:  137-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  137-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  137-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  137-block  3
+    %%%%%:  137-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  137-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  137-block  6
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  137-block  7
+call   18 never executed
+call   19 never executed
+    $$$$$:  137-block  8
+call   20 never executed
+    $$$$$:  137-block  9
+    $$$$$:  137-block 10
+    $$$$$:  137-block 11
+call   21 never executed
+    $$$$$:  137-block 12
+    $$$$$:  137-block 13
+call   22 never executed
+    #####:  138:    os << " | Pos:" << position.at("charPos") << "}" << std::endl;
+call    0 never executed
+    %%%%%:  138-block  0
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  138-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  138-block  2
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  138-block  3
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    %%%%%:  138-block  4
+call   13 never executed
+branch 14 never executed (fallthrough)
+branch 15 never executed (throw)
+    %%%%%:  138-block  5
+call   16 never executed
+    $$$$$:  138-block  6
+call   17 never executed
+    $$$$$:  138-block  7
+    $$$$$:  138-block  8
+call   18 never executed
+    #####:  139:    os << std::string(tabCount, '\t') << "BoolLiteral>" << std::endl;
+    %%%%%:  139-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  139-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  139-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  139-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  139-block  4
+call   12 never executed
+    $$$$$:  139-block  5
+call   13 never executed
+    $$$$$:  139-block  6
+    #####:  140:}
+        -:  141:
+        -:  142:
+        -:  143:
+        -:  144://STRING LITERAL DEFINITION
+function _ZN13StringLiteralC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 1 returned 100% blocks executed 80%
+        1:  145:StringLiteral::StringLiteral(const std::string &value) : Literal(), value(value) {}
+        1:  145-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  145-block  1
+    $$$$$:  145-block  2
+call    4 never executed
+        -:  146:
+function _ZNK13StringLiteral14getNumberValueEv called 0 returned 0% blocks executed 0%
+    #####:  147:double StringLiteral::getNumberValue() const {
+    #####:  148:    double sum = 0;
+    #####:  149:    for (const char c : value) {
+    %%%%%:  149-block  0
+call    0 never executed
+call    1 never executed
+    %%%%%:  149-block  1
+call    2 never executed
+    %%%%%:  149-block  2
+call    3 never executed
+branch  4 never executed
+branch  5 never executed (fallthrough)
+    #####:  150:        sum += static_cast<int>(c);
+call    0 never executed
+        -:  151:    }
+    #####:  152:    return sum;
+    %%%%%:  152-block  0
+        -:  153:}
+        -:  154:
+function _ZNK13StringLiteral12getBoolValueEv called 0 returned 0% blocks executed 0%
+    #####:  155:bool StringLiteral::getBoolValue() const{
+    #####:  156:    return !value.empty();
+    %%%%%:  156-block  0
+call    0 never executed
+        -:  157:}
+        -:  158:
+function _ZNK13StringLiteral14getStringValueB5cxx11Ev called 1 returned 100% blocks executed 100%
+        1:  159:std::string StringLiteral::getStringValue() const {
+        1:  160:    return value;
+        1:  160-block  0
+call    0 returned 1
+        -:  161:}
+        -:  162:
+function _ZNK13StringLiteral3addERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  163:std::unique_ptr<Literal> StringLiteral::add(const Literal& other) const {
+    #####:  164:    std::unique_ptr<Literal> returnLiteral;
+    #####:  165:    if (const auto* otherString = dynamic_cast<const StringLiteral*>(&other)) {
+    %%%%%:  165-block  0
+branch  0 never executed (fallthrough)
+branch  1 never executed
+    %%%%%:  165-block  1
+    %%%%%:  165-block  2
+    %%%%%:  165-block  3
+branch  2 never executed (fallthrough)
+branch  3 never executed
+    #####:  166:        std::string combined = this->getStringValue() + otherString->getStringValue();
+    %%%%%:  166-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  166-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  166-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  166-block  3
+call    9 never executed
+call   10 never executed
+    $$$$$:  166-block  4
+call   11 never executed
+    $$$$$:  166-block  5
+    $$$$$:  166-block  6
+call   12 never executed
+    $$$$$:  166-block  7
+    #####:  167:        returnLiteral = std::make_unique<StringLiteral>(combined);
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  167-block  0
+call    3 never executed
+call    4 never executed
+    $$$$$:  167-block  1
+    #####:  168:    }
+call    0 never executed
+    $$$$$:  168-block  0
+call    1 never executed
+        -:  169:    else {
+    #####:  170:        returnLiteral = std::make_unique<IntLiteral>(this->getNumberValue() + other.getNumberValue());
+    %%%%%:  170-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  170-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  170-block  2
+call    7 never executed
+call    8 never executed
+    $$$$$:  170-block  3
+    $$$$$:  170-block  4
+        -:  171:    }
+    #####:  172:    return setLiteral(std::move(returnLiteral));
+    %%%%%:  172-block  0
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed (fallthrough)
+branch  4 never executed (throw)
+    %%%%%:  172-block  1
+call    5 never executed
+    %%%%%:  172-block  2
+    $$$$$:  172-block  3
+call    6 never executed
+    $$$$$:  172-block  4
+    #####:  173:}
+call    0 never executed
+    $$$$$:  173-block  0
+call    1 never executed
+        -:  174:
+function _ZNK13StringLiteral8subtractERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  175:std::unique_ptr<Literal> StringLiteral::subtract(const Literal& other) const {
+    #####:  176:    return setLiteral(std::make_unique<IntLiteral>(this->getNumberValue() - other.getNumberValue()));
+    %%%%%:  176-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  176-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  176-block  2
+call    7 never executed
+call    8 never executed
+branch  9 never executed (fallthrough)
+branch 10 never executed (throw)
+    %%%%%:  176-block  3
+call   11 never executed
+call   12 never executed
+    %%%%%:  176-block  4
+    $$$$$:  176-block  5
+call   13 never executed
+    $$$$$:  176-block  6
+call   14 never executed
+    $$$$$:  176-block  7
+    $$$$$:  176-block  8
+        -:  177:}
+        -:  178:
+function _ZNK13StringLiteral8multiplyERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  179:std::unique_ptr<Literal> StringLiteral::multiply(const Literal& other) const {
+    #####:  180:    return setLiteral(std::make_unique<IntLiteral>(this->getNumberValue() * other.getNumberValue()));
+    %%%%%:  180-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  180-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  180-block  2
+call    7 never executed
+call    8 never executed
+branch  9 never executed (fallthrough)
+branch 10 never executed (throw)
+    %%%%%:  180-block  3
+call   11 never executed
+call   12 never executed
+    %%%%%:  180-block  4
+    $$$$$:  180-block  5
+call   13 never executed
+    $$$$$:  180-block  6
+call   14 never executed
+    $$$$$:  180-block  7
+    $$$$$:  180-block  8
+        -:  181:}
+        -:  182:
+function _ZNK13StringLiteral6divideERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  183:std::unique_ptr<Literal> StringLiteral::divide(const Literal& other) const {
+    #####:  184:    return setLiteral(std::make_unique<IntLiteral>(this->getNumberValue() / other.getNumberValue()));
+    %%%%%:  184-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  184-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  184-block  2
+call    7 never executed
+call    8 never executed
+branch  9 never executed (fallthrough)
+branch 10 never executed (throw)
+    %%%%%:  184-block  3
+call   11 never executed
+call   12 never executed
+    %%%%%:  184-block  4
+    $$$$$:  184-block  5
+call   13 never executed
+    $$$$$:  184-block  6
+call   14 never executed
+    $$$$$:  184-block  7
+    $$$$$:  184-block  8
+        -:  185:}
+        -:  186:
+function _ZNK13StringLiteral6moduloERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  187:std::unique_ptr<Literal> StringLiteral::modulo(const Literal& other) const {
+    #####:  188:    return setLiteral(std::make_unique<IntLiteral>(std::fmod(getNumberValue(), other.getNumberValue())));
+    %%%%%:  188-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  188-block  1
+call    3 never executed
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  188-block  2
+call    7 never executed
+call    8 never executed
+branch  9 never executed (fallthrough)
+branch 10 never executed (throw)
+    %%%%%:  188-block  3
+call   11 never executed
+call   12 never executed
+    %%%%%:  188-block  4
+    $$$$$:  188-block  5
+call   13 never executed
+    $$$$$:  188-block  6
+call   14 never executed
+    $$$$$:  188-block  7
+    $$$$$:  188-block  8
+        -:  189:}
+        -:  190:
+function _ZNK13StringLiteral9compareTEERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  191:std::unique_ptr<Literal> StringLiteral::compareTE(const Literal& other) const {
+    #####:  192:    return setLiteral(std::make_unique<BoolLiteral>(getStringValue() == other.getStringValue()));
+    %%%%%:  192-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  192-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  192-block  2
+call    6 never executed
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  192-block  3
+call   10 never executed
+call   11 never executed
+branch 12 never executed (fallthrough)
+branch 13 never executed (throw)
+    %%%%%:  192-block  4
+call   14 never executed
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    %%%%%:  192-block  5
+    $$$$$:  192-block  6
+call   18 never executed
+    $$$$$:  192-block  7
+call   19 never executed
+    $$$$$:  192-block  8
+call   20 never executed
+    $$$$$:  192-block  9
+    $$$$$:  192-block 10
+call   21 never executed
+    $$$$$:  192-block 11
+    $$$$$:  192-block 12
+    $$$$$:  192-block 13
+        -:  193:}
+        -:  194:
+function _ZNK13StringLiteral9compareNEERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  195:std::unique_ptr<Literal> StringLiteral::compareNE(const Literal& other) const {
+    #####:  196:    return setLiteral(std::make_unique<BoolLiteral>(getStringValue() != other.getStringValue()));
+    %%%%%:  196-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  196-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  196-block  2
+call    6 never executed
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  196-block  3
+call   10 never executed
+call   11 never executed
+branch 12 never executed (fallthrough)
+branch 13 never executed (throw)
+    %%%%%:  196-block  4
+call   14 never executed
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    %%%%%:  196-block  5
+    $$$$$:  196-block  6
+call   18 never executed
+    $$$$$:  196-block  7
+call   19 never executed
+    $$$$$:  196-block  8
+call   20 never executed
+    $$$$$:  196-block  9
+    $$$$$:  196-block 10
+call   21 never executed
+    $$$$$:  196-block 11
+    $$$$$:  196-block 12
+    $$$$$:  196-block 13
+        -:  197:}
+        -:  198:
+function _ZNK13StringLiteral5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  199:std::unique_ptr<Literal> StringLiteral::clone() const {return setLiteral(std::make_unique<StringLiteral>(*this));}
+    %%%%%:  199-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  199-block  1
+call    3 never executed
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  199-block  2
+call    7 never executed
+call    8 never executed
+    %%%%%:  199-block  3
+    $$$$$:  199-block  4
+call    9 never executed
+    $$$$$:  199-block  5
+call   10 never executed
+    $$$$$:  199-block  6
+        -:  200:
+function _ZNK13StringLiteral12printLiteralERSoi called 0 returned 0% blocks executed 0%
+    #####:  201:void StringLiteral::printLiteral(std::ostream &os, const int tabCount) const {
+    %%%%%:  201-block  0
+    #####:  202:    os << std::string(tabCount, '\t') << "StringLiteral<" << std::endl;
+    %%%%%:  202-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  202-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  202-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  202-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  202-block  4
+call   12 never executed
+    $$$$$:  202-block  5
+call   13 never executed
+    $$$$$:  202-block  6
+    $$$$$:  202-block  7
+call   14 never executed
+    #####:  203:    os << std::string(tabCount+1, '\t') << "Value: " << getStringValue() << std::endl;
+    %%%%%:  203-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  203-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  203-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  203-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  203-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  203-block  5
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  203-block  6
+call   18 never executed
+call   19 never executed
+    $$$$$:  203-block  7
+call   20 never executed
+    $$$$$:  203-block  8
+    $$$$$:  203-block  9
+call   21 never executed
+    $$$$$:  203-block 10
+    $$$$$:  203-block 11
+call   22 never executed
+    #####:  204:    os << std::string(tabCount+1, '\t') <<"Position: {line: " << position.at("line");
+    %%%%%:  204-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  204-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  204-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  204-block  3
+    %%%%%:  204-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  204-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  204-block  6
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  204-block  7
+call   18 never executed
+call   19 never executed
+    $$$$$:  204-block  8
+call   20 never executed
+    $$$$$:  204-block  9
+    $$$$$:  204-block 10
+    $$$$$:  204-block 11
+call   21 never executed
+    $$$$$:  204-block 12
+    $$$$$:  204-block 13
+call   22 never executed
+    #####:  205:    os << " | Pos:" << position.at("charPos") << "}" << std::endl;
+call    0 never executed
+    %%%%%:  205-block  0
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  205-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  205-block  2
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  205-block  3
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    %%%%%:  205-block  4
+call   13 never executed
+branch 14 never executed (fallthrough)
+branch 15 never executed (throw)
+    %%%%%:  205-block  5
+call   16 never executed
+    $$$$$:  205-block  6
+call   17 never executed
+    $$$$$:  205-block  7
+    $$$$$:  205-block  8
+call   18 never executed
+    #####:  206:    os << std::string(tabCount, '\t') << "StringLiteral>" << std::endl;
+    %%%%%:  206-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  206-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  206-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  206-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  206-block  4
+call   12 never executed
+    $$$$$:  206-block  5
+call   13 never executed
+    $$$$$:  206-block  6
+    #####:  207:}
+        -:  208:
+        -:  209:
+        -:  210:
+        -:  211://NUMBER LITERAL DEFINITION
+function _ZN13NumberLiteralC2Ev called 87 returned 100% blocks executed 100%
+       87:  212:NumberLiteral::NumberLiteral() : Literal(){}
+       87:  212-block  0
+call    0 returned 87
+        -:  213:
+function _ZNK13NumberLiteral3addERK7Literal called 13 returned 100% blocks executed 67%
+       13:  214:std::unique_ptr<Literal> NumberLiteral::add(const Literal& other) const {
+       13:  215:    return setLiteral(makeResultLiteral(getNumberValue() + other.getNumberValue()));
+       13:  215-block  0
+call    0 returned 13
+branch  1 taken 13 (fallthrough)
+branch  2 taken 0 (throw)
+       13:  215-block  1
+call    3 returned 13
+branch  4 taken 13 (fallthrough)
+branch  5 taken 0 (throw)
+       13:  215-block  2
+call    6 returned 13
+branch  7 taken 13 (fallthrough)
+branch  8 taken 0 (throw)
+       13:  215-block  3
+call    9 returned 13
+call   10 returned 13
+branch 11 taken 13 (fallthrough)
+branch 12 taken 0 (throw)
+       13:  215-block  4
+call   13 returned 13
+call   14 returned 13
+       13:  215-block  5
+    $$$$$:  215-block  6
+call   15 never executed
+    $$$$$:  215-block  7
+call   16 never executed
+    $$$$$:  215-block  8
+        -:  216:}
+        -:  217:
+function _ZNK13NumberLiteral8subtractERK7Literal called 2 returned 100% blocks executed 67%
+        2:  218:std::unique_ptr<Literal> NumberLiteral::subtract(const Literal& other) const {
+        2:  219:    return setLiteral(makeResultLiteral(getNumberValue() - other.getNumberValue()));
+        2:  219-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  219-block  1
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+        2:  219-block  2
+call    6 returned 2
+branch  7 taken 2 (fallthrough)
+branch  8 taken 0 (throw)
+        2:  219-block  3
+call    9 returned 2
+call   10 returned 2
+branch 11 taken 2 (fallthrough)
+branch 12 taken 0 (throw)
+        2:  219-block  4
+call   13 returned 2
+call   14 returned 2
+        2:  219-block  5
+    $$$$$:  219-block  6
+call   15 never executed
+    $$$$$:  219-block  7
+call   16 never executed
+    $$$$$:  219-block  8
+        -:  220:}
+        -:  221:
+function _ZNK13NumberLiteral8multiplyERK7Literal called 2 returned 100% blocks executed 67%
+        2:  222:std::unique_ptr<Literal> NumberLiteral::multiply(const Literal& other) const {
+        2:  223:    return setLiteral(makeResultLiteral(getNumberValue() * other.getNumberValue()));
+        2:  223-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  223-block  1
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+        2:  223-block  2
+call    6 returned 2
+branch  7 taken 2 (fallthrough)
+branch  8 taken 0 (throw)
+        2:  223-block  3
+call    9 returned 2
+call   10 returned 2
+branch 11 taken 2 (fallthrough)
+branch 12 taken 0 (throw)
+        2:  223-block  4
+call   13 returned 2
+call   14 returned 2
+        2:  223-block  5
+    $$$$$:  223-block  6
+call   15 never executed
+    $$$$$:  223-block  7
+call   16 never executed
+    $$$$$:  223-block  8
+        -:  224:}
+        -:  225:
+function _ZNK13NumberLiteral6divideERK7Literal called 1 returned 100% blocks executed 36%
+        1:  226:std::unique_ptr<Literal> NumberLiteral::divide(const Literal& other) const {
+        1:  227:    if (other.getNumberValue() == 0) {
+        1:  227-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    #####:  228:        throw VisRunTimeError("Division by zero!");
+    %%%%%:  228-block  0
+call    0 never executed
+    %%%%%:  228-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  228-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  228-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  228-block  4
+call    9 never executed
+    $$$$$:  228-block  5
+    $$$$$:  228-block  6
+    $$$$$:  228-block  7
+call   10 never executed
+        -:  229:    }
+        1:  230:    return setLiteral(makeResultLiteral(getNumberValue() / other.getNumberValue()));
+        1:  230-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  230-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  230-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:  230-block  3
+call    9 returned 1
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:  230-block  4
+call   13 returned 1
+call   14 returned 1
+        1:  230-block  5
+    $$$$$:  230-block  6
+call   15 never executed
+    $$$$$:  230-block  7
+call   16 never executed
+    $$$$$:  230-block  8
+        -:  231:}
+        -:  232:
+function _ZNK13NumberLiteral6moduloERK7Literal called 1 returned 100% blocks executed 36%
+        1:  233:std::unique_ptr<Literal> NumberLiteral::modulo(const Literal& other) const {
+        1:  234:    if (other.getNumberValue() == 0) {
+        1:  234-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    #####:  235:        throw VisRunTimeError("Division by zero!");
+    %%%%%:  235-block  0
+call    0 never executed
+    %%%%%:  235-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  235-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  235-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  235-block  4
+call    9 never executed
+    $$$$$:  235-block  5
+    $$$$$:  235-block  6
+    $$$$$:  235-block  7
+call   10 never executed
+        -:  236:    }
+        1:  237:    return setLiteral(makeResultLiteral(std::fmod(getNumberValue(), other.getNumberValue())));
+        1:  237-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  237-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  237-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:  237-block  3
+call    9 returned 1
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:  237-block  4
+call   13 returned 1
+call   14 returned 1
+        1:  237-block  5
+    $$$$$:  237-block  6
+call   15 never executed
+    $$$$$:  237-block  7
+call   16 never executed
+    $$$$$:  237-block  8
+        -:  238:}
+        -:  239:
+function _ZNK13NumberLiteral9compareTEERK7Literal called 1 returned 100% blocks executed 62%
+        1:  240:std::unique_ptr<Literal> NumberLiteral::compareTE(const Literal& other) const {
+        1:  241:    return setLiteral(std::make_unique<BoolLiteral>(getNumberValue() == other.getNumberValue()));
+        1:  241-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  241-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  241-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:  241-block  3
+call    9 returned 1
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:  241-block  4
+call   13 returned 1
+call   14 returned 1
+        1:  241-block  5
+    $$$$$:  241-block  6
+call   15 never executed
+    $$$$$:  241-block  7
+call   16 never executed
+    $$$$$:  241-block  8
+    $$$$$:  241-block  9
+        -:  242:}
+        -:  243:
+function _ZNK13NumberLiteral9compareNEERK7Literal called 1 returned 100% blocks executed 62%
+        1:  244:std::unique_ptr<Literal> NumberLiteral::compareNE(const Literal& other) const {
+        1:  245:    return setLiteral(std::make_unique<BoolLiteral>(getNumberValue() != other.getNumberValue()));
+        1:  245-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  245-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  245-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:  245-block  3
+call    9 returned 1
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:  245-block  4
+call   13 returned 1
+call   14 returned 1
+        1:  245-block  5
+    $$$$$:  245-block  6
+call   15 never executed
+    $$$$$:  245-block  7
+call   16 never executed
+    $$$$$:  245-block  8
+    $$$$$:  245-block  9
+        -:  246:}
+        -:  247:
+function _ZNK13NumberLiteral12printLiteralERSoi called 0 returned 0% blocks executed 0%
+    #####:  248:void NumberLiteral::printLiteral(std::ostream &os, const int tabCount) const {
+    %%%%%:  248-block  0
+    #####:  249:    os << std::string(tabCount, '\t') << "NumberLiteral<" << std::endl;
+    %%%%%:  249-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  249-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  249-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  249-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  249-block  4
+call   12 never executed
+    $$$$$:  249-block  5
+call   13 never executed
+    $$$$$:  249-block  6
+    $$$$$:  249-block  7
+call   14 never executed
+    #####:  250:    os << std::string(tabCount, '\t') << "NumberLiteral>" << std::endl;
+    %%%%%:  250-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  250-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  250-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  250-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  250-block  4
+call   12 never executed
+    $$$$$:  250-block  5
+call   13 never executed
+    $$$$$:  250-block  6
+    #####:  251:}
+        -:  252:
+function _ZN13NumberLiteral17makeResultLiteralEf called 19 returned 100% blocks executed 57%
+       19:  253:std::unique_ptr<NumberLiteral> NumberLiteral::makeResultLiteral(float value) {
+       19:  254:    if (std::floor(value) == value) {
+       19:  254-block  0
+call    0 returned 19
+branch  1 taken 19 (fallthrough)
+branch  2 taken 0
+       19:  255:        return std::make_unique<IntLiteral>(static_cast<int>(value));
+       19:  255-block  0
+call    0 returned 19
+branch  1 taken 19 (fallthrough)
+branch  2 taken 0 (throw)
+       19:  255-block  1
+call    3 returned 19
+call    4 returned 19
+    $$$$$:  255-block  2
+    $$$$$:  255-block  3
+call    5 never executed
+        -:  256:    }
+    #####:  257:    return std::make_unique<FloatLiteral>(value);
+    %%%%%:  257-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  257-block  1
+call    3 never executed
+call    4 never executed
+        -:  258:}
+        -:  259:
+        -:  260:
+        -:  261:
+        -:  262://INT LITERAL DEFINITION
+function _ZN10IntLiteralC2Ei called 86 returned 100% blocks executed 100%
+       86:  263:IntLiteral::IntLiteral(const int value) : NumberLiteral(), value(value) {}
+       86:  263-block  0
+call    0 returned 86
+        -:  264:
+function _ZNK10IntLiteral14getNumberValueEv called 88 returned 100% blocks executed 100%
+       88:  265:double IntLiteral::getNumberValue() const {return value;}
+       88:  265-block  0
+        -:  266:
+function _ZNK10IntLiteral12getBoolValueEv called 10 returned 100% blocks executed 100%
+       10:  267:bool IntLiteral::getBoolValue() const {return value != 0;}
+       10:  267-block  0
+        -:  268:
+function _ZNK10IntLiteral14getStringValueB5cxx11Ev called 1 returned 100% blocks executed 100%
+        1:  269:std::string IntLiteral::getStringValue() const {return std::to_string(value);}
+        1:  269-block  0
+call    0 returned 1
+        -:  270:
+function _ZNK10IntLiteral5cloneEv called 38 returned 100% blocks executed 100%
+       38:  271:std::unique_ptr<Literal> IntLiteral::clone() const {return std::make_unique<IntLiteral>(*this);}
+       38:  271-block  0
+call    0 returned 38
+branch  1 taken 38 (fallthrough)
+branch  2 taken 0 (throw)
+       38:  271-block  1
+call    3 returned 38
+call    4 returned 38
+       38:  271-block  2
+        -:  272:
+function _ZNK10IntLiteral12printLiteralERSoi called 0 returned 0% blocks executed 0%
+    #####:  273:void IntLiteral::printLiteral(std::ostream &os, const int tabCount) const {
+    %%%%%:  273-block  0
+    #####:  274:    os << std::string(tabCount, '\t') << "IntLiteral<" << std::endl;
+    %%%%%:  274-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  274-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  274-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  274-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  274-block  4
+call   12 never executed
+    $$$$$:  274-block  5
+call   13 never executed
+    $$$$$:  274-block  6
+    $$$$$:  274-block  7
+call   14 never executed
+    #####:  275:    os << std::string(tabCount+1, '\t') << "Value: " << value << std::endl;
+    %%%%%:  275-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  275-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  275-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  275-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  275-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  275-block  5
+call   15 never executed
+    $$$$$:  275-block  6
+call   16 never executed
+    $$$$$:  275-block  7
+    $$$$$:  275-block  8
+call   17 never executed
+    #####:  276:    os << std::string(tabCount+1, '\t') <<"Position: {line: " << position.at("line");
+    %%%%%:  276-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  276-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  276-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  276-block  3
+    %%%%%:  276-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  276-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  276-block  6
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  276-block  7
+call   18 never executed
+call   19 never executed
+    $$$$$:  276-block  8
+call   20 never executed
+    $$$$$:  276-block  9
+    $$$$$:  276-block 10
+    $$$$$:  276-block 11
+call   21 never executed
+    $$$$$:  276-block 12
+    $$$$$:  276-block 13
+call   22 never executed
+    #####:  277:    os << " | Pos:" << position.at("charPos") << "}" << std::endl;
+call    0 never executed
+    %%%%%:  277-block  0
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  277-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  277-block  2
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  277-block  3
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    %%%%%:  277-block  4
+call   13 never executed
+branch 14 never executed (fallthrough)
+branch 15 never executed (throw)
+    %%%%%:  277-block  5
+call   16 never executed
+    $$$$$:  277-block  6
+call   17 never executed
+    $$$$$:  277-block  7
+    $$$$$:  277-block  8
+call   18 never executed
+    #####:  278:    os << std::string(tabCount, '\t') << "IntLiteral>" << std::endl;
+    %%%%%:  278-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  278-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  278-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  278-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  278-block  4
+call   12 never executed
+    $$$$$:  278-block  5
+call   13 never executed
+    $$$$$:  278-block  6
+    #####:  279:}
+        -:  280:
+        -:  281:
+        -:  282:
+        -:  283://FLOAT LITERAL DEFINITION
+function _ZN12FloatLiteralC2Ef called 1 returned 100% blocks executed 100%
+        1:  284:FloatLiteral::FloatLiteral(const float value) : NumberLiteral(), value(value){
+        1:  284-block  0
+call    0 returned 1
+        1:  285:}
+        -:  286:
+function _ZNK12FloatLiteral14getNumberValueEv called 0 returned 0% blocks executed 0%
+    #####:  287:double FloatLiteral::getNumberValue() const {return value;}
+    %%%%%:  287-block  0
+        -:  288:
+function _ZNK12FloatLiteral12getBoolValueEv called 0 returned 0% blocks executed 0%
+    #####:  289:bool FloatLiteral::getBoolValue() const {return value != 0;}
+    %%%%%:  289-block  0
+        -:  290:
+function _ZNK12FloatLiteral14getStringValueB5cxx11Ev called 0 returned 0% blocks executed 0%
+    #####:  291:std::string FloatLiteral::getStringValue() const {return std::to_string(value);}
+    %%%%%:  291-block  0
+call    0 never executed
+        -:  292:
+function _ZNK12FloatLiteral5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  293:std::unique_ptr<Literal> FloatLiteral::clone() const {return std::make_unique<FloatLiteral>(*this);}
+    %%%%%:  293-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  293-block  1
+call    3 never executed
+call    4 never executed
+    %%%%%:  293-block  2
+        -:  294:
+function _ZNK12FloatLiteral12printLiteralERSoi called 0 returned 0% blocks executed 0%
+    #####:  295:void FloatLiteral::printLiteral(std::ostream &os, const int tabCount) const {
+    %%%%%:  295-block  0
+    #####:  296:    os << std::string(tabCount, '\t') << "FloatLiteral<" << std::endl;
+    %%%%%:  296-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  296-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  296-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  296-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  296-block  4
+call   12 never executed
+    $$$$$:  296-block  5
+call   13 never executed
+    $$$$$:  296-block  6
+    $$$$$:  296-block  7
+call   14 never executed
+    #####:  297:    os << std::string(tabCount+1, '\t') << "Value: " << value << std::endl;
+    %%%%%:  297-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  297-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  297-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  297-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  297-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  297-block  5
+call   15 never executed
+    $$$$$:  297-block  6
+call   16 never executed
+    $$$$$:  297-block  7
+    $$$$$:  297-block  8
+call   17 never executed
+    #####:  298:    os << std::string(tabCount+1, '\t') <<"Position: {line: " << position.at("line");
+    %%%%%:  298-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  298-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  298-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  298-block  3
+    %%%%%:  298-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  298-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  298-block  6
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  298-block  7
+call   18 never executed
+call   19 never executed
+    $$$$$:  298-block  8
+call   20 never executed
+    $$$$$:  298-block  9
+    $$$$$:  298-block 10
+    $$$$$:  298-block 11
+call   21 never executed
+    $$$$$:  298-block 12
+    $$$$$:  298-block 13
+call   22 never executed
+    #####:  299:    os << " | Pos:" << position.at("charPos") << "}" << std::endl;
+call    0 never executed
+    %%%%%:  299-block  0
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  299-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  299-block  2
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  299-block  3
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    %%%%%:  299-block  4
+call   13 never executed
+branch 14 never executed (fallthrough)
+branch 15 never executed (throw)
+    %%%%%:  299-block  5
+call   16 never executed
+    $$$$$:  299-block  6
+call   17 never executed
+    $$$$$:  299-block  7
+    $$$$$:  299-block  8
+call   18 never executed
+    #####:  300:    os << std::string(tabCount, '\t') << "FloatLiteral>" << std::endl;
+    %%%%%:  300-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  300-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  300-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  300-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  300-block  4
+call   12 never executed
+    $$$$$:  300-block  5
+call   13 never executed
+    $$$$$:  300-block  6
+    #####:  301:}
+        -:  302:
+        -:  303:
+        -:  304:
+        -:  305://FUNCTION LITERAL DEFINITION
+function _ZN15FunctionLiteralC2ENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt6vectorI5TokenSaIS7_EES6_ISt10unique_ptrI4NodeSt14default_deleteISB_EESaISE_EESA_I7ContextSC_ISH_EE called 4 returned 100% blocks executed 100%
+        4:  306:FunctionLiteral::FunctionLiteral(
+        -:  307:    std::string name,
+        -:  308:    std::vector<Token> args,
+        -:  309:    std::vector<std::unique_ptr<Node>> body,
+        4:  310:    std::unique_ptr<Context> scope) :
+        -:  311:Literal(),
+        4:  312:name(std::move(name)),
+call    0 returned 4
+        4:  313:argTokens(std::move(args)),
+call    0 returned 4
+call    1 returned 4
+        4:  314:bodyNodes(std::move(body)),
+call    0 returned 4
+call    1 returned 4
+        8:  315:scopeContext(std::move(scope)) {}
+        4:  315-block  0
+call    0 returned 4
+call    1 returned 4
+call    2 returned 4
+call    3 returned 4
+        -:  316:
+function _ZNK15FunctionLiteral7getNameB5cxx11Ev called 1 returned 100% blocks executed 100%
+        1:  317:std::string FunctionLiteral::getName() const {return name;}
+        1:  317-block  0
+call    0 returned 1
+        -:  318:
+function _ZNK15FunctionLiteral7getArgsEv called 1 returned 100% blocks executed 100%
+        1:  319:const std::vector<Token>& FunctionLiteral::getArgs() const {return argTokens;}
+        1:  319-block  0
+        -:  320:
+function _ZNK15FunctionLiteral7getBodyEv called 1 returned 100% blocks executed 100%
+        1:  321:const std::vector<std::unique_ptr<Node>>& FunctionLiteral::getBody() const {return bodyNodes;}
+        1:  321-block  0
+        -:  322:
+function _ZNK15FunctionLiteral3addERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  323:std::unique_ptr<Literal> FunctionLiteral::add(const Literal &other) const {
+    #####:  324:    throw VisRunTimeError("cannot add a function");
+    %%%%%:  324-block  0
+call    0 never executed
+    %%%%%:  324-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  324-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  324-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  324-block  4
+call    9 never executed
+    $$$$$:  324-block  5
+    $$$$$:  324-block  6
+    $$$$$:  324-block  7
+call   10 never executed
+        -:  325:}
+        -:  326:
+function _ZNK15FunctionLiteral8subtractERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  327:std::unique_ptr<Literal> FunctionLiteral::subtract(const Literal &other) const {
+    #####:  328:    throw VisRunTimeError("cannot subtract a function");
+    %%%%%:  328-block  0
+call    0 never executed
+    %%%%%:  328-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  328-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  328-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  328-block  4
+call    9 never executed
+    $$$$$:  328-block  5
+    $$$$$:  328-block  6
+    $$$$$:  328-block  7
+call   10 never executed
+        -:  329:}
+        -:  330:
+function _ZNK15FunctionLiteral8multiplyERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  331:std::unique_ptr<Literal> FunctionLiteral::multiply(const Literal &other) const {
+    #####:  332:    throw VisRunTimeError("cannot multiply a function");
+    %%%%%:  332-block  0
+call    0 never executed
+    %%%%%:  332-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  332-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  332-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  332-block  4
+call    9 never executed
+    $$$$$:  332-block  5
+    $$$$$:  332-block  6
+    $$$$$:  332-block  7
+call   10 never executed
+        -:  333:}
+        -:  334:
+function _ZNK15FunctionLiteral6divideERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  335:std::unique_ptr<Literal> FunctionLiteral::divide(const Literal &other) const {
+    #####:  336:    throw VisRunTimeError("cannot divide a function");
+    %%%%%:  336-block  0
+call    0 never executed
+    %%%%%:  336-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  336-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  336-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  336-block  4
+call    9 never executed
+    $$$$$:  336-block  5
+    $$$$$:  336-block  6
+    $$$$$:  336-block  7
+call   10 never executed
+        -:  337:}
+        -:  338:
+function _ZNK15FunctionLiteral6moduloERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  339:std::unique_ptr<Literal> FunctionLiteral::modulo(const Literal &other) const {
+    #####:  340:    throw VisRunTimeError("cannot modulus a function");
+    %%%%%:  340-block  0
+call    0 never executed
+    %%%%%:  340-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  340-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  340-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  340-block  4
+call    9 never executed
+    $$$$$:  340-block  5
+    $$$$$:  340-block  6
+    $$$$$:  340-block  7
+call   10 never executed
+        -:  341:}
+        -:  342:
+function _ZNK15FunctionLiteral9compareTEERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  343:std::unique_ptr<Literal> FunctionLiteral::compareTE(const Literal &other) const {
+    #####:  344:    throw VisRunTimeError("cannot compare a function");
+    %%%%%:  344-block  0
+call    0 never executed
+    %%%%%:  344-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  344-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  344-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  344-block  4
+call    9 never executed
+    $$$$$:  344-block  5
+    $$$$$:  344-block  6
+    $$$$$:  344-block  7
+call   10 never executed
+        -:  345:}
+        -:  346:
+function _ZNK15FunctionLiteral9compareNEERK7Literal called 0 returned 0% blocks executed 0%
+    #####:  347:std::unique_ptr<Literal> FunctionLiteral::compareNE(const Literal &other) const {
+    #####:  348:    throw VisRunTimeError("cannot compare a function");
+    %%%%%:  348-block  0
+call    0 never executed
+    %%%%%:  348-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  348-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  348-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  348-block  4
+call    9 never executed
+    $$$$$:  348-block  5
+    $$$$$:  348-block  6
+    $$$$$:  348-block  7
+call   10 never executed
+        -:  349:}
+        -:  350:
+function _ZNK15FunctionLiteral14getNumberValueEv called 0 returned 0% blocks executed 0%
+    #####:  351:double FunctionLiteral::getNumberValue() const {
+    #####:  352:    throw VisRunTimeError("function contains no value");
+    %%%%%:  352-block  0
+call    0 never executed
+    %%%%%:  352-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  352-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  352-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  352-block  4
+call    9 never executed
+    $$$$$:  352-block  5
+    $$$$$:  352-block  6
+    $$$$$:  352-block  7
+call   10 never executed
+        -:  353:}
+        -:  354:
+function _ZNK15FunctionLiteral12getBoolValueEv called 0 returned 0% blocks executed 0%
+    #####:  355:bool FunctionLiteral::getBoolValue() const {
+    #####:  356:    throw VisRunTimeError("function contains no value");
+    %%%%%:  356-block  0
+call    0 never executed
+    %%%%%:  356-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  356-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  356-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  356-block  4
+call    9 never executed
+    $$$$$:  356-block  5
+    $$$$$:  356-block  6
+    $$$$$:  356-block  7
+call   10 never executed
+        -:  357:}
+        -:  358:
+function _ZNK15FunctionLiteral14getStringValueB5cxx11Ev called 0 returned 0% blocks executed 0%
+    #####:  359:std::string FunctionLiteral::getStringValue() const {
+    #####:  360:    throw VisRunTimeError("function contains no value");
+    %%%%%:  360-block  0
+call    0 never executed
+    %%%%%:  360-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  360-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  360-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  360-block  4
+call    9 never executed
+    $$$$$:  360-block  5
+    $$$$$:  360-block  6
+    $$$$$:  360-block  7
+call   10 never executed
+        -:  361:}
+        -:  362:
+function _ZNK15FunctionLiteral15getScopeContextEv called 3 returned 100% blocks executed 100%
+        3:  363:const std::unique_ptr<Context>& FunctionLiteral::getScopeContext() const {return scopeContext;}
+        3:  363-block  0
+        -:  364:
+function _ZNK15FunctionLiteral5cloneEv called 2 returned 100% blocks executed 65%
+        2:  365:std::unique_ptr<Literal> FunctionLiteral::clone() const {
+        2:  366:    std::vector<Token> clonedArgs;
+        2:  366-block  0
+call    0 returned 2
+        2:  367:    clonedArgs.reserve(this->argTokens.size());
+call    0 returned 2
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0 (throw)
+        4:  368:    for (const Token& token : this->argTokens) {clonedArgs.push_back(token.clone());}
+        2:  368-block  0
+call    0 returned 2
+call    1 returned 2
+        2:  368-block  1
+call    2 returned 2
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+        2:  368-block  2
+call    6 returned 2
+branch  7 taken 2 (fallthrough)
+branch  8 taken 0 (throw)
+        2:  368-block  3
+call    9 returned 2
+call   10 returned 2
+        4:  368-block  4
+call   11 returned 4
+branch 12 taken 2
+branch 13 taken 2 (fallthrough)
+    $$$$$:  368-block  5
+call   14 never executed
+    $$$$$:  368-block  6
+        2:  369:    std::vector<std::unique_ptr<Node>> clonedBody = Node::cloneNodeVector(bodyNodes);
+        2:  369-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  370:    std::unique_ptr<Context> clonedContext;
+        2:  371:    if (scopeContext) {clonedContext = scopeContext->clone();}
+        2:  371-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0
+        2:  371-block  1
+call    3 returned 2
+call    4 returned 2
+branch  5 taken 2 (fallthrough)
+branch  6 taken 0 (throw)
+        2:  371-block  2
+call    7 returned 2
+call    8 returned 2
+    $$$$$:  371-block  3
+    #####:  372:    else {clonedContext = nullptr;}
+    %%%%%:  372-block  0
+call    0 never executed
+        2:  373:    return setLiteral(std::make_unique<FunctionLiteral>(
+call    0 returned 2
+    $$$$$:  373-block  0
+call    1 never executed
+    $$$$$:  373-block  1
+        2:  374:        name,
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  375:        std::move(clonedArgs),
+call    0 returned 2
+        2:  376:        std::move(clonedBody),
+call    0 returned 2
+        2:  377:        std::move(clonedContext)
+        6:  378:    ));
+        2:  378-block  0
+call    0 returned 2
+        2:  378-block  1
+call    1 returned 2
+call    2 returned 2
+branch  3 taken 2 (fallthrough)
+branch  4 taken 0 (throw)
+        2:  378-block  2
+call    5 returned 2
+        2:  378-block  3
+    $$$$$:  378-block  4
+call    6 never executed
+    $$$$$:  378-block  5
+        2:  379:}
+call    0 returned 2
+call    1 returned 2
+call    2 returned 2
+    $$$$$:  379-block  0
+call    3 never executed
+    $$$$$:  379-block  1
+call    4 never executed
+    $$$$$:  379-block  2
+call    5 never executed
+        -:  380:
+function _ZNK15FunctionLiteral12printLiteralERSoi called 0 returned 0% blocks executed 0%
+    #####:  381:void FunctionLiteral::printLiteral(std::ostream &os, const int tabCount) const {
+    %%%%%:  381-block  0
+    #####:  382:    os << std::string(tabCount, '\t') << "FunctionLiteral<" << std::endl;
+    %%%%%:  382-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  382-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  382-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  382-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  382-block  4
+call   12 never executed
+    $$$$$:  382-block  5
+call   13 never executed
+    $$$$$:  382-block  6
+    $$$$$:  382-block  7
+call   14 never executed
+    #####:  383:    os << std::string(tabCount+1, '\t') << "Name: " << name << std::endl;
+    %%%%%:  383-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  383-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  383-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  383-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  383-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  383-block  5
+call   15 never executed
+    $$$$$:  383-block  6
+call   16 never executed
+    $$$$$:  383-block  7
+    $$$$$:  383-block  8
+call   17 never executed
+    #####:  384:    os << std::string(tabCount+1, '\t') <<"Declared on line: " << stoi(position.at("line"))+1 << std::endl;
+    %%%%%:  384-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  384-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  384-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  384-block  3
+    %%%%%:  384-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  384-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  384-block  6
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  384-block  7
+call   18 never executed
+branch 19 never executed (fallthrough)
+branch 20 never executed (throw)
+    %%%%%:  384-block  8
+call   21 never executed
+branch 22 never executed (fallthrough)
+branch 23 never executed (throw)
+    %%%%%:  384-block  9
+call   24 never executed
+call   25 never executed
+    $$$$$:  384-block 10
+call   26 never executed
+    $$$$$:  384-block 11
+    $$$$$:  384-block 12
+    $$$$$:  384-block 13
+call   27 never executed
+    $$$$$:  384-block 14
+    $$$$$:  384-block 15
+call   28 never executed
+    #####:  385:    os << std::string(tabCount, '\t') << "FunctionLiteral>" << std::endl;
+    %%%%%:  385-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  385-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  385-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  385-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  385-block  4
+call   12 never executed
+    $$$$$:  385-block  5
+call   13 never executed
+    $$$$$:  385-block  6
+    #####:  386:}
+        -:  387:
+        -:  388:

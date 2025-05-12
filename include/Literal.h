@@ -162,6 +162,7 @@ public:
     [[nodiscard]] double getNumberValue() const override;
     [[nodiscard]] bool getBoolValue() const override;
     [[nodiscard]] std::string getStringValue() const override;
+    [[nodiscard]] const std::unique_ptr<Context>& getScopeContext() const;
     [[nodiscard]] std::unique_ptr<Literal> clone() const override;
     void printLiteral(std::ostream &os, int tabCount) const override;
 private:

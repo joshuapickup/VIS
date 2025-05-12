@@ -6,16 +6,12 @@ set(CMAKE_CXX_STANDARD 17)
 # Add the include directory to the include path
 include_directories(include)
 
-set(SOURCES src/main.cpp
-            src/PositionHandler.cpp
-            src/Lexer.cpp
-            src/Error.cpp
-            src/Interpreter.cpp
-            src/Parser.cpp
-            src/Node.cpp
-            src/Token.cpp
-            src/Literal.cpp
-            src/Context.cpp
-)
+include(${PROJECT_SOURCE_DIR}/sources.cmake)
 
-add_executable(VIS ${SOURCES})
+
+enable_testing()
+add_subdirectory(tests)
+
+
+
+add_executable(VIS src/main.cpp ${PROJECT_SOURCES})

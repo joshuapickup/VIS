@@ -1,0 +1,18 @@
+"D:\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/JetBrains/CLion 2024.1.4/bin/ninja/win/x64/ninja.exe" "-DCMAKE_EXE_LINKER_FLAGS=-static -static-libgcc -static-libstdc++" -DCMAKE_CXX_FLAGS=--coverage -DCMAKE_C_FLAGS=--coverage -G Ninja -S "D:\Project Workspace\Year3\VIS" -B "D:\Project Workspace\Year3\VIS\cmake-build-debug-coverage"
+-- The C compiler identification is GNU 13.1.0
+-- The CXX compiler identification is GNU 13.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/JetBrains/CLion 2024.1.4/bin/mingw/bin/gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/JetBrains/CLion 2024.1.4/bin/mingw/bin/g++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Python3: C:/Users/joshu/AppData/Local/Programs/Python/Python312/python.exe (found version "3.12.4") found components: Interpreter 
+-- Adding coverage flags for vis_tests
+-- Configuring done (7.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: D:/Project Workspace/Year3/VIS/cmake-build-debug-coverage

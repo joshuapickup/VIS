@@ -45,7 +45,7 @@ class PositionHandler {
     - lineText : string
 }
 
-Lexer --> PositionHandler : uses
+Lexer -> PositionHandler : uses
 Lexer o-- Token : creates many
 
 

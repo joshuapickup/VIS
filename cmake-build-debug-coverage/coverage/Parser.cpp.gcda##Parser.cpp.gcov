@@ -1,0 +1,3339 @@
+        -:    0:Source:D:/Project Workspace/Year3/VIS/src/Parser.cpp
+        -:    0:Graph:D:\Project Workspace\Year3\VIS\cmake-build-debug-coverage\tests\CMakeFiles\vis_tests.dir\__\src\Parser.cpp.gcno
+        -:    0:Data:D:\Project Workspace\Year3\VIS\cmake-build-debug-coverage\tests\CMakeFiles\vis_tests.dir\__\src\Parser.cpp.gcda
+        -:    0:Runs:1
+        -:    1://
+        -:    2:// Created by joshu on 02/02/2025.
+        -:    3://
+        -:    4:
+        -:    5:#include "Parser.h"
+        -:    6:
+        -:    7:#include <sstream>
+        -:    8:#include <memory>
+        -:    9:#include <PositionHandler.h>
+        -:   10:#include <utility>
+        -:   11:
+        -:   12:#include "Lexer.h"
+        -:   13:#include "Token.h"
+        -:   14:
+        -:   15:
+function _ZN6ParserC2ESt3mapIiSt6vectorI5TokenSaIS2_EESt4lessIiESaISt4pairIKiS4_EEE called 9 returned 100% blocks executed 70%
+        9:   16:Parser::Parser(std::map<int, std::vector<Token>> tokenizedFile):
+        9:   17:lineIndex(-1),
+        9:   18:tokenIndex(-1),
+        9:   19:tokenDict(std::move(tokenizedFile)),
+        9:   19-block  0
+call    0 returned 9
+call    1 returned 9
+        9:   20:tokenVector(tokenizedFile[lineIndex]),
+call    0 returned 9
+branch  1 taken 9 (fallthrough)
+branch  2 taken 0 (throw)
+        9:   20-block  0
+call    3 returned 9
+branch  4 taken 9 (fallthrough)
+branch  5 taken 0 (throw)
+        9:   21:currentToken(nullptr) {
+        9:   22:    advanceLine();
+        9:   22-block  0
+call    0 returned 9
+branch  1 taken 9 (fallthrough)
+branch  2 taken 0 (throw)
+        9:   23:}
+        9:   23-block  0
+    $$$$$:   23-block  1
+call    0 never executed
+    $$$$$:   23-block  2
+call    1 never executed
+        -:   24:
+function _ZN6Parser11advanceLineEv called 29 returned 100% blocks executed 90%
+       29:   25:bool Parser::advanceLine() { // returns true if advanced
+       29:   26:    if (lineIndex+1 > tokenDict.rbegin()->first) {
+       29:   26-block  0
+call    0 returned 29
+call    1 returned 29
+branch  2 taken 29 (fallthrough)
+branch  3 taken 0 (throw)
+       29:   26-block  1
+branch  4 taken 0 (fallthrough)
+branch  5 taken 29
+    #####:   27:        return false;
+    %%%%%:   27-block  0
+        -:   28:    }
+       29:   29:    lineIndex++;
+       29:   30:    tokenIndex = -1;
+       29:   31:    tokenVector = tokenDict[lineIndex];
+       29:   31-block  0
+call    0 returned 29
+call    1 returned 29
+       29:   32:    advanceToken();
+call    0 returned 29
+       29:   33:    return true;
+        -:   34:}
+        -:   35:
+function _ZN6Parser12advanceTokenEv called 101 returned 100% blocks executed 100%
+      101:   36:Token* Parser::advanceToken() {
+      101:   37:    tokenIndex++;
+      101:   38:    if ( tokenIndex < tokenVector.size()) {
+      101:   38-block  0
+call    0 returned 101
+branch  1 taken 99 (fallthrough)
+branch  2 taken 2
+       99:   39:        currentToken = &tokenVector[tokenIndex];
+       99:   39-block  0
+call    0 returned 99
+        -:   40:    }
+      101:   41:    return currentToken;
+      101:   41-block  0
+        -:   42:}
+        -:   43:
+function _ZN6Parser5parseEv called 16 returned 94% blocks executed 80%
+       16:   44:std::unique_ptr<Node> Parser::parse() {
+       16:   45:    std::unique_ptr<Node> returnNode = nullptr;
+       16:   45-block  0
+call    0 returned 16
+       16:   46:    if (!tokenVector.empty()) {
+call    0 returned 16
+branch  1 taken 16 (fallthrough)
+branch  2 taken 0
+       16:   47:        if (currentToken->getType() == TokenType::EOF_) {
+       16:   47-block  0
+call    0 returned 16
+branch  1 taken 16 (fallthrough)
+branch  2 taken 0 (throw)
+       16:   47-block  1
+branch  3 taken 1 (fallthrough)
+branch  4 taken 15
+        1:   48:            returnNode = std::make_unique<EndOfFile>(*currentToken);
+        1:   48-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   48-block  1
+call    3 returned 1
+call    4 returned 1
+    $$$$$:   48-block  2
+        -:   49:        }
+       45:   50:        else if (currentToken->matches(TokenType::KEYWORD, "func")) {
+       15:   50-block  0
+       15:   50-block  1
+call    0 returned 15
+branch  1 taken 15 (fallthrough)
+branch  2 taken 0 (throw)
+       15:   50-block  2
+call    3 returned 15
+branch  4 taken 15 (fallthrough)
+branch  5 taken 0 (throw)
+       15:   50-block  3
+call    6 returned 15
+branch  7 taken 1 (fallthrough)
+branch  8 taken 14
+    $$$$$:   50-block  4
+call    9 never executed
+    $$$$$:   50-block  5
+    $$$$$:   50-block  6
+        1:   51:            returnNode = funcDef();
+        1:   51-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   51-block  1
+call    3 returned 1
+call    4 returned 1
+    $$$$$:   51-block  2
+        -:   52:        }
+        -:   53:        else {
+       14:   54:            returnNode = statement();
+       14:   54-block  0
+call    0 returned 14
+branch  1 taken 13 (fallthrough)
+branch  2 taken 1 (throw)
+       13:   54-block  1
+call    3 returned 13
+call    4 returned 13
+        1:   54-block  2
+        -:   55:        }
+       15:   56:        if (currentToken->getType() == TokenType::EOL) {
+       15:   56-block  0
+call    0 returned 15
+branch  1 taken 15 (fallthrough)
+branch  2 taken 0 (throw)
+       15:   56-block  1
+branch  3 taken 13 (fallthrough)
+branch  4 taken 2
+       13:   57:            advanceLine();
+       13:   57-block  0
+call    0 returned 13
+branch  1 taken 13 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   58:        }
+        -:   59:    }
+       15:   60:    return returnNode;
+       15:   60-block  0
+       15:   60-block  1
+        1:   61:}
+        1:   61-block  0
+call    0 returned 1
+        -:   62:
+function _ZN6Parser15makeSyntaxErrorESt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES6_St4lessIS6_ESaISt4pairIKS6_S6_EEERSA_ called 1 returned 100% blocks executed 61%
+        1:   63:InvalidSyntaxError Parser::makeSyntaxError(std::map<std::string, std::string> position,
+        -:   64:                                            const std::string &expectedType) {
+        1:   65:    std::ostringstream oss;
+        1:   65-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   66:    oss << "\nError in file: " << position["name"]
+        1:   66-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   66-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+    $$$$$:   66-block  2
+call    6 never executed
+    $$$$$:   66-block  3
+    $$$$$:   66-block  4
+        3:   67:    << "\n>>> line: " << std::to_string(stoi(position["line"]) + 1)
+        1:   67-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   67-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   67-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:   67-block  3
+call    9 returned 1
+call   10 returned 1
+call   11 returned 1
+    $$$$$:   67-block  4
+call   12 never executed
+    $$$$$:   67-block  5
+call   13 never executed
+    $$$$$:   67-block  6
+    $$$$$:   67-block  7
+    $$$$$:   67-block  8
+        2:   68:    << " | " << position["lineText"] << "<<<"
+        1:   68-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   68-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+call    6 returned 1
+    $$$$$:   68-block  2
+call    7 never executed
+    $$$$$:   68-block  3
+    $$$$$:   68-block  4
+        -:   69:    << "\nexpected >>> " << expectedType << " <<< "
+        4:   70:    << "instead recieved >>> " << PositionHandler::getWordFromLine(position) << " <<<";
+        1:   70-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   70-block  1
+        1:   70-block  2
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   70-block  3
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:   70-block  4
+call    9 returned 1
+branch 10 taken 1 (fallthrough)
+branch 11 taken 0 (throw)
+        1:   70-block  5
+call   12 returned 1
+branch 13 taken 1 (fallthrough)
+branch 14 taken 0 (throw)
+        1:   70-block  6
+        1:   70-block  7
+call   15 returned 1
+branch 16 taken 1 (fallthrough)
+branch 17 taken 0 (throw)
+        1:   70-block  8
+call   18 returned 1
+branch 19 taken 1 (fallthrough)
+branch 20 taken 0 (throw)
+        1:   70-block  9
+call   21 returned 1
+branch 22 taken 1 (fallthrough)
+branch 23 taken 0 (throw)
+        1:   70-block 10
+call   24 returned 1
+branch 25 taken 1 (fallthrough)
+branch 26 taken 0 (throw)
+        1:   70-block 11
+call   27 returned 1
+branch 28 taken 1 (fallthrough)
+branch 29 taken 0 (throw)
+        1:   70-block 12
+call   30 returned 1
+branch 31 taken 1 (fallthrough)
+branch 32 taken 0 (throw)
+        1:   70-block 13
+call   33 returned 1
+branch 34 taken 1 (fallthrough)
+branch 35 taken 0 (throw)
+        1:   70-block 14
+call   36 returned 1
+branch 37 taken 1 (fallthrough)
+branch 38 taken 0 (throw)
+        1:   70-block 15
+call   39 returned 1
+branch 40 taken 1 (fallthrough)
+branch 41 taken 0 (throw)
+        1:   70-block 16
+call   42 returned 1
+call   43 returned 1
+    $$$$$:   70-block 17
+call   44 never executed
+    $$$$$:   70-block 18
+        2:   71:    return InvalidSyntaxError(oss.str());
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   71-block  0
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   71-block  1
+        1:   71-block  2
+call    6 returned 1
+        1:   71-block  3
+    $$$$$:   71-block  4
+call    7 never executed
+    $$$$$:   71-block  5
+        1:   72:}
+call    0 returned 1
+    $$$$$:   72-block  0
+call    1 never executed
+        -:   73:
+function _ZN6Parser15binaryOperationERKSt8functionIFSt10unique_ptrI4NodeSt14default_deleteIS2_EEvEERKSt6vectorI9TokenTypeSaISB_EERKSA_INSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaISL_EE called 67 returned 100% blocks executed 49%
+       67:   74:std::unique_ptr<Node> Parser::binaryOperation(  const std::function<std::unique_ptr<Node>()> &func,
+        -:   75:                                                const std::vector<TokenType> &tokenTypes,
+        -:   76:                                                const std::vector<std::string> &tokenValues) {
+       67:   77:    const bool containsKeyword = std::find( tokenTypes.begin(),tokenTypes.end(),TokenType::KEYWORD) != tokenTypes.end();
+       67:   77-block  0
+call    0 returned 67
+call    1 returned 67
+call    2 returned 67
+call    3 returned 67
+branch  4 taken 67 (fallthrough)
+branch  5 taken 0 (throw)
+       67:   77-block  1
+call    6 returned 67
+    $$$$$:   77-block  2
+    $$$$$:   77-block  3
+    $$$$$:   77-block  4
+call    7 never executed
+      67*:   78:    if (containsKeyword && tokenValues.empty()) {
+branch  0 taken 15 (fallthrough)
+branch  1 taken 52
+       15:   78-block  0
+call    2 returned 15
+branch  3 taken 0 (fallthrough)
+branch  4 taken 15
+    %%%%%:   78-block  1
+       67:   78-block  2
+       67:   78-block  3
+branch  5 taken 0 (fallthrough)
+branch  6 taken 67
+    #####:   79:        throw ParseError("binaryOperation was called with TokenType::KEYWORD but no tokenValues were provided");
+    %%%%%:   79-block  0
+call    0 never executed
+    %%%%%:   79-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:   79-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:   79-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:   79-block  4
+call    9 never executed
+    $$$$$:   79-block  5
+    $$$$$:   79-block  6
+    $$$$$:   79-block  7
+call   10 never executed
+        -:   80:    }
+      67*:   81:    if (not containsKeyword && not tokenValues.empty()) {
+       67:   81-block  0
+branch  0 taken 52 (fallthrough)
+branch  1 taken 15
+       52:   81-block  1
+call    2 returned 52
+branch  3 taken 0 (fallthrough)
+branch  4 taken 52
+    %%%%%:   81-block  2
+       67:   81-block  3
+       67:   81-block  4
+branch  5 taken 0 (fallthrough)
+branch  6 taken 67
+    #####:   82:        throw ParseError("binaryOperation was called without TokenType::KEYWORD but tokenValues were provided");
+    %%%%%:   82-block  0
+call    0 never executed
+    %%%%%:   82-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:   82-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:   82-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:   82-block  4
+call    9 never executed
+    $$$$$:   82-block  5
+    $$$$$:   82-block  6
+    $$$$$:   82-block  7
+call   10 never executed
+        -:   83:    }
+       67:   84:    std::unique_ptr<Node> left = func();
+       67:   84-block  0
+call    0 returned 67
+        -:   85:    while (true) {
+       73:   86:        bool matchFound = false;
+       73:   87:        if (containsKeyword) {
+       73:   87-block  0
+branch  0 taken 15 (fallthrough)
+branch  1 taken 58
+       60:   88:            for (const std::string& value : tokenValues) {
+       15:   88-block  0
+call    0 returned 15
+call    1 returned 15
+       45:   88-block  1
+call    2 returned 45
+       45:   88-block  2
+call    3 returned 45
+       60:   88-block  3
+call    4 returned 60
+branch  5 taken 45
+branch  6 taken 15 (fallthrough)
+       45:   89:                if(currentToken->matches(TokenType::KEYWORD, value)) {
+call    0 returned 45
+branch  1 taken 45 (fallthrough)
+branch  2 taken 0 (throw)
+       45:   89-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 45
+    #####:   90:                    matchFound = true;
+    #####:   91:                    break;
+    %%%%%:   91-block  0
+        -:   92:                }
+        -:   93:            }
+        -:   94:        }
+        -:   95:        else {
+       58:   96:            matchFound = std::find(tokenTypes.begin(), tokenTypes.end(), currentToken->getType()) != tokenTypes.end();
+       58:   96-block  0
+call    0 returned 58
+call    1 returned 58
+branch  2 taken 58 (fallthrough)
+branch  3 taken 0 (throw)
+       58:   96-block  1
+call    4 returned 58
+call    5 returned 58
+call    6 returned 58
+branch  7 taken 58 (fallthrough)
+branch  8 taken 0 (throw)
+       58:   96-block  2
+call    9 returned 58
+    $$$$$:   96-block  3
+    $$$$$:   96-block  4
+    $$$$$:   96-block  5
+        -:   97:        }
+        -:   98:
+       73:   99:        if (not matchFound) {// exit loop if no TokenTypes were correct
+       73:   99-block  0
+branch  0 taken 67 (fallthrough)
+branch  1 taken 6
+       67:  100:            break;
+        -:  101:        }
+        6:  102:        const Token* opToken = currentToken;
+        6:  103:        advanceToken();
+        6:  103-block  0
+call    0 returned 6
+        6:  104:        std::unique_ptr<Node> right = func();
+call    0 returned 6
+branch  1 taken 6 (fallthrough)
+branch  2 taken 0 (throw)
+        6:  105:        left = std::make_unique<BinaryOperator>(std::move(left), Operator(*opToken), std::move(right));
+        6:  105-block  0
+call    0 returned 6
+call    1 returned 6
+branch  2 taken 6 (fallthrough)
+branch  3 taken 0 (throw)
+        6:  105-block  1
+call    4 returned 6
+call    5 returned 6
+branch  6 taken 6 (fallthrough)
+branch  7 taken 0 (throw)
+        6:  105-block  2
+call    8 returned 6
+call    9 returned 6
+call   10 returned 6
+    $$$$$:  105-block  3
+call   11 never executed
+    $$$$$:  105-block  4
+    $$$$$:  105-block  5
+        6:  106:    }
+call    0 returned 6
+    $$$$$:  106-block  0
+call    1 never executed
+       67:  107:    return left;
+       67:  107-block  0
+       67:  107-block  1
+    =====:  108:}
+    $$$$$:  108-block  0
+call    0 never executed
+        -:  109:
+function _ZN6Parser7funcDefEv called 1 returned 100% blocks executed 19%
+        1:  110:std::unique_ptr<Node> Parser::funcDef() {
+        1:  111:    advanceToken();
+        1:  111-block  0
+call    0 returned 1
+       1*:  112:    if (currentToken->getType() != TokenType::IDENTIFIER) {throw makeSyntaxError(currentToken->getPos(), "IDENTIFIER");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  112-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  112-block  1
+call    5 never executed
+    %%%%%:  112-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  112-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  112-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  112-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  112-block  6
+call   18 never executed
+    $$$$$:  112-block  7
+    $$$$$:  112-block  8
+call   19 never executed
+    $$$$$:  112-block  9
+    $$$$$:  112-block 10
+    $$$$$:  112-block 11
+call   20 never executed
+        1:  113:    Token identifierToken = *currentToken;
+        1:  113-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  114:    advanceToken();
+        1:  114-block  0
+call    0 returned 1
+       1*:  115:    if (currentToken->getType() != TokenType::OPENPAREN) {throw makeSyntaxError(currentToken->getPos(), "(");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  115-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  115-block  1
+call    5 never executed
+    %%%%%:  115-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  115-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  115-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  115-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  115-block  6
+call   18 never executed
+    $$$$$:  115-block  7
+    $$$$$:  115-block  8
+call   19 never executed
+    $$$$$:  115-block  9
+    $$$$$:  115-block 10
+    $$$$$:  115-block 11
+call   20 never executed
+        1:  116:    advanceToken();
+        1:  116-block  0
+call    0 returned 1
+        1:  117:    std::vector<Token> funcArgTokens = {};
+call    0 returned 1
+        -:  118:    do {
+       1*:  119:        if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+        1:  119-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  119-block  1
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0
+        1:  119-block  2
+    #####:  120:        else if (currentToken->getType() == TokenType::IDENTIFIER) {funcArgTokens.push_back(currentToken->clone());}
+    %%%%%:  120-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  120-block  1
+branch  3 never executed (fallthrough)
+branch  4 never executed
+    %%%%%:  120-block  2
+call    5 never executed
+branch  6 never executed (fallthrough)
+branch  7 never executed (throw)
+    %%%%%:  120-block  3
+call    8 never executed
+branch  9 never executed (fallthrough)
+branch 10 never executed (throw)
+    %%%%%:  120-block  4
+call   11 never executed
+    $$$$$:  120-block  5
+call   12 never executed
+    $$$$$:  120-block  6
+        -:  121:        else {throw InvalidSyntaxError(
+    #####:  122:            "Function >>> " + std::get<std::string>(identifierToken.getValue()) + " <<< "
+    %%%%%:  122-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  122-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  122-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  122-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+call   12 never executed
+call   13 never executed
+call   14 never executed
+    $$$$$:  122-block  4
+call   15 never executed
+    $$$$$:  122-block  5
+call   16 never executed
+    $$$$$:  122-block  6
+call   17 never executed
+    $$$$$:  122-block  7
+    $$$$$:  122-block  8
+    $$$$$:  122-block  9
+    #####:  123:            + "expected argument of type IDENTIFIER instead recieved: "
+    %%%%%:  123-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+call    3 never executed
+    $$$$$:  123-block  1
+call    4 never executed
+    $$$$$:  123-block  2
+    #####:  124:            + tokenTypeToStr(currentToken->getType())
+    %%%%%:  124-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  124-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  124-block  2
+call    6 never executed
+call    7 never executed
+    $$$$$:  124-block  3
+call    8 never executed
+    $$$$$:  124-block  4
+call    9 never executed
+    $$$$$:  124-block  5
+    $$$$$:  124-block  6
+    #####:  125:            );
+    %%%%%:  125-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  125-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+call    7 never executed
+    $$$$$:  125-block  2
+call    8 never executed
+        -:  126:        }
+    #####:  127:        advanceToken();
+    %%%%%:  127-block  0
+call    0 never executed
+    #####:  128:        if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  128-block  0
+branch  3 never executed (fallthrough)
+branch  4 never executed
+    %%%%%:  128-block  1
+    #####:  129:        else if (currentToken->getType() == TokenType::SEPERATOR){advanceToken();}
+    %%%%%:  129-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  129-block  1
+branch  3 never executed (fallthrough)
+branch  4 never executed
+    %%%%%:  129-block  2
+call    5 never executed
+    #####:  130:        else {throw makeSyntaxError(currentToken->getPos(), ", OR )");}
+    %%%%%:  130-block  0
+call    0 never executed
+    %%%%%:  130-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  130-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  130-block  3
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  130-block  4
+call   10 never executed
+call   11 never executed
+call   12 never executed
+    $$$$$:  130-block  5
+call   13 never executed
+    $$$$$:  130-block  6
+    $$$$$:  130-block  7
+call   14 never executed
+    $$$$$:  130-block  8
+    $$$$$:  130-block  9
+    $$$$$:  130-block 10
+call   15 never executed
+        -:  131:    }
+        -:  132:    while (true);
+        1:  133:    advanceToken();
+        1:  133-block  0
+call    0 returned 1
+       1*:  134:    while (currentToken->getType() == TokenType::EOL) {advanceLine();}
+    %%%%%:  134-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+        1:  134-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  134-block  2
+branch  6 taken 0
+branch  7 taken 1 (fallthrough)
+       1*:  135:    if (currentToken->getType() != TokenType::OPENBRACE) {throw makeSyntaxError(currentToken->getPos(), "{");}
+        1:  135-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  135-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  135-block  2
+call    5 never executed
+    %%%%%:  135-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  135-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  135-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  135-block  6
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  135-block  7
+call   18 never executed
+    $$$$$:  135-block  8
+    $$$$$:  135-block  9
+call   19 never executed
+    $$$$$:  135-block 10
+    $$$$$:  135-block 11
+    $$$$$:  135-block 12
+call   20 never executed
+        1:  136:    advanceToken();
+        1:  136-block  0
+call    0 returned 1
+       1*:  137:    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  137-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  137-block  1
+call    5 never executed
+    %%%%%:  137-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  137-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  137-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  137-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  137-block  6
+call   18 never executed
+    $$$$$:  137-block  7
+    $$$$$:  137-block  8
+call   19 never executed
+    $$$$$:  137-block  9
+    $$$$$:  137-block 10
+    $$$$$:  137-block 11
+call   20 never executed
+        1:  138:    advanceLine();
+        1:  138-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  139:    std::vector<std::unique_ptr<Node>> funcNodes = {};
+        1:  139-block  0
+call    0 returned 1
+        1:  140:    bool lineCheck = false;
+        -:  141:    do {
+        1:  142:        if (std::unique_ptr<Node> node = parse()) {
+        1:  142-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  142-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0
+        1:  143:            lineCheck = true;
+        1:  144:            funcNodes.push_back(std::move(node));
+        1:  144-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  145:        }
+        1:  145-block  0
+call    0 returned 1
+    $$$$$:  145-block  1
+call    1 never executed
+        -:  146:    }
+        1:  147:    while (currentToken->getType() != TokenType::CLOSEBRACE);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  147-block  0
+branch  3 taken 0
+branch  4 taken 1 (fallthrough)
+       1*:  148:    if (not lineCheck) {throw InvalidSyntaxError("cannot define function with no statements");}
+        1:  148-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  148-block  1
+call    2 never executed
+    %%%%%:  148-block  2
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  148-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  148-block  4
+call    9 never executed
+call   10 never executed
+    $$$$$:  148-block  5
+call   11 never executed
+    $$$$$:  148-block  6
+    $$$$$:  148-block  7
+    $$$$$:  148-block  8
+call   12 never executed
+        1:  149:    advanceToken();
+        1:  149-block  0
+call    0 returned 1
+       1*:  150:    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  150-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  150-block  1
+call    5 never executed
+    %%%%%:  150-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  150-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  150-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  150-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  150-block  6
+call   18 never executed
+    $$$$$:  150-block  7
+    $$$$$:  150-block  8
+call   19 never executed
+    $$$$$:  150-block  9
+    $$$$$:  150-block 10
+    $$$$$:  150-block 11
+call   20 never executed
+        2:  151:    return std::make_unique<FuncDef>(identifierToken, std::move(funcArgTokens), std::move(funcNodes));
+        1:  151-block  0
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0 (throw)
+        1:  151-block  1
+call    5 returned 1
+call    6 returned 1
+        1:  151-block  2
+    $$$$$:  151-block  3
+        1:  152:}
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+    $$$$$:  152-block  0
+call    3 never executed
+    $$$$$:  152-block  1
+call    4 never executed
+    $$$$$:  152-block  2
+call    5 never executed
+        -:  153:
+function _ZN6Parser9statementEv called 14 returned 93% blocks executed 60%
+       14:  154:std::unique_ptr<Node> Parser::statement() {
+       42:  155:    if (currentToken->matches(TokenType::KEYWORD, "return")) {
+       14:  155-block  0
+       14:  155-block  1
+call    0 returned 14
+branch  1 taken 14 (fallthrough)
+branch  2 taken 0 (throw)
+       14:  155-block  2
+call    3 returned 14
+branch  4 taken 14 (fallthrough)
+branch  5 taken 0 (throw)
+       14:  155-block  3
+call    6 returned 14
+branch  7 taken 1 (fallthrough)
+branch  8 taken 13
+    $$$$$:  155-block  4
+call    9 never executed
+    $$$$$:  155-block  5
+    $$$$$:  155-block  6
+call   10 never executed
+        1:  156:        return returnStmt();
+        1:  156-block  0
+call    0 returned 1
+        -:  157:    }
+       39:  158:    else if (currentToken->matches(TokenType::KEYWORD, "while")) {
+       13:  158-block  0
+       13:  158-block  1
+call    0 returned 13
+branch  1 taken 13 (fallthrough)
+branch  2 taken 0 (throw)
+       13:  158-block  2
+call    3 returned 13
+branch  4 taken 13 (fallthrough)
+branch  5 taken 0 (throw)
+       13:  158-block  3
+call    6 returned 13
+branch  7 taken 1 (fallthrough)
+branch  8 taken 12
+    $$$$$:  158-block  4
+call    9 never executed
+    $$$$$:  158-block  5
+    $$$$$:  158-block  6
+call   10 never executed
+        1:  159:        return whileStmt();
+        1:  159-block  0
+call    0 returned 1
+        -:  160:    }
+       36:  161:    else if (currentToken->matches(TokenType::KEYWORD, "for")) {
+       12:  161-block  0
+       12:  161-block  1
+call    0 returned 12
+branch  1 taken 12 (fallthrough)
+branch  2 taken 0 (throw)
+       12:  161-block  2
+call    3 returned 12
+branch  4 taken 12 (fallthrough)
+branch  5 taken 0 (throw)
+       12:  161-block  3
+call    6 returned 12
+branch  7 taken 1 (fallthrough)
+branch  8 taken 11
+    $$$$$:  161-block  4
+call    9 never executed
+    $$$$$:  161-block  5
+    $$$$$:  161-block  6
+call   10 never executed
+        1:  162:        return forStmt();
+        1:  162-block  0
+call    0 returned 1
+        -:  163:    }
+       33:  164:    else if (currentToken->matches(TokenType::KEYWORD, "if")) {
+       11:  164-block  0
+       11:  164-block  1
+call    0 returned 11
+branch  1 taken 11 (fallthrough)
+branch  2 taken 0 (throw)
+       11:  164-block  2
+call    3 returned 11
+branch  4 taken 11 (fallthrough)
+branch  5 taken 0 (throw)
+       11:  164-block  3
+call    6 returned 11
+branch  7 taken 1 (fallthrough)
+branch  8 taken 10
+    $$$$$:  164-block  4
+call    9 never executed
+    $$$$$:  164-block  5
+        1:  165:        return ifStmt();
+        1:  165-block  0
+call    0 returned 1
+        -:  166:    }
+        -:  167:    else {
+       10:  168:        return expression();
+       10:  168-block  0
+call    0 returned 9
+        -:  169:    }
+        -:  170:}
+        -:  171:
+function _ZN6Parser10returnStmtEv called 1 returned 100% blocks executed 40%
+        1:  172:std::unique_ptr<Node> Parser::returnStmt() {
+        1:  173:    Token returnToken = *currentToken;
+        1:  173-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  174:    advanceToken();
+        1:  174-block  0
+call    0 returned 1
+        1:  175:    std::unique_ptr<Node> expressionNode =  expression();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  176:    if (currentToken->getType() != TokenType::EOL) {
+        1:  176-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  176-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    #####:  177:        throw InvalidSyntaxError("cannot have any thing after return statement");
+    %%%%%:  177-block  0
+call    0 never executed
+    %%%%%:  177-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  177-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  177-block  3
+call    7 never executed
+call    8 never executed
+    $$$$$:  177-block  4
+call    9 never executed
+    $$$$$:  177-block  5
+    $$$$$:  177-block  6
+    $$$$$:  177-block  7
+call   10 never executed
+        -:  178:    }
+        2:  179:    return std::make_unique<ReturnCall>(returnToken, std::move(expressionNode));
+        1:  179-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  179-block  1
+call    4 returned 1
+call    5 returned 1
+        1:  179-block  2
+    $$$$$:  179-block  3
+        1:  180:}
+call    0 returned 1
+call    1 returned 1
+    $$$$$:  180-block  0
+call    2 never executed
+    $$$$$:  180-block  1
+call    3 never executed
+        -:  181:
+function _ZN6Parser9whileStmtEv called 1 returned 100% blocks executed 24%
+        1:  182:std::unique_ptr<Node> Parser::whileStmt() {
+        1:  183:    advanceToken();
+        1:  183-block  0
+call    0 returned 1
+       1*:  184:    if (currentToken->getType() != TokenType::OPENPAREN) {throw makeSyntaxError(currentToken->getPos(), "(");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  184-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  184-block  1
+call    5 never executed
+    %%%%%:  184-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  184-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  184-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  184-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  184-block  6
+call   18 never executed
+    $$$$$:  184-block  7
+    $$$$$:  184-block  8
+call   19 never executed
+    $$$$$:  184-block  9
+    $$$$$:  184-block 10
+    $$$$$:  184-block 11
+call   20 never executed
+        1:  185:    advanceToken();
+        1:  185-block  0
+call    0 returned 1
+        1:  186:    std::unique_ptr<Node> condition = this->expression();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+       1*:  187:    if (currentToken->getType() != TokenType::CLOSEPAREN) {throw makeSyntaxError(currentToken->getPos(), ")");}
+        1:  187-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  187-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  187-block  2
+call    5 never executed
+    %%%%%:  187-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  187-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  187-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  187-block  6
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  187-block  7
+call   18 never executed
+    $$$$$:  187-block  8
+    $$$$$:  187-block  9
+call   19 never executed
+    $$$$$:  187-block 10
+    $$$$$:  187-block 11
+    $$$$$:  187-block 12
+call   20 never executed
+        1:  188:    advanceToken();
+        1:  188-block  0
+call    0 returned 1
+       1*:  189:    while (currentToken->getType() == TokenType::EOL) {advanceLine();}
+    %%%%%:  189-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+        1:  189-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  189-block  2
+branch  6 taken 0
+branch  7 taken 1 (fallthrough)
+       1*:  190:    if (currentToken->getType() != TokenType::OPENBRACE) {throw makeSyntaxError(currentToken->getPos(), "{");}
+        1:  190-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  190-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  190-block  2
+call    5 never executed
+    %%%%%:  190-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  190-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  190-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  190-block  6
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  190-block  7
+call   18 never executed
+    $$$$$:  190-block  8
+    $$$$$:  190-block  9
+call   19 never executed
+    $$$$$:  190-block 10
+    $$$$$:  190-block 11
+    $$$$$:  190-block 12
+call   20 never executed
+        1:  191:    advanceToken();
+        1:  191-block  0
+call    0 returned 1
+       1*:  192:    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  192-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  192-block  1
+call    5 never executed
+    %%%%%:  192-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  192-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  192-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  192-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  192-block  6
+call   18 never executed
+    $$$$$:  192-block  7
+    $$$$$:  192-block  8
+call   19 never executed
+    $$$$$:  192-block  9
+    $$$$$:  192-block 10
+    $$$$$:  192-block 11
+call   20 never executed
+        1:  193:    advanceLine();
+        1:  193-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  194:    std::vector<std::unique_ptr<Node>> whileNodes = {};
+        1:  194-block  0
+call    0 returned 1
+        1:  195:    bool lineCheck = false;
+        -:  196:    do {
+        1:  197:        if (std::unique_ptr<Node> node = parse()) {
+        1:  197-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  197-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0
+        1:  198:            lineCheck = true;
+        1:  199:            whileNodes.push_back(std::move(node));
+        1:  199-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  200:        }
+        1:  200-block  0
+call    0 returned 1
+    $$$$$:  200-block  1
+call    1 never executed
+        -:  201:    }
+        1:  202:    while (currentToken->getType() != TokenType::CLOSEBRACE);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  202-block  0
+branch  3 taken 0
+branch  4 taken 1 (fallthrough)
+       1*:  203:    if (not lineCheck) {throw InvalidSyntaxError("cannot have while statement with no contents");}
+        1:  203-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  203-block  1
+call    2 never executed
+    %%%%%:  203-block  2
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  203-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  203-block  4
+call    9 never executed
+call   10 never executed
+    $$$$$:  203-block  5
+call   11 never executed
+    $$$$$:  203-block  6
+    $$$$$:  203-block  7
+    $$$$$:  203-block  8
+call   12 never executed
+        1:  204:    advanceToken();
+        1:  204-block  0
+call    0 returned 1
+       1*:  205:    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  205-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  205-block  1
+call    5 never executed
+    %%%%%:  205-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  205-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  205-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  205-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  205-block  6
+call   18 never executed
+    $$$$$:  205-block  7
+    $$$$$:  205-block  8
+call   19 never executed
+    $$$$$:  205-block  9
+    $$$$$:  205-block 10
+    $$$$$:  205-block 11
+call   20 never executed
+        2:  206:    return std::make_unique<WhileStmt>(std::move(condition), std::move(whileNodes));
+        1:  206-block  0
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0 (throw)
+        1:  206-block  1
+call    5 returned 1
+call    6 returned 1
+        1:  206-block  2
+    $$$$$:  206-block  3
+        1:  207:}
+call    0 returned 1
+call    1 returned 1
+    $$$$$:  207-block  0
+call    2 never executed
+    $$$$$:  207-block  1
+call    3 never executed
+        -:  208:
+function _ZN6Parser7forStmtEv called 1 returned 100% blocks executed 23%
+        1:  209:std::unique_ptr<Node> Parser::forStmt() {
+        1:  210:    advanceToken();
+        1:  210-block  0
+call    0 returned 1
+       1*:  211:    if (currentToken->getType() != TokenType::OPENPAREN) {throw makeSyntaxError(currentToken->getPos(), "(");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  211-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  211-block  1
+call    5 never executed
+    %%%%%:  211-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  211-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  211-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  211-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  211-block  6
+call   18 never executed
+    $$$$$:  211-block  7
+    $$$$$:  211-block  8
+call   19 never executed
+    $$$$$:  211-block  9
+    $$$$$:  211-block 10
+    $$$$$:  211-block 11
+call   20 never executed
+        1:  212:    advanceToken();
+        1:  212-block  0
+call    0 returned 1
+        1:  213:    std::unique_ptr<Node> varInit= this->varExpr();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+       1*:  214:    if (currentToken->getType() != TokenType::SEPERATOR) {throw makeSyntaxError(currentToken->getPos(), ",");}
+        1:  214-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  214-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  214-block  2
+call    5 never executed
+    %%%%%:  214-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  214-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  214-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  214-block  6
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  214-block  7
+call   18 never executed
+    $$$$$:  214-block  8
+    $$$$$:  214-block  9
+call   19 never executed
+    $$$$$:  214-block 10
+    $$$$$:  214-block 11
+    $$$$$:  214-block 12
+call   20 never executed
+        1:  215:    advanceToken();
+        1:  215-block  0
+call    0 returned 1
+        1:  216:    std::unique_ptr<Node> condition = this->compExpr();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+       1*:  217:    if (currentToken->getType() != TokenType::SEPERATOR) {throw makeSyntaxError(currentToken->getPos(), ",");}
+        1:  217-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  217-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  217-block  2
+call    5 never executed
+    %%%%%:  217-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  217-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  217-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  217-block  6
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  217-block  7
+call   18 never executed
+    $$$$$:  217-block  8
+    $$$$$:  217-block  9
+call   19 never executed
+    $$$$$:  217-block 10
+    $$$$$:  217-block 11
+    $$$$$:  217-block 12
+call   20 never executed
+        1:  218:    advanceToken();
+        1:  218-block  0
+call    0 returned 1
+        1:  219:    std::unique_ptr<Node> step = this->varExpr();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+       1*:  220:    if (currentToken->getType() != TokenType::CLOSEPAREN) {throw makeSyntaxError(currentToken->getPos(), ")");}
+        1:  220-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  220-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  220-block  2
+call    5 never executed
+    %%%%%:  220-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  220-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  220-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  220-block  6
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  220-block  7
+call   18 never executed
+    $$$$$:  220-block  8
+    $$$$$:  220-block  9
+call   19 never executed
+    $$$$$:  220-block 10
+    $$$$$:  220-block 11
+    $$$$$:  220-block 12
+call   20 never executed
+        1:  221:    advanceToken();
+        1:  221-block  0
+call    0 returned 1
+       1*:  222:    while (currentToken->getType() == TokenType::EOL) {advanceLine();}
+    %%%%%:  222-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+        1:  222-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  222-block  2
+branch  6 taken 0
+branch  7 taken 1 (fallthrough)
+       1*:  223:    if (currentToken->getType() != TokenType::OPENBRACE) {throw makeSyntaxError(currentToken->getPos(), "{");}
+        1:  223-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  223-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  223-block  2
+call    5 never executed
+    %%%%%:  223-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  223-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  223-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  223-block  6
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  223-block  7
+call   18 never executed
+    $$$$$:  223-block  8
+    $$$$$:  223-block  9
+call   19 never executed
+    $$$$$:  223-block 10
+    $$$$$:  223-block 11
+    $$$$$:  223-block 12
+call   20 never executed
+        1:  224:    advanceToken();
+        1:  224-block  0
+call    0 returned 1
+       1*:  225:    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  225-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  225-block  1
+call    5 never executed
+    %%%%%:  225-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  225-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  225-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  225-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  225-block  6
+call   18 never executed
+    $$$$$:  225-block  7
+    $$$$$:  225-block  8
+call   19 never executed
+    $$$$$:  225-block  9
+    $$$$$:  225-block 10
+    $$$$$:  225-block 11
+call   20 never executed
+        1:  226:    advanceLine();
+        1:  226-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  227:    std::vector<std::unique_ptr<Node>> forNodes = {};
+        1:  227-block  0
+call    0 returned 1
+        1:  228:    bool lineCheck = false;
+        -:  229:    do {
+        1:  230:        if (std::unique_ptr<Node> node = parse()) {
+        1:  230-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  230-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0
+        1:  231:            lineCheck = true;
+        1:  232:            forNodes.push_back(std::move(node));
+        1:  232-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  233:        }
+        1:  233-block  0
+call    0 returned 1
+    $$$$$:  233-block  1
+call    1 never executed
+        -:  234:    }
+        1:  235:    while (currentToken->getType() != TokenType::CLOSEBRACE);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  235-block  0
+branch  3 taken 0
+branch  4 taken 1 (fallthrough)
+       1*:  236:    if (not lineCheck) {throw InvalidSyntaxError("cannot have for statement with no contents");}
+        1:  236-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  236-block  1
+call    2 never executed
+    %%%%%:  236-block  2
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  236-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  236-block  4
+call    9 never executed
+call   10 never executed
+    $$$$$:  236-block  5
+call   11 never executed
+    $$$$$:  236-block  6
+    $$$$$:  236-block  7
+    $$$$$:  236-block  8
+call   12 never executed
+        1:  237:    advanceToken();
+        1:  237-block  0
+call    0 returned 1
+       1*:  238:    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  238-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  238-block  1
+call    5 never executed
+    %%%%%:  238-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  238-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  238-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  238-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  238-block  6
+call   18 never executed
+    $$$$$:  238-block  7
+    $$$$$:  238-block  8
+call   19 never executed
+    $$$$$:  238-block  9
+    $$$$$:  238-block 10
+    $$$$$:  238-block 11
+call   20 never executed
+        2:  239:    return std::make_unique<ForStmt>(std::move(varInit), std::move(condition), std::move(step), std::move(forNodes));
+        1:  239-block  0
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+call    3 returned 1
+call    4 returned 1
+branch  5 taken 1 (fallthrough)
+branch  6 taken 0 (throw)
+        1:  239-block  1
+call    7 returned 1
+call    8 returned 1
+        1:  239-block  2
+    $$$$$:  239-block  3
+        1:  240:}
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+call    3 returned 1
+    $$$$$:  240-block  0
+call    4 never executed
+    $$$$$:  240-block  1
+call    5 never executed
+    $$$$$:  240-block  2
+call    6 never executed
+    $$$$$:  240-block  3
+call    7 never executed
+        -:  241:
+function _ZN6Parser6ifStmtEv called 1 returned 100% blocks executed 24%
+        1:  242:std::unique_ptr<Node> Parser::ifStmt() {
+        1:  243:    advanceToken();
+        1:  243-block  0
+call    0 returned 1
+       1*:  244:    if (currentToken->getType() != TokenType::OPENPAREN) {throw makeSyntaxError(currentToken->getPos(), "(");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  244-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  244-block  1
+call    5 never executed
+    %%%%%:  244-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  244-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  244-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  244-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  244-block  6
+call   18 never executed
+    $$$$$:  244-block  7
+    $$$$$:  244-block  8
+call   19 never executed
+    $$$$$:  244-block  9
+    $$$$$:  244-block 10
+    $$$$$:  244-block 11
+call   20 never executed
+        1:  245:    advanceToken();
+        1:  245-block  0
+call    0 returned 1
+        1:  246:    std::unique_ptr<Node> ifExpression = this->expression();
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+       1*:  247:    if (currentToken->getType() != TokenType::CLOSEPAREN) {throw makeSyntaxError(currentToken->getPos(), ")");}
+        1:  247-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  247-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  247-block  2
+call    5 never executed
+    %%%%%:  247-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  247-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  247-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  247-block  6
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  247-block  7
+call   18 never executed
+    $$$$$:  247-block  8
+    $$$$$:  247-block  9
+call   19 never executed
+    $$$$$:  247-block 10
+    $$$$$:  247-block 11
+    $$$$$:  247-block 12
+call   20 never executed
+        1:  248:    advanceToken();
+        1:  248-block  0
+call    0 returned 1
+       1*:  249:    while (currentToken->getType() == TokenType::EOL) {advanceLine();}
+    %%%%%:  249-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+        1:  249-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  249-block  2
+branch  6 taken 0
+branch  7 taken 1 (fallthrough)
+       1*:  250:    if (currentToken->getType() != TokenType::OPENBRACE) {throw makeSyntaxError(currentToken->getPos(), "{");}
+        1:  250-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  250-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  250-block  2
+call    5 never executed
+    %%%%%:  250-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  250-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  250-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  250-block  6
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  250-block  7
+call   18 never executed
+    $$$$$:  250-block  8
+    $$$$$:  250-block  9
+call   19 never executed
+    $$$$$:  250-block 10
+    $$$$$:  250-block 11
+    $$$$$:  250-block 12
+call   20 never executed
+        1:  251:    advanceToken();
+        1:  251-block  0
+call    0 returned 1
+       1*:  252:    if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  252-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  252-block  1
+call    5 never executed
+    %%%%%:  252-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  252-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  252-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  252-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  252-block  6
+call   18 never executed
+    $$$$$:  252-block  7
+    $$$$$:  252-block  8
+call   19 never executed
+    $$$$$:  252-block  9
+    $$$$$:  252-block 10
+    $$$$$:  252-block 11
+call   20 never executed
+        1:  253:    advanceLine();
+        1:  253-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  254:    std::vector<std::unique_ptr<Node>> ifNodes = {};
+        1:  254-block  0
+call    0 returned 1
+        1:  255:    std::vector<std::unique_ptr<Node>> elseNodes = {};
+call    0 returned 1
+        1:  256:    bool lineCheck = false;
+        -:  257:    do {
+        1:  258:        if (std::unique_ptr<Node> node = parse()) {
+        1:  258-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  258-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0
+        1:  259:            lineCheck = true;
+        1:  260:            ifNodes.push_back(std::move(node));
+        1:  260-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  261:        }
+        1:  261-block  0
+call    0 returned 1
+    $$$$$:  261-block  1
+call    1 never executed
+        -:  262:    }
+        1:  263:    while (currentToken->getType() != TokenType::CLOSEBRACE);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  263-block  0
+branch  3 taken 0
+branch  4 taken 1 (fallthrough)
+       1*:  264:    if (not lineCheck) {throw InvalidSyntaxError("cannot have if statement with no contents");}
+        1:  264-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  264-block  1
+call    2 never executed
+    %%%%%:  264-block  2
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  264-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  264-block  4
+call    9 never executed
+call   10 never executed
+    $$$$$:  264-block  5
+call   11 never executed
+    $$$$$:  264-block  6
+    $$$$$:  264-block  7
+    $$$$$:  264-block  8
+call   12 never executed
+        1:  265:    advanceToken();
+        1:  265-block  0
+call    0 returned 1
+        1:  266:    if (currentToken->getType() != TokenType::EOL) {
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  266-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    #####:  267:        if (not currentToken->matches(TokenType::KEYWORD, "else")) {
+    %%%%%:  267-block  0
+    %%%%%:  267-block  1
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  267-block  2
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  267-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed
+    $$$$$:  267-block  4
+call    9 never executed
+    $$$$$:  267-block  5
+    $$$$$:  267-block  6
+    #####:  268:            throw makeSyntaxError(currentToken->getPos(), "else");
+    %%%%%:  268-block  0
+call    0 never executed
+    %%%%%:  268-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  268-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  268-block  3
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  268-block  4
+call   10 never executed
+call   11 never executed
+call   12 never executed
+    $$$$$:  268-block  5
+call   13 never executed
+    $$$$$:  268-block  6
+    $$$$$:  268-block  7
+call   14 never executed
+    $$$$$:  268-block  8
+    $$$$$:  268-block  9
+    $$$$$:  268-block 10
+call   15 never executed
+        -:  269:        }
+        -:  270:    }
+        2:  271:    else {while (currentToken->getType() == TokenType::EOL) {advanceLine();}}
+        1:  271-block  0
+        1:  271-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  271-block  2
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+        2:  271-block  3
+branch  6 taken 1
+branch  7 taken 1 (fallthrough)
+        3:  272:    if (currentToken->matches(TokenType::KEYWORD, "else")) {
+        1:  272-block  0
+        1:  272-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  272-block  2
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  272-block  3
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0
+    $$$$$:  272-block  4
+call    9 never executed
+    $$$$$:  272-block  5
+    $$$$$:  272-block  6
+        1:  273:        advanceToken();
+        1:  273-block  0
+call    0 returned 1
+       1*:  274:        while (currentToken->getType() == TokenType::EOL) {advanceLine();}
+    %%%%%:  274-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+        1:  274-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  274-block  2
+branch  6 taken 0
+branch  7 taken 1 (fallthrough)
+       1*:  275:        if (currentToken->getType() != TokenType::OPENBRACE) {throw makeSyntaxError(currentToken->getPos(), "< { >");}
+        1:  275-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  275-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  275-block  2
+call    5 never executed
+    %%%%%:  275-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  275-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  275-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  275-block  6
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  275-block  7
+call   18 never executed
+    $$$$$:  275-block  8
+    $$$$$:  275-block  9
+call   19 never executed
+    $$$$$:  275-block 10
+    $$$$$:  275-block 11
+    $$$$$:  275-block 12
+call   20 never executed
+        1:  276:        advanceToken();
+        1:  276-block  0
+call    0 returned 1
+       1*:  277:        if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  277-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  277-block  1
+call    5 never executed
+    %%%%%:  277-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  277-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  277-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  277-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  277-block  6
+call   18 never executed
+    $$$$$:  277-block  7
+    $$$$$:  277-block  8
+call   19 never executed
+    $$$$$:  277-block  9
+    $$$$$:  277-block 10
+    $$$$$:  277-block 11
+call   20 never executed
+        1:  278:        advanceLine();
+        1:  278-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  279:        lineCheck = false;
+        1:  279-block  0
+        -:  280:        do {
+       1*:  281:            if (currentToken->getType() == TokenType::EOF_) {throw makeSyntaxError(currentToken->getPos(), "< } >");}
+        1:  281-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  281-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  281-block  2
+call    5 never executed
+    %%%%%:  281-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  281-block  4
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  281-block  5
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  281-block  6
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  281-block  7
+call   18 never executed
+    $$$$$:  281-block  8
+    $$$$$:  281-block  9
+call   19 never executed
+    $$$$$:  281-block 10
+    $$$$$:  281-block 11
+    $$$$$:  281-block 12
+call   20 never executed
+        1:  282:            if (std::unique_ptr<Node> node = parse()) {
+        1:  282-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  282-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0
+        1:  283:                lineCheck = true;
+        1:  284:                elseNodes.push_back(std::move(node));
+        1:  284-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  285:            }
+        1:  285-block  0
+call    0 returned 1
+    $$$$$:  285-block  1
+call    1 never executed
+        -:  286:        }
+        1:  287:        while (currentToken->getType() != TokenType::CLOSEBRACE);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  287-block  0
+branch  3 taken 0
+branch  4 taken 1 (fallthrough)
+       1*:  288:        if (not lineCheck) {throw InvalidSyntaxError("cannot have else statement with no contents");}
+        1:  288-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  288-block  1
+call    2 never executed
+    %%%%%:  288-block  2
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  288-block  3
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  288-block  4
+call    9 never executed
+call   10 never executed
+    $$$$$:  288-block  5
+call   11 never executed
+    $$$$$:  288-block  6
+    $$$$$:  288-block  7
+    $$$$$:  288-block  8
+call   12 never executed
+        1:  289:        advanceToken();
+        1:  289-block  0
+call    0 returned 1
+       1*:  290:        if (currentToken->getType() != TokenType::EOL) {throw makeSyntaxError(currentToken->getPos(), "<nothing>");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  290-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  290-block  1
+call    5 never executed
+    %%%%%:  290-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  290-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  290-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  290-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  290-block  6
+call   18 never executed
+    $$$$$:  290-block  7
+    $$$$$:  290-block  8
+call   19 never executed
+    $$$$$:  290-block  9
+    $$$$$:  290-block 10
+    $$$$$:  290-block 11
+call   20 never executed
+        1:  291:        advanceLine();
+        1:  291-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  292:    }
+        2:  293:    return std::make_unique<IfStmt>(std::move(ifExpression), std::move(ifNodes), std::move(elseNodes));
+        1:  293-block  0
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  293-block  1
+call    6 returned 1
+call    7 returned 1
+        1:  293-block  2
+    $$$$$:  293-block  3
+        1:  294:}
+call    0 returned 1
+call    1 returned 1
+call    2 returned 1
+    $$$$$:  294-block  0
+call    3 never executed
+    $$$$$:  294-block  1
+call    4 never executed
+    $$$$$:  294-block  2
+call    5 never executed
+        -:  295:
+function _ZN6Parser10expressionEv called 18 returned 94% blocks executed 69%
+       18:  296:std::unique_ptr<Node> Parser::expression() {
+       22:  297:    if (currentToken->getType() == TokenType::KEYWORD &&
+       18:  297-block  0
+call    0 returned 18
+branch  1 taken 18 (fallthrough)
+branch  2 taken 0 (throw)
+       18:  297-block  1
+branch  3 taken 4 (fallthrough)
+branch  4 taken 14
+branch  5 taken 1 (fallthrough)
+branch  6 taken 3
+        1:  297-block  2
+       17:  297-block  3
+       22:  298:    Lexer::LIBWORDS.find(std::get<std::string>(currentToken->getValue())) != Lexer::LIBWORDS.end()) {
+        4:  298-block  0
+call    0 returned 4
+call    1 returned 4
+branch  2 taken 4 (fallthrough)
+branch  3 taken 0 (throw)
+        4:  298-block  1
+call    4 returned 4
+branch  5 taken 4 (fallthrough)
+branch  6 taken 0 (throw)
+        4:  298-block  2
+call    7 returned 4
+branch  8 taken 4 (fallthrough)
+branch  9 taken 0 (throw)
+        4:  298-block  3
+call   10 returned 4
+       18:  298-block  4
+branch 11 taken 4 (fallthrough)
+branch 12 taken 14
+        4:  298-block  5
+call   13 returned 4
+       18:  298-block  6
+branch 14 taken 1 (fallthrough)
+branch 15 taken 17
+    $$$$$:  298-block  7
+    $$$$$:  298-block  8
+branch 16 never executed (fallthrough)
+branch 17 never executed
+    $$$$$:  298-block  9
+call   18 never executed
+    $$$$$:  298-block 10
+    $$$$$:  298-block 11
+call   19 never executed
+        1:  299:        return libExpr();
+        1:  299-block  0
+call    0 returned 1
+        -:  300:    }
+       51:  301:    else if (currentToken->matches(TokenType::KEYWORD, "var")) {
+       17:  301-block  0
+       17:  301-block  1
+call    0 returned 17
+branch  1 taken 17 (fallthrough)
+branch  2 taken 0 (throw)
+       17:  301-block  2
+call    3 returned 17
+branch  4 taken 17 (fallthrough)
+branch  5 taken 0 (throw)
+       17:  301-block  3
+call    6 returned 17
+branch  7 taken 3 (fallthrough)
+branch  8 taken 14
+    $$$$$:  301-block  4
+call    9 never executed
+    $$$$$:  301-block  5
+        3:  302:        return varExpr();
+        3:  302-block  0
+call    0 returned 2
+        -:  303:    }
+        -:  304:    else {
+       14:  305:        return compExpr();
+       14:  305-block  0
+call    0 returned 14
+        -:  306:    }
+        -:  307:}
+        -:  308:
+function _ZN6Parser7libExprEv called 1 returned 100% blocks executed 28%
+        1:  309:std::unique_ptr<Node> Parser::libExpr() {
+        1:  310:    Token identifierToken = *currentToken;
+        1:  310-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  311:    advanceToken();
+        1:  311-block  0
+call    0 returned 1
+       1*:  312:    if (currentToken->getType() != TokenType::OPENPAREN) {throw makeSyntaxError(currentToken->getPos(), "(");}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  312-block  0
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  312-block  1
+call    5 never executed
+    %%%%%:  312-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  312-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  312-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  312-block  5
+call   15 never executed
+call   16 never executed
+call   17 never executed
+    $$$$$:  312-block  6
+call   18 never executed
+    $$$$$:  312-block  7
+    $$$$$:  312-block  8
+call   19 never executed
+    $$$$$:  312-block  9
+    $$$$$:  312-block 10
+    $$$$$:  312-block 11
+call   20 never executed
+        1:  313:    advanceToken();
+        1:  313-block  0
+call    0 returned 1
+        1:  314:    std::vector<std::unique_ptr<Node>> argumentNodes = {};
+call    0 returned 1
+        -:  315:    do {
+       1*:  316:        if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+        1:  316-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  316-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  316-block  2
+        1:  317:        if (std::unique_ptr<Node> expr = expression()) {argumentNodes.push_back(std::move(expr));}
+        1:  317-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  317-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0
+        1:  317-block  2
+call    6 returned 1
+call    7 returned 1
+branch  8 taken 1 (fallthrough)
+branch  9 taken 0 (throw)
+       1*:  318:        else {throw ParseError("argument in function call returned null Node");}
+    %%%%%:  318-block  0
+call    0 never executed
+    %%%%%:  318-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  318-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  318-block  3
+call    7 never executed
+call    8 never executed
+        1:  318-block  4
+call    9 returned 1
+    $$$$$:  318-block  5
+call   10 never executed
+    $$$$$:  318-block  6
+    $$$$$:  318-block  7
+    $$$$$:  318-block  8
+call   11 never executed
+    $$$$$:  318-block  9
+call   12 never executed
+        1:  319:        if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  319-block  0
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0
+        1:  319-block  1
+    #####:  320:        else if (currentToken->getType() == TokenType::SEPERATOR){advanceToken();}
+    %%%%%:  320-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  320-block  1
+branch  3 never executed (fallthrough)
+branch  4 never executed
+    %%%%%:  320-block  2
+call    5 never executed
+    #####:  321:        else {throw makeSyntaxError(currentToken->getPos(), ", OR )");}
+    %%%%%:  321-block  0
+call    0 never executed
+    %%%%%:  321-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  321-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  321-block  3
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  321-block  4
+call   10 never executed
+call   11 never executed
+call   12 never executed
+    $$$$$:  321-block  5
+call   13 never executed
+    $$$$$:  321-block  6
+    $$$$$:  321-block  7
+call   14 never executed
+    $$$$$:  321-block  8
+    $$$$$:  321-block  9
+    $$$$$:  321-block 10
+call   15 never executed
+    #####:  322:    }
+        -:  323:    while (true);
+        1:  324:    advanceToken();
+        1:  324-block  0
+call    0 returned 1
+        2:  325:    return std::make_unique<LibCall>(identifierToken, std::move(argumentNodes));
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  325-block  0
+call    4 returned 1
+call    5 returned 1
+        1:  325-block  1
+    $$$$$:  325-block  2
+        1:  326:}
+call    0 returned 1
+call    1 returned 1
+    $$$$$:  326-block  0
+call    2 never executed
+    $$$$$:  326-block  1
+call    3 never executed
+        -:  327:
+function _ZN6Parser7varExprEv called 5 returned 80% blocks executed 45%
+        5:  328:std::unique_ptr<Node> Parser::varExpr() {
+        5:  329:    advanceToken();
+        5:  329-block  0
+call    0 returned 5
+        7:  330:    if (currentToken->getType() != TokenType::IDENTIFIER) {throw makeSyntaxError(currentToken->getPos(), "identifier");}
+call    0 returned 5
+branch  1 taken 1 (fallthrough)
+branch  2 taken 4
+        1:  330-block  0
+call    3 returned 1
+        1:  330-block  1
+call    4 returned 1
+branch  5 taken 1 (fallthrough)
+branch  6 taken 0 (throw)
+        1:  330-block  2
+call    7 returned 1
+branch  8 taken 1 (fallthrough)
+branch  9 taken 0 (throw)
+        1:  330-block  3
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:  330-block  4
+call   13 returned 1
+call   14 returned 1
+call   15 returned 0
+    $$$$$:  330-block  5
+call   16 never executed
+    $$$$$:  330-block  6
+    $$$$$:  330-block  7
+call   17 never executed
+    $$$$$:  330-block  8
+    $$$$$:  330-block  9
+    $$$$$:  330-block 10
+call   18 never executed
+        4:  331:    const Token* varToken = currentToken;
+        4:  332:    advanceToken();
+        4:  332-block  0
+call    0 returned 4
+        4:  333:    if (currentToken->getType() == TokenType::INCREMENT) {
+call    0 returned 4
+branch  1 taken 1 (fallthrough)
+branch  2 taken 3
+        1:  334:        advanceToken();
+        1:  334-block  0
+call    0 returned 1
+        1:  335:        return std::make_unique<VarIncrement>(*varToken);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  335-block  0
+call    3 returned 1
+call    4 returned 1
+    $$$$$:  335-block  1
+call    5 never executed
+        -:  336:    }
+        3:  337:    else if (currentToken->getType() == TokenType::DECREMENT) {
+        3:  337-block  0
+call    0 returned 3
+branch  1 taken 0 (fallthrough)
+branch  2 taken 3
+    #####:  338:        advanceToken();
+    %%%%%:  338-block  0
+call    0 never executed
+    #####:  339:        return std::make_unique<VarDecrement>(*varToken);
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  339-block  0
+call    3 never executed
+call    4 never executed
+    $$$$$:  339-block  1
+call    5 never executed
+        -:  340:    }
+        3:  341:    else if (currentToken->getType() == TokenType::EQUALS) {
+        3:  341-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0
+        3:  342:        advanceToken();
+        3:  342-block  0
+call    0 returned 3
+        3:  343:        std::unique_ptr<Node> expression = this->expression();
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:  344:        return std::make_unique<VarAssignment>(*varToken, std::move(expression));
+        3:  344-block  0
+call    0 returned 3
+call    1 returned 3
+branch  2 taken 3 (fallthrough)
+branch  3 taken 0 (throw)
+        3:  344-block  1
+call    4 returned 3
+call    5 returned 3
+    $$$$$:  344-block  2
+        3:  345:    }
+call    0 returned 3
+    $$$$$:  345-block  0
+call    1 never executed
+    #####:  346:    else {throw makeSyntaxError(currentToken->getPos(), "EQUALS, INCREMENT, DECREMENT");}
+    %%%%%:  346-block  0
+call    0 never executed
+    %%%%%:  346-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  346-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  346-block  3
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  346-block  4
+call   10 never executed
+call   11 never executed
+call   12 never executed
+    $$$$$:  346-block  5
+call   13 never executed
+    $$$$$:  346-block  6
+    $$$$$:  346-block  7
+call   14 never executed
+    $$$$$:  346-block  8
+    $$$$$:  346-block  9
+    $$$$$:  346-block 10
+call   15 never executed
+        -:  347:}
+        -:  348:
+function _ZN6Parser8compExprEv called 15 returned 100% blocks executed 46%
+       15:  349:std::unique_ptr<Node> Parser::compExpr() {
+function _ZZN6Parser8compExprEvENKUlvE_clEv called 15 returned 100% blocks executed 100%
+       15:  350:    return binaryOperation([this](){return comparision();},
+    $$$$$:  350-block  0
+       15:  350-block  1
+call    0 returned 15
+      120:  351:            std::vector<TokenType>{TokenType::KEYWORD}, std::vector<std::string>{"and", "not", "or"});
+       15:  351-block  0
+call    0 returned 15
+branch  1 taken 15 (fallthrough)
+branch  2 taken 0 (throw)
+       15:  351-block  1
+       15:  351-block  2
+call    3 returned 15
+branch  4 taken 15 (fallthrough)
+branch  5 taken 0 (throw)
+       15:  351-block  3
+call    6 returned 15
+call    7 returned 15
+branch  8 taken 15 (fallthrough)
+branch  9 taken 0 (throw)
+       15:  351-block  4
+call   10 returned 15
+call   11 returned 15
+call   12 returned 15
+       60:  351-block  5
+branch 13 taken 45 (fallthrough)
+branch 14 taken 15
+       45:  351-block  6
+call   15 returned 45
+       15:  351-block  7
+    $$$$$:  351-block  8
+call   16 never executed
+    $$$$$:  351-block  9
+    $$$$$:  351-block 10
+call   17 never executed
+    $$$$$:  351-block 11
+    $$$$$:  351-block 12
+    $$$$$:  351-block 13
+    $$$$$:  351-block 14
+call   18 never executed
+    $$$$$:  351-block 15
+    $$$$$:  351-block 16
+    $$$$$:  351-block 17
+branch 19 never executed (fallthrough)
+branch 20 never executed
+    $$$$$:  351-block 18
+call   21 never executed
+    $$$$$:  351-block 19
+       45:  352:}
+       15:  352-block  0
+       15:  352-block  1
+call    0 returned 15
+branch  1 taken 15 (fallthrough)
+branch  2 taken 0 (throw)
+       15:  352-block  2
+call    3 returned 15
+branch  4 taken 15 (fallthrough)
+branch  5 taken 0 (throw)
+       15:  352-block  3
+call    6 returned 15
+branch  7 taken 15 (fallthrough)
+branch  8 taken 0 (throw)
+       15:  352-block  4
+    $$$$$:  352-block  5
+    $$$$$:  352-block  6
+branch  9 never executed (fallthrough)
+branch 10 never executed
+    $$$$$:  352-block  7
+    $$$$$:  352-block  8
+branch 11 never executed (fallthrough)
+branch 12 never executed
+    $$$$$:  352-block  9
+call   13 never executed
+        -:  353:
+function _ZN6Parser11comparisionEv called 15 returned 100% blocks executed 36%
+       15:  354:std::unique_ptr<Node> Parser::comparision() {
+       45:  355:    if (currentToken->matches(TokenType::KEYWORD, "not")) {
+       15:  355-block  0
+       15:  355-block  1
+call    0 returned 15
+branch  1 taken 15 (fallthrough)
+branch  2 taken 0 (throw)
+       15:  355-block  2
+call    3 returned 15
+branch  4 taken 15 (fallthrough)
+branch  5 taken 0 (throw)
+       15:  355-block  3
+call    6 returned 15
+branch  7 taken 0 (fallthrough)
+branch  8 taken 15
+    $$$$$:  355-block  4
+call    9 never executed
+    $$$$$:  355-block  5
+    $$$$$:  355-block  6
+call   10 never executed
+    #####:  356:        Token* opToken = currentToken;
+    #####:  357:        advanceToken();
+    %%%%%:  357-block  0
+call    0 never executed
+    #####:  358:        std::unique_ptr<Node> valueNode = comparision();
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:  359:        return std::make_unique<UnaryOperator>(Operator(*opToken), std::move(valueNode));
+    %%%%%:  359-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  359-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  359-block  2
+call    7 never executed
+call    8 never executed
+call    9 never executed
+    $$$$$:  359-block  3
+call   10 never executed
+    $$$$$:  359-block  4
+    $$$$$:  359-block  5
+    #####:  360:    }
+call    0 never executed
+    $$$$$:  360-block  0
+call    1 never executed
+        -:  361:    else {
+function _ZZN6Parser11comparisionEvENKUlvE_clEv called 16 returned 100% blocks executed 100%
+       16:  362:        return binaryOperation([this](){return arithmeticExpression();},
+    $$$$$:  362-block  0
+       16:  362-block  1
+call    0 returned 16
+       30:  363:            std::vector{
+       15:  363-block  0
+call    0 returned 15
+branch  1 taken 15 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:  363-block  1
+call    3 never executed
+    $$$$$:  363-block  2
+    $$$$$:  363-block  3
+    $$$$$:  363-block  4
+        -:  364:                TokenType::TRUEEQUALS,
+        -:  365:                TokenType::NOTEQUAL,
+        -:  366:                TokenType::LESSTHAN,
+        -:  367:                TokenType::GREATERTHAN,
+        -:  368:                TokenType::LESSEQUAL,
+        -:  369:                TokenType::GREATEREQUAL
+       45:  370:            });
+       15:  370-block  0
+call    0 returned 15
+       15:  370-block  1
+call    1 returned 15
+call    2 returned 15
+branch  3 taken 15 (fallthrough)
+branch  4 taken 0 (throw)
+       15:  370-block  2
+call    5 returned 15
+call    6 returned 15
+call    7 returned 15
+    $$$$$:  370-block  3
+call    8 never executed
+    $$$$$:  370-block  4
+    $$$$$:  370-block  5
+call    9 never executed
+        -:  371:    }
+        -:  372:}
+        -:  373:
+function _ZN6Parser20arithmeticExpressionEv called 16 returned 100% blocks executed 50%
+       16:  374:std::unique_ptr<Node> Parser::arithmeticExpression() {
+function _ZZN6Parser20arithmeticExpressionEvENKUlvE_clEv called 21 returned 100% blocks executed 100%
+       69:  375:    return binaryOperation([this]() {return term();}, std::vector<TokenType>{TokenType::PLUS, TokenType::MINUS});
+       16:  375-block  0
+call    0 returned 16
+       16:  375-block  1
+call    1 returned 16
+branch  2 taken 16 (fallthrough)
+branch  3 taken 0 (throw)
+       16:  375-block  2
+call    4 returned 16
+call    5 returned 16
+branch  6 taken 16 (fallthrough)
+branch  7 taken 0 (throw)
+       16:  375-block  3
+call    8 returned 16
+call    9 returned 16
+call   10 returned 16
+       16:  375-block  4
+    $$$$$:  375-block  5
+call   11 never executed
+    $$$$$:  375-block  6
+    $$$$$:  375-block  7
+    $$$$$:  375-block  8
+call   12 never executed
+    $$$$$:  375-block  9
+    $$$$$:  375-block 10
+    $$$$$:  375-block 11
+    $$$$$:  375-block 12
+call   13 never executed
+       21:  375-block 13
+call   14 returned 21
+        -:  376:}
+        -:  377:
+function _ZN6Parser4termEv called 21 returned 100% blocks executed 50%
+       21:  378:std::unique_ptr<Node> Parser::term() {
+function _ZZN6Parser4termEvENKUlvE_clEv called 21 returned 100% blocks executed 100%
+       84:  379:    return binaryOperation([this]() {return factor();}, std::vector<TokenType>{TokenType::MUL, TokenType::DIV, TokenType::MOD});
+       21:  379-block  0
+call    0 returned 21
+       21:  379-block  1
+call    1 returned 21
+branch  2 taken 21 (fallthrough)
+branch  3 taken 0 (throw)
+       21:  379-block  2
+call    4 returned 21
+call    5 returned 21
+branch  6 taken 21 (fallthrough)
+branch  7 taken 0 (throw)
+       21:  379-block  3
+call    8 returned 21
+call    9 returned 21
+call   10 returned 21
+       21:  379-block  4
+    $$$$$:  379-block  5
+call   11 never executed
+    $$$$$:  379-block  6
+    $$$$$:  379-block  7
+    $$$$$:  379-block  8
+call   12 never executed
+    $$$$$:  379-block  9
+    $$$$$:  379-block 10
+    $$$$$:  379-block 11
+    $$$$$:  379-block 12
+call   13 never executed
+       21:  379-block 13
+call   14 returned 21
+        -:  380:}
+        -:  381:
+function _ZN6Parser6factorEv called 21 returned 100% blocks executed 35%
+       21:  382:std::unique_ptr<Node> Parser::factor() {
+       21:  383:    Token* token = currentToken;
+      21*:  384:    if (token->getType() == TokenType::PLUS or token->getType() == TokenType::MINUS) {
+       21:  384-block  0
+call    0 returned 21
+branch  1 taken 21 (fallthrough)
+branch  2 taken 0
+       21:  384-block  1
+call    3 returned 21
+branch  4 taken 0 (fallthrough)
+branch  5 taken 21
+    %%%%%:  384-block  2
+       21:  384-block  3
+       21:  384-block  4
+branch  6 taken 0 (fallthrough)
+branch  7 taken 21
+    #####:  385:        advanceToken();
+    %%%%%:  385-block  0
+call    0 never executed
+    #####:  386:        std::unique_ptr<Node> valueNode = call();
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:  387:        return std::make_unique<UnaryOperator>(Operator(*token), std::move(valueNode));
+    %%%%%:  387-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  387-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  387-block  2
+call    7 never executed
+call    8 never executed
+call    9 never executed
+    $$$$$:  387-block  3
+call   10 never executed
+    $$$$$:  387-block  4
+    $$$$$:  387-block  5
+    #####:  388:    }
+call    0 never executed
+    $$$$$:  388-block  0
+call    1 never executed
+       21:  389:    return call();
+       21:  389-block  0
+call    0 returned 21
+        -:  390:}
+        -:  391:
+function _ZN6Parser4callEv called 21 returned 100% blocks executed 35%
+       21:  392:std::unique_ptr<Node> Parser::call() {
+       21:  393:    Token identifierToken = *currentToken;
+       21:  393-block  0
+call    0 returned 21
+branch  1 taken 21 (fallthrough)
+branch  2 taken 0 (throw)
+       21:  394:    std::unique_ptr<Node> node = atom();
+       21:  394-block  0
+call    0 returned 21
+branch  1 taken 21 (fallthrough)
+branch  2 taken 0 (throw)
+       21:  395:    if (currentToken->getType() == TokenType::OPENPAREN) {
+       21:  395-block  0
+call    0 returned 21
+branch  1 taken 21 (fallthrough)
+branch  2 taken 0 (throw)
+       21:  395-block  1
+branch  3 taken 1 (fallthrough)
+branch  4 taken 20
+        1:  396:        advanceToken();
+        1:  396-block  0
+call    0 returned 1
+        1:  397:        std::vector<std::unique_ptr<Node>> argumentNodes = {};
+call    0 returned 1
+        -:  398:        do {
+       1*:  399:            if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+        1:  399-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  399-block  1
+branch  3 taken 0 (fallthrough)
+branch  4 taken 1
+    %%%%%:  399-block  2
+        1:  400:            if (std::unique_ptr<Node> expr = expression()) {argumentNodes.push_back(std::move(expr));}
+        1:  400-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  400-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0
+        1:  400-block  2
+call    6 returned 1
+call    7 returned 1
+branch  8 taken 1 (fallthrough)
+branch  9 taken 0 (throw)
+       1*:  401:            else {throw ParseError("argument in function call returned null Node");}
+    %%%%%:  401-block  0
+call    0 never executed
+    %%%%%:  401-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  401-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  401-block  3
+call    7 never executed
+call    8 never executed
+        1:  401-block  4
+call    9 returned 1
+    $$$$$:  401-block  5
+call   10 never executed
+    $$$$$:  401-block  6
+    $$$$$:  401-block  7
+    $$$$$:  401-block  8
+call   11 never executed
+    $$$$$:  401-block  9
+call   12 never executed
+        1:  402:            if (currentToken->getType() == TokenType::CLOSEPAREN) {break;}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  402-block  0
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0
+        1:  402-block  1
+    #####:  403:            else if (currentToken->getType() == TokenType::SEPERATOR){advanceToken();}
+    %%%%%:  403-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  403-block  1
+branch  3 never executed (fallthrough)
+branch  4 never executed
+    %%%%%:  403-block  2
+call    5 never executed
+    #####:  404:            else {throw makeSyntaxError(currentToken->getPos(), ", OR )");}
+    %%%%%:  404-block  0
+call    0 never executed
+    %%%%%:  404-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  404-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  404-block  3
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  404-block  4
+call   10 never executed
+call   11 never executed
+call   12 never executed
+    $$$$$:  404-block  5
+call   13 never executed
+    $$$$$:  404-block  6
+    $$$$$:  404-block  7
+call   14 never executed
+    $$$$$:  404-block  8
+    $$$$$:  404-block  9
+    $$$$$:  404-block 10
+call   15 never executed
+    #####:  405:        }
+        -:  406:        while (true);
+        1:  407:        advanceToken();
+        1:  407-block  0
+call    0 returned 1
+        1:  408:        node = std::make_unique<FuncCall>(identifierToken, std::move(argumentNodes));
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  408-block  0
+call    4 returned 1
+call    5 returned 1
+    $$$$$:  408-block  1
+        1:  409:    }
+call    0 returned 1
+    $$$$$:  409-block  0
+call    1 never executed
+       42:  410:    return node;
+       21:  410-block  0
+       21:  410-block  1
+       21:  411:}
+       21:  411-block  0
+call    0 returned 21
+    $$$$$:  411-block  1
+call    1 never executed
+    $$$$$:  411-block  2
+call    2 never executed
+        -:  412:
+function _ZN6Parser4atomEv called 21 returned 100% blocks executed 34%
+       21:  413:std::unique_ptr<Node> Parser::atom() {
+       21:  414:    Token* token = currentToken;
+       21:  415:    if (token->getType() == TokenType::EOL) {
+       21:  415-block  0
+call    0 returned 21
+branch  1 taken 0 (fallthrough)
+branch  2 taken 21
+    #####:  416:        advanceLine();
+    %%%%%:  416-block  0
+call    0 never executed
+    #####:  417:        return nullptr;
+call    0 never executed
+        -:  418:    }
+        -:  419:
+       21:  420:    if (token->getType() == TokenType::INT or token->getType() == TokenType::FLOAT) {
+       21:  420-block  0
+call    0 returned 21
+branch  1 taken 5 (fallthrough)
+branch  2 taken 16
+        5:  420-block  1
+call    3 returned 5
+branch  4 taken 0 (fallthrough)
+branch  5 taken 5
+       16:  420-block  2
+        5:  420-block  3
+       21:  420-block  4
+branch  6 taken 16 (fallthrough)
+branch  7 taken 5
+       16:  421:        advanceToken();
+       16:  421-block  0
+call    0 returned 16
+       16:  422:        return std::make_unique<Number>(*token);
+call    0 returned 16
+branch  1 taken 16 (fallthrough)
+branch  2 taken 0 (throw)
+       16:  422-block  0
+call    3 returned 16
+call    4 returned 16
+    $$$$$:  422-block  1
+call    5 never executed
+        -:  423:    }
+        -:  424:
+        5:  425:    if (token->getType() == TokenType::STRING) {
+        5:  425-block  0
+call    0 returned 5
+branch  1 taken 2 (fallthrough)
+branch  2 taken 3
+        2:  426:        advanceToken();
+        2:  426-block  0
+call    0 returned 2
+        2:  427:        return std::make_unique<StringNode>(*token);
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  427-block  0
+call    3 returned 2
+call    4 returned 2
+    $$$$$:  427-block  1
+call    5 never executed
+        -:  428:    }
+        -:  429:
+        3:  430:    if (token->getType() == TokenType::IDENTIFIER) {
+        3:  430-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0
+        3:  431:        advanceToken();
+        3:  431-block  0
+call    0 returned 3
+        3:  432:        return std::make_unique<VarAccess>(*token);
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:  432-block  0
+call    3 returned 3
+call    4 returned 3
+    $$$$$:  432-block  1
+call    5 never executed
+        -:  433:    }
+        -:  434:
+    #####:  435:    if (token->getType() == TokenType::OPENPAREN) {
+    %%%%%:  435-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+    #####:  436:        advanceToken();
+    %%%%%:  436-block  0
+call    0 never executed
+    #####:  437:        std::unique_ptr<Node> expr = expression();
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:  438:        if (currentToken->getType() == TokenType::CLOSEPAREN) {
+    %%%%%:  438-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  438-block  1
+branch  3 never executed (fallthrough)
+branch  4 never executed
+    #####:  439:            advanceToken();
+    %%%%%:  439-block  0
+call    0 never executed
+    #####:  440:            return expr;
+call    0 never executed
+        -:  441:        }
+    #####:  442:        throw makeSyntaxError(currentToken->getPos(), "CLOSEPAREN");
+    %%%%%:  442-block  0
+call    0 never executed
+    %%%%%:  442-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  442-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  442-block  3
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  442-block  4
+call   10 never executed
+call   11 never executed
+call   12 never executed
+    $$$$$:  442-block  5
+call   13 never executed
+    $$$$$:  442-block  6
+    $$$$$:  442-block  7
+call   14 never executed
+    $$$$$:  442-block  8
+    $$$$$:  442-block  9
+    $$$$$:  442-block 10
+call   15 never executed
+    #####:  443:    }
+call    0 never executed
+    $$$$$:  443-block  0
+call    1 never executed
+        -:  444:
+    #####:  445:    throw makeSyntaxError(currentToken->getPos(), "int, float or identifier");
+    %%%%%:  445-block  0
+call    0 never executed
+    %%%%%:  445-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  445-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  445-block  3
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  445-block  4
+call   10 never executed
+call   11 never executed
+call   12 never executed
+    $$$$$:  445-block  5
+call   13 never executed
+    $$$$$:  445-block  6
+    $$$$$:  445-block  7
+call   14 never executed
+    $$$$$:  445-block  8
+    $$$$$:  445-block  9
+    $$$$$:  445-block 10
+call   15 never executed
+        -:  446:}
+        -:  447:
+function _ZN6ParserD2Ev called 9 returned 100% blocks executed 100%
+        9:  448:Parser::~Parser()= default;
+        9:  448-block  0
+call    0 returned 9
+call    1 returned 9

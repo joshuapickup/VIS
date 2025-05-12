@@ -1,0 +1,1593 @@
+        -:    0:Source:D:/Project Workspace/Year3/VIS/src/Lexer.cpp
+        -:    0:Graph:D:\Project Workspace\Year3\VIS\cmake-build-debug\tests\CMakeFiles\vis_tests.dir\__\src\Lexer.cpp.gcno
+        -:    0:Data:D:\Project Workspace\Year3\VIS\cmake-build-debug\tests\CMakeFiles\vis_tests.dir\__\src\Lexer.cpp.gcda
+        -:    0:Runs:1
+        -:    1:#include "Lexer.h"
+        -:    2:#include <iostream>
+        -:    3:#include "Error.h"
+        -:    4:
+        -:    5:const std::unordered_set<std::string> Lexer::LIBWORDS = {"out"};
+        -:    6:const std::unordered_set<std::string> Lexer::KEYWORDS = {
+        -:    7:    "var","and","or", "not", "if", "else", "while", "for", "func", "return"
+        -:    8:};
+        -:    9:const std::string Lexer::DIGITS = "0123456789";
+        -:   10:const std::string Lexer::LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_";
+        -:   11:const std::string Lexer::LETTERS_DIGITS = Lexer::LETTERS + Lexer::DIGITS;
+        -:   12:const std::string Lexer::OPERATORS = "+-*/%";
+        -:   13:const char Lexer::COMMENT = '~';
+        -:   14:
+function _ZN5LexerC2ER15PositionHandler called 40 returned 100% blocks executed 100%
+       40:   15:Lexer::Lexer(PositionHandler& positionHandler) : positionHandler(positionHandler) {}
+        -:   16:
+function _ZNK5Lexer17makeOperatorTokenEc called 9 returned 100% blocks executed 42%
+        9:   17:Token Lexer::makeOperatorToken(const char character) const {
+        9:   18:    const std::map<std::string, std::string> pos = positionHandler.getPos();
+        9:   18-block  0
+call    0 returned 9
+branch  1 taken 9 (fallthrough)
+branch  2 taken 0 (throw)
+        9:   19:    switch(character) {
+        9:   19-block  0
+branch  0 taken 3
+branch  1 taken 3
+branch  2 taken 1
+branch  3 taken 1
+branch  4 taken 1
+branch  5 taken 0
+        3:   20:        case '+':
+        3:   21:            if (positionHandler.peek() == '+') {
+        3:   21-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:   21-block  1
+branch  3 taken 1 (fallthrough)
+branch  4 taken 2
+        1:   22:                positionHandler.advanceCharacter();
+        1:   22-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   23:                return Token(TokenType::INCREMENT, pos);
+        1:   23-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:   23-block  1
+call    4 returned 1
+    $$$$$:   23-block  2
+call    5 never executed
+    $$$$$:   23-block  3
+    $$$$$:   23-block  4
+        -:   24:            }
+        2:   25:            return Token(TokenType::PLUS, pos);
+        2:   25-block  0
+call    0 returned 2
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0 (throw)
+        2:   25-block  1
+call    4 returned 2
+    $$$$$:   25-block  2
+call    5 never executed
+    $$$$$:   25-block  3
+    $$$$$:   25-block  4
+        3:   26:        case '-':
+        3:   27:            if (positionHandler.peek() == '-') {
+        3:   27-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:   27-block  1
+branch  3 taken 1 (fallthrough)
+branch  4 taken 2
+        1:   28:                positionHandler.advanceCharacter();
+        1:   28-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   29:                return Token(TokenType::DECREMENT, pos);
+        1:   29-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:   29-block  1
+call    4 returned 1
+    $$$$$:   29-block  2
+call    5 never executed
+    $$$$$:   29-block  3
+    $$$$$:   29-block  4
+        -:   30:            }
+        2:   31:            return Token(TokenType::MINUS, pos);
+        2:   31-block  0
+call    0 returned 2
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0 (throw)
+        2:   31-block  1
+call    4 returned 2
+    $$$$$:   31-block  2
+call    5 never executed
+    $$$$$:   31-block  3
+    $$$$$:   31-block  4
+        1:   32:        case '*': return Token(TokenType::MUL, pos);
+        1:   32-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:   32-block  1
+call    4 returned 1
+    $$$$$:   32-block  2
+call    5 never executed
+    $$$$$:   32-block  3
+    $$$$$:   32-block  4
+        1:   33:        case '/': return Token(TokenType::DIV, pos);
+        1:   33-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:   33-block  1
+call    4 returned 1
+    $$$$$:   33-block  2
+call    5 never executed
+    $$$$$:   33-block  3
+    $$$$$:   33-block  4
+        1:   34:        case '%': return Token(TokenType::MOD, pos);
+        1:   34-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:   34-block  1
+call    4 returned 1
+    $$$$$:   34-block  2
+call    5 never executed
+    $$$$$:   34-block  3
+    $$$$$:   34-block  4
+    #####:   35:        default: throw LexerError("operator token cant be created no case defined for character >>>" +
+    %%%%%:   35-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+call    3 never executed
+    $$$$$:   35-block  1
+call    4 never executed
+    $$$$$:   35-block  2
+    #####:   36:                                            std::string(1, character) + "<<<");
+    %%%%%:   36-block  0
+call    0 never executed
+    %%%%%:   36-block  1
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:   36-block  2
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:   36-block  3
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:   36-block  4
+call   10 never executed
+call   11 never executed
+call   12 never executed
+    $$$$$:   36-block  5
+call   13 never executed
+    $$$$$:   36-block  6
+call   14 never executed
+    $$$$$:   36-block  7
+    $$$$$:   36-block  8
+    $$$$$:   36-block  9
+    $$$$$:   36-block 10
+call   15 never executed
+        -:   37:    }
+        9:   38:}
+        9:   38-block  0
+call    0 returned 9
+    $$$$$:   38-block  1
+call    1 never executed
+function _ZNK5Lexer15makeNumberTokenEc called 6 returned 83% blocks executed 60%
+        6:   39:Token Lexer::makeNumberToken (char character) const{// loop through line until next char isnt digit
+        6:   40:    const std::map<std::string, std::string> pos = positionHandler.getPos();
+        6:   40-block  0
+call    0 returned 6
+branch  1 taken 6 (fallthrough)
+branch  2 taken 0 (throw)
+        6:   41:    bool dotFlag = false;
+        6:   42:    std::string stringNum;
+        6:   42-block  0
+call    0 returned 6
+        6:   43:    stringNum += character;
+call    0 returned 6
+branch  1 taken 6 (fallthrough)
+branch  2 taken 0 (throw)
+        6:   44:    char peekChar = this->positionHandler.peek();
+        6:   44-block  0
+call    0 returned 6
+branch  1 taken 6 (fallthrough)
+branch  2 taken 0 (throw)
+       14:   45:    while (peekChar != '\0' and (Lexer::DIGITS.find(peekChar) != std::string::npos or peekChar == '.')){
+        6:   45-block  0
+       14:   45-block  1
+branch  0 taken 10 (fallthrough)
+branch  1 taken 4
+       10:   45-block  2
+call    2 returned 10
+branch  3 taken 4 (fallthrough)
+branch  4 taken 6
+        4:   45-block  3
+branch  5 taken 3 (fallthrough)
+branch  6 taken 1
+        9:   45-block  4
+        5:   45-block  5
+       14:   45-block  6
+branch  7 taken 9
+branch  8 taken 5 (fallthrough)
+        9:   46:        character = this->positionHandler.advanceCharacter();
+        9:   46-block  0
+call    0 returned 9
+branch  1 taken 9 (fallthrough)
+branch  2 taken 0 (throw)
+        9:   47:        if (character == '.') {
+        9:   47-block  0
+branch  0 taken 3 (fallthrough)
+branch  1 taken 6
+        3:   48:            std::map<std::string, std::string> position = positionHandler.getPos();
+        3:   48-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:   49:            if (!dotFlag) {dotFlag = true;}
+        3:   49-block  0
+branch  0 taken 2 (fallthrough)
+branch  1 taken 1
+        2:   49-block  1
+        -:   50:            else {
+        1:   51:                const std::string word = PositionHandler::getWordFromLine(position);
+        1:   51-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        2:   52:                throw IllegalCharError("\nIllegal Number >>> " + word + " <<<\n"+
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   52-block  0
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   52-block  1
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+call    9 returned 1
+call   10 returned 1
+call   11 returned 1
+    $$$$$:   52-block  2
+call   12 never executed
+    $$$$$:   52-block  3
+call   13 never executed
+    $$$$$:   52-block  4
+call   14 never executed
+    $$$$$:   52-block  5
+    $$$$$:   52-block  6
+    $$$$$:   52-block  7
+        4:   53:                    "on line: " + std::to_string(stoi(position["line"]) + 1) +
+        1:   53-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   53-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   53-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:   53-block  3
+call    9 returned 1
+        1:   53-block  4
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:   53-block  5
+call   13 returned 1
+branch 14 taken 1 (fallthrough)
+branch 15 taken 0 (throw)
+call   16 returned 1
+call   17 returned 1
+call   18 returned 1
+call   19 returned 1
+    $$$$$:   53-block  6
+call   20 never executed
+    $$$$$:   53-block  7
+call   21 never executed
+    $$$$$:   53-block  8
+call   22 never executed
+    $$$$$:   53-block  9
+call   23 never executed
+    $$$$$:   53-block 10
+    $$$$$:   53-block 11
+    $$$$$:   53-block 12
+    $$$$$:   53-block 13
+    $$$$$:   53-block 14
+        4:   54:                    " of file: " + position["name"] + "\n" +
+        1:   54-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   54-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   54-block  2
+        1:   54-block  3
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:   54-block  4
+call    9 returned 1
+branch 10 taken 1 (fallthrough)
+branch 11 taken 0 (throw)
+        1:   54-block  5
+call   12 returned 1
+branch 13 taken 1 (fallthrough)
+branch 14 taken 0 (throw)
+call   15 returned 1
+call   16 returned 1
+call   17 returned 1
+call   18 returned 1
+    $$$$$:   54-block  6
+call   19 never executed
+    $$$$$:   54-block  7
+call   20 never executed
+    $$$$$:   54-block  8
+call   21 never executed
+    $$$$$:   54-block  9
+call   22 never executed
+    $$$$$:   54-block 10
+    $$$$$:   54-block 11
+    $$$$$:   54-block 12
+    $$$$$:   54-block 13
+    $$$$$:   54-block 14
+        5:   55:                    "{" + position["lineText"] + "}");
+        1:   55-block  0
+call    0 returned 1
+        1:   55-block  1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:   55-block  2
+call    4 returned 1
+branch  5 taken 1 (fallthrough)
+branch  6 taken 0 (throw)
+        1:   55-block  3
+        1:   55-block  4
+call    7 returned 1
+branch  8 taken 1 (fallthrough)
+branch  9 taken 0 (throw)
+        1:   55-block  5
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:   55-block  6
+call   13 returned 1
+branch 14 taken 1 (fallthrough)
+branch 15 taken 0 (throw)
+        1:   55-block  7
+call   16 returned 1
+call   17 returned 1
+call   18 returned 1
+call   19 returned 1
+    $$$$$:   55-block  8
+call   20 never executed
+    $$$$$:   55-block  9
+call   21 never executed
+    $$$$$:   55-block 10
+call   22 never executed
+    $$$$$:   55-block 11
+    $$$$$:   55-block 12
+    $$$$$:   55-block 13
+    $$$$$:   55-block 14
+    $$$$$:   55-block 15
+call   23 never executed
+        1:   56:            }
+        1:   56-block  0
+call    0 returned 1
+        3:   57:        }
+        2:   57-block  0
+call    0 returned 2
+        1:   57-block  1
+call    1 returned 1
+        8:   58:        stringNum += character;
+        8:   58-block  0
+call    0 returned 8
+branch  1 taken 8 (fallthrough)
+branch  2 taken 0 (throw)
+        8:   59:        peekChar = this->positionHandler.peek();
+        8:   59-block  0
+call    0 returned 8
+branch  1 taken 8 (fallthrough)
+branch  2 taken 0 (throw)
+        8:   59-block  1
+        -:   60:    }
+        5:   61:    if (dotFlag) {
+        5:   61-block  0
+branch  0 taken 1 (fallthrough)
+branch  1 taken 4
+        1:   62:        return Token(TokenType::FLOAT, pos, std::stof(stringNum));
+        1:   62-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   62-block  1
+call    3 returned 1
+call    4 returned 1
+branch  5 taken 1 (fallthrough)
+branch  6 taken 0 (throw)
+        1:   62-block  2
+call    7 returned 1
+    $$$$$:   62-block  3
+call    8 never executed
+    $$$$$:   62-block  4
+    $$$$$:   62-block  5
+        -:   63:    }
+        -:   64:    else {
+        4:   65:        return Token(TokenType::INT, pos, std::stoi(stringNum));
+        4:   65-block  0
+call    0 returned 4
+branch  1 taken 4 (fallthrough)
+branch  2 taken 0 (throw)
+        4:   65-block  1
+call    3 returned 4
+call    4 returned 4
+branch  5 taken 4 (fallthrough)
+branch  6 taken 0 (throw)
+        4:   65-block  2
+call    7 returned 4
+    $$$$$:   65-block  3
+call    8 never executed
+    $$$$$:   65-block  4
+    $$$$$:   65-block  5
+        -:   66:    }
+        7:   67:}
+        5:   67-block  0
+call    0 returned 5
+call    1 returned 5
+        1:   67-block  1
+call    2 returned 1
+        1:   67-block  2
+call    3 returned 1
+function _ZNK5Lexer15makeStringTokenEc called 2 returned 50% blocks executed 55%
+        2:   68:Token Lexer::makeStringToken (char character) const{
+        2:   69:    const std::map<std::string, std::string> pos = positionHandler.getPos();
+        2:   69-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:   70:    std::string valueString = "";
+        2:   70-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   70-block  1
+        2:   71:    character = positionHandler.advanceCharacter();
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+       17:   72:    while (character != '\"') {
+        2:   72-block  0
+       17:   72-block  1
+branch  0 taken 16
+branch  1 taken 1 (fallthrough)
+       16:   73:        if (character == '\0') {
+       16:   73-block  0
+branch  0 taken 1 (fallthrough)
+branch  1 taken 15
+        -:   74:            throw InvalidSyntaxError(
+        2:   75:                "\nError in file: " + pos.at("name")
+        1:   75-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   75-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   75-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+call    9 returned 1
+call   10 returned 1
+    $$$$$:   75-block  3
+call   11 never executed
+    $$$$$:   75-block  4
+call   12 never executed
+    $$$$$:   75-block  5
+    $$$$$:   75-block  6
+    $$$$$:   75-block  7
+        4:   76:                + "\n>>> line: " + std::to_string(stoi(pos.at("line")) + 1)
+        1:   76-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   76-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   76-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:   76-block  3
+call    9 returned 1
+        1:   76-block  4
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:   76-block  5
+call   13 returned 1
+branch 14 taken 1 (fallthrough)
+branch 15 taken 0 (throw)
+call   16 returned 1
+call   17 returned 1
+call   18 returned 1
+call   19 returned 1
+    $$$$$:   76-block  6
+call   20 never executed
+    $$$$$:   76-block  7
+call   21 never executed
+    $$$$$:   76-block  8
+    $$$$$:   76-block  9
+call   22 never executed
+    $$$$$:   76-block 10
+call   23 never executed
+    $$$$$:   76-block 11
+    $$$$$:   76-block 12
+    $$$$$:   76-block 13
+    $$$$$:   76-block 14
+        4:   77:                + " | " + pos.at("lineText") + "<<<"
+        1:   77-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   77-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   77-block  2
+        1:   77-block  3
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:   77-block  4
+call    9 returned 1
+branch 10 taken 1 (fallthrough)
+branch 11 taken 0 (throw)
+        1:   77-block  5
+call   12 returned 1
+branch 13 taken 1 (fallthrough)
+branch 14 taken 0 (throw)
+call   15 returned 1
+call   16 returned 1
+call   17 returned 1
+call   18 returned 1
+    $$$$$:   77-block  6
+call   19 never executed
+    $$$$$:   77-block  7
+call   20 never executed
+    $$$$$:   77-block  8
+call   21 never executed
+    $$$$$:   77-block  9
+    $$$$$:   77-block 10
+call   22 never executed
+    $$$$$:   77-block 11
+    $$$$$:   77-block 12
+    $$$$$:   77-block 13
+    $$$$$:   77-block 14
+        2:   78:                + "\nline ended without closing quotation marks"
+        1:   78-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   78-block  1
+call    3 returned 1
+    $$$$$:   78-block  2
+call    4 never executed
+    $$$$$:   78-block  3
+        3:   79:            );
+        1:   79-block  0
+call    0 returned 1
+        1:   79-block  1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+call    4 returned 1
+    $$$$$:   79-block  2
+call    5 never executed
+        -:   80:        }
+       15:   81:        valueString += character;
+       15:   81-block  0
+call    0 returned 15
+branch  1 taken 15 (fallthrough)
+branch  2 taken 0 (throw)
+       15:   82:        character = positionHandler.advanceCharacter();
+       15:   82-block  0
+call    0 returned 15
+branch  1 taken 15 (fallthrough)
+branch  2 taken 0 (throw)
+       15:   82-block  1
+        -:   83:    }
+        2:   84:    return Token(TokenType::STRING, pos, valueString);
+        1:   84-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   84-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   84-block  2
+call    6 returned 1
+        1:   84-block  3
+    $$$$$:   84-block  4
+call    7 never executed
+    $$$$$:   84-block  5
+        3:   85:}
+call    0 returned 1
+call    1 returned 1
+        1:   85-block  0
+call    2 returned 1
+        1:   85-block  1
+call    3 returned 1
+function _ZNK5Lexer19makeIdentifierTokenEc called 16 returned 100% blocks executed 73%
+       16:   86:Token Lexer::makeIdentifierToken(char character) const{
+       16:   87:    const std::map<std::string, std::string> pos = positionHandler.getPos();
+       16:   87-block  0
+call    0 returned 16
+branch  1 taken 16 (fallthrough)
+branch  2 taken 0 (throw)
+       16:   88:    std::string identifierString;
+       16:   88-block  0
+call    0 returned 16
+       16:   89:    identifierString += character;
+call    0 returned 16
+branch  1 taken 16 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   90:    do {
+       45:   91:        char peekChar = this->positionHandler.peek();
+       45:   91-block  0
+call    0 returned 45
+branch  1 taken 45 (fallthrough)
+branch  2 taken 0 (throw)
+       45:   92:        if (peekChar != '\0' and Lexer::LETTERS_DIGITS.find(peekChar) != std::string::npos) {
+       45:   92-block  0
+branch  0 taken 33 (fallthrough)
+branch  1 taken 12
+       33:   92-block  1
+call    2 returned 33
+branch  3 taken 29 (fallthrough)
+branch  4 taken 4
+       29:   92-block  2
+       16:   92-block  3
+       45:   92-block  4
+branch  5 taken 29 (fallthrough)
+branch  6 taken 16
+       29:   93:            character = this->positionHandler.advanceCharacter();
+       29:   93-block  0
+call    0 returned 29
+branch  1 taken 29 (fallthrough)
+branch  2 taken 0 (throw)
+       29:   94:            identifierString += character;
+       29:   94-block  0
+call    0 returned 29
+branch  1 taken 29 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   95:        }
+       16:   96:        else {break;}
+       16:   96-block  0
+       29:   97:    } while (true);
+       29:   97-block  0
+       16:   98:    if (KEYWORDS.find(identifierString) != KEYWORDS.end() or LIBWORDS.find(identifierString) != LIBWORDS.end()) {
+       16:   98-block  0
+call    0 returned 16
+call    1 returned 16
+branch  2 taken 16 (fallthrough)
+branch  3 taken 0 (throw)
+       16:   98-block  1
+call    4 returned 16
+branch  5 taken 5 (fallthrough)
+branch  6 taken 11
+        5:   98-block  2
+call    7 returned 5
+call    8 returned 5
+branch  9 taken 5 (fallthrough)
+branch 10 taken 0 (throw)
+        5:   98-block  3
+call   11 returned 5
+branch 12 taken 1 (fallthrough)
+branch 13 taken 4
+       12:   98-block  4
+        4:   98-block  5
+       16:   98-block  6
+branch 14 taken 12 (fallthrough)
+branch 15 taken 4
+    $$$$$:   98-block  7
+    $$$$$:   98-block  8
+    $$$$$:   98-block  9
+    $$$$$:   98-block 10
+       12:   99:        return Token(TokenType::KEYWORD, pos, identifierString);
+       12:   99-block  0
+call    0 returned 12
+branch  1 taken 12 (fallthrough)
+branch  2 taken 0 (throw)
+       12:   99-block  1
+call    3 returned 12
+branch  4 taken 12 (fallthrough)
+branch  5 taken 0 (throw)
+       12:   99-block  2
+call    6 returned 12
+    $$$$$:   99-block  3
+call    7 never executed
+    $$$$$:   99-block  4
+        -:  100:    }
+        -:  101:    else {
+        4:  102:        return Token(TokenType::IDENTIFIER, pos, identifierString);
+        4:  102-block  0
+call    0 returned 4
+branch  1 taken 4 (fallthrough)
+branch  2 taken 0 (throw)
+        4:  102-block  1
+call    3 returned 4
+branch  4 taken 4 (fallthrough)
+branch  5 taken 0 (throw)
+        4:  102-block  2
+call    6 returned 4
+    $$$$$:  102-block  3
+call    7 never executed
+    $$$$$:  102-block  4
+        -:  103:    }
+       16:  104:}
+       16:  104-block  0
+call    0 returned 16
+call    1 returned 16
+    $$$$$:  104-block  1
+call    2 never executed
+    $$$$$:  104-block  2
+call    3 never executed
+function _ZNK5Lexer15makeEqualsTokenEc called 3 returned 100% blocks executed 62%
+        3:  105:Token Lexer::makeEqualsToken(char character) const {
+        3:  106:    const std::map<std::string, std::string> pos = positionHandler.getPos();
+        3:  106-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:  107:    const char peekChar = this->positionHandler.peek();
+        3:  107-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:  108:    if (peekChar == '=') {
+        3:  108-block  0
+branch  0 taken 1 (fallthrough)
+branch  1 taken 2
+        1:  109:        positionHandler.advanceCharacter();
+        1:  109-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  110:        return Token(TokenType::TRUEEQUALS, pos);
+        1:  110-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  110-block  1
+call    4 returned 1
+    $$$$$:  110-block  2
+call    5 never executed
+    $$$$$:  110-block  3
+    $$$$$:  110-block  4
+        -:  111:    }
+        -:  112:    else {
+        2:  113:        return Token(TokenType::EQUALS, pos);
+        2:  113-block  0
+call    0 returned 2
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0 (throw)
+        2:  113-block  1
+call    4 returned 2
+    $$$$$:  113-block  2
+call    5 never executed
+    $$$$$:  113-block  3
+    $$$$$:  113-block  4
+        -:  114:    }
+        3:  115:}
+        3:  115-block  0
+call    0 returned 3
+    $$$$$:  115-block  1
+call    1 never executed
+function _ZNK5Lexer18makeNotEqualsTokenEc called 2 returned 50% blocks executed 50%
+        2:  116:Token Lexer::makeNotEqualsToken(char character) const {
+        2:  117:    std::map<std::string, std::string> pos = positionHandler.getPos();
+        2:  117-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  118:    if (const char peekChar = this->positionHandler.peek(); peekChar == '=') {
+        2:  118-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  118-block  1
+branch  3 taken 1 (fallthrough)
+branch  4 taken 1
+        1:  119:        positionHandler.advanceCharacter();
+        1:  119-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  120:        return Token(TokenType::NOTEQUAL, pos);
+        1:  120-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  120-block  1
+call    4 returned 1
+        1:  120-block  2
+    $$$$$:  120-block  3
+call    5 never executed
+    $$$$$:  120-block  4
+    $$$$$:  120-block  5
+        -:  121:    }
+        -:  122:    else {
+        2:  123:        throw ExpectedCharError("\nOn line: " + std::to_string(stoi(pos["line"]) + 1) +
+        1:  123-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  123-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  123-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:  123-block  3
+call    9 returned 1
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:  123-block  4
+call   13 returned 1
+branch 14 taken 1 (fallthrough)
+branch 15 taken 0 (throw)
+call   16 returned 1
+call   17 returned 1
+call   18 returned 1
+call   19 returned 1
+    $$$$$:  123-block  5
+call   20 never executed
+    $$$$$:  123-block  6
+call   21 never executed
+    $$$$$:  123-block  7
+call   22 never executed
+    $$$$$:  123-block  8
+call   23 never executed
+    $$$$$:  123-block  9
+    $$$$$:  123-block 10
+    $$$$$:  123-block 11
+    $$$$$:  123-block 12
+    $$$$$:  123-block 13
+        4:  124:        " of file: " + pos["name"] + "\n" +
+        1:  124-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  124-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  124-block  2
+        1:  124-block  3
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:  124-block  4
+call    9 returned 1
+branch 10 taken 1 (fallthrough)
+branch 11 taken 0 (throw)
+        1:  124-block  5
+call   12 returned 1
+branch 13 taken 1 (fallthrough)
+branch 14 taken 0 (throw)
+call   15 returned 1
+call   16 returned 1
+call   17 returned 1
+call   18 returned 1
+    $$$$$:  124-block  6
+call   19 never executed
+    $$$$$:  124-block  7
+call   20 never executed
+    $$$$$:  124-block  8
+call   21 never executed
+    $$$$$:  124-block  9
+call   22 never executed
+    $$$$$:  124-block 10
+    $$$$$:  124-block 11
+    $$$$$:  124-block 12
+    $$$$$:  124-block 13
+    $$$$$:  124-block 14
+        4:  125:        "{" + pos["lineText"] + "}\n" +
+        1:  125-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  125-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  125-block  2
+        1:  125-block  3
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:  125-block  4
+call    9 returned 1
+branch 10 taken 1 (fallthrough)
+branch 11 taken 0 (throw)
+        1:  125-block  5
+call   12 returned 1
+branch 13 taken 1 (fallthrough)
+branch 14 taken 0 (throw)
+call   15 returned 1
+call   16 returned 1
+call   17 returned 1
+call   18 returned 1
+    $$$$$:  125-block  6
+call   19 never executed
+    $$$$$:  125-block  7
+call   20 never executed
+    $$$$$:  125-block  8
+call   21 never executed
+    $$$$$:  125-block  9
+call   22 never executed
+    $$$$$:  125-block 10
+    $$$$$:  125-block 11
+    $$$$$:  125-block 12
+    $$$$$:  125-block 13
+    $$$$$:  125-block 14
+        5:  126:        "Expected >>> != <<< instead recieved >>> !" + std::string(1, peekChar) + " <<<");
+        1:  126-block  0
+call    0 returned 1
+        1:  126-block  1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  126-block  2
+call    4 returned 1
+branch  5 taken 1 (fallthrough)
+branch  6 taken 0 (throw)
+        1:  126-block  3
+call    7 returned 1
+branch  8 taken 1 (fallthrough)
+branch  9 taken 0 (throw)
+        1:  126-block  4
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:  126-block  5
+call   13 returned 1
+call   14 returned 1
+call   15 returned 1
+call   16 returned 1
+    $$$$$:  126-block  6
+call   17 never executed
+    $$$$$:  126-block  7
+call   18 never executed
+    $$$$$:  126-block  8
+call   19 never executed
+    $$$$$:  126-block  9
+    $$$$$:  126-block 10
+    $$$$$:  126-block 11
+    $$$$$:  126-block 12
+    $$$$$:  126-block 13
+call   20 never executed
+        -:  127:    }
+        2:  128:}
+call    0 returned 1
+        1:  128-block  0
+call    1 returned 1
+function _ZNK5Lexer17makeLessThanTokenEc called 2 returned 100% blocks executed 62%
+        2:  129:Token Lexer::makeLessThanToken(char character) const {
+        2:  130:    const std::map<std::string, std::string> pos = positionHandler.getPos();
+        2:  130-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  131:    const char peekChar = this->positionHandler.peek();
+        2:  131-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  132:    if (peekChar == '=') {
+        2:  132-block  0
+branch  0 taken 1 (fallthrough)
+branch  1 taken 1
+        1:  133:        positionHandler.advanceCharacter();
+        1:  133-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  134:        return Token(TokenType::LESSEQUAL, pos);
+        1:  134-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  134-block  1
+call    4 returned 1
+    $$$$$:  134-block  2
+call    5 never executed
+    $$$$$:  134-block  3
+    $$$$$:  134-block  4
+        -:  135:    }
+        -:  136:    else {
+        1:  137:        return Token(TokenType::LESSTHAN, pos);
+        1:  137-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  137-block  1
+call    4 returned 1
+    $$$$$:  137-block  2
+call    5 never executed
+    $$$$$:  137-block  3
+    $$$$$:  137-block  4
+        -:  138:    }
+        2:  139:}
+        2:  139-block  0
+call    0 returned 2
+    $$$$$:  139-block  1
+call    1 never executed
+function _ZNK5Lexer20makeGreaterThanTokenEc called 2 returned 100% blocks executed 62%
+        2:  140:Token Lexer::makeGreaterThanToken(char character) const {
+        2:  141:    const std::map<std::string, std::string> pos = positionHandler.getPos();
+        2:  141-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  142:    const char peekChar = this->positionHandler.peek();
+        2:  142-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  143:    if (peekChar == '=') {
+        2:  143-block  0
+branch  0 taken 1 (fallthrough)
+branch  1 taken 1
+        1:  144:        positionHandler.advanceCharacter();
+        1:  144-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  145:        return Token(TokenType::GREATEREQUAL, pos);
+        1:  145-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  145-block  1
+call    4 returned 1
+    $$$$$:  145-block  2
+call    5 never executed
+    $$$$$:  145-block  3
+    $$$$$:  145-block  4
+        -:  146:    }
+        -:  147:    else {
+        1:  148:        return Token(TokenType::GREATERTHAN, pos);
+        1:  148-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  148-block  1
+call    4 returned 1
+    $$$$$:  148-block  2
+call    5 never executed
+    $$$$$:  148-block  3
+    $$$$$:  148-block  4
+        -:  149:    }
+        2:  150:}
+        2:  150-block  0
+call    0 returned 2
+    $$$$$:  150-block  1
+call    1 never executed
+        -:  151:
+function _ZNK5Lexer8tokeniseEv called 40 returned 90% blocks executed 61%
+       40:  152:std::map<int, std::vector<Token>> Lexer::tokenise() const {
+       40:  153:    std::map<int, std::vector<Token>> tokenDict = {};
+       40:  153-block  0
+call    0 returned 40
+       40:  154:    bool isLine = positionHandler.advanceLine();
+call    0 returned 40
+branch  1 taken 40 (fallthrough)
+branch  2 taken 0 (throw)
+       77:  155:    while (isLine) { // loop through lines
+       40:  155-block  0
+       77:  155-block  1
+branch  0 taken 41
+branch  1 taken 36 (fallthrough)
+       41:  156:        std::vector<Token> lineTokens = {};
+       41:  156-block  0
+call    0 returned 41
+       41:  157:        std::map<std::string, std::string> pos = positionHandler.getPos();
+call    0 returned 41
+branch  1 taken 41 (fallthrough)
+branch  2 taken 0 (throw)
+       41:  158:        char currentChar = positionHandler.getChar();
+       41:  158-block  0
+call    0 returned 41
+branch  1 taken 41 (fallthrough)
+branch  2 taken 0 (throw)
+       41:  159:        bool escapeFlag = false;
+       94:  160:        while (currentChar != '\0' and not escapeFlag) { // loop through characters
+       41:  160-block  0
+       94:  160-block  1
+branch  0 taken 58 (fallthrough)
+branch  1 taken 36
+       58:  160-block  2
+branch  2 taken 57
+branch  3 taken 1 (fallthrough)
+       57:  161:            pos = positionHandler.getPos();
+       57:  161-block  0
+call    0 returned 57
+branch  1 taken 57 (fallthrough)
+branch  2 taken 0 (throw)
+       57:  161-block  1
+call    3 returned 57
+call    4 returned 57
+    $$$$$:  161-block  2
+       57:  162:            switch(currentChar){
+branch  0 taken 8
+branch  1 taken 1
+branch  2 taken 1
+branch  3 taken 1
+branch  4 taken 1
+branch  5 taken 1
+branch  6 taken 1
+branch  7 taken 3
+branch  8 taken 2
+branch  9 taken 2
+branch 10 taken 2
+branch 11 taken 2
+branch 12 taken 32
+        8:  163:                case ' ': case '\t': case '\n': case '\r':
+        -:  164:                    // Skip whitespace
+        8:  165:                    break;
+        8:  165-block  0
+        1:  166:                case '~':
+        1:  167:                    escapeFlag = true;
+        1:  168:                break;
+        1:  168-block  0
+        1:  169:                case '(':
+        1:  170:                    lineTokens.emplace_back(TokenType::OPENPAREN, pos);
+        1:  170-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:  170-block  1
+        1:  171:                break;
+        1:  171-block  0
+        1:  172:                case ')':
+        1:  173:                    lineTokens.emplace_back(TokenType::CLOSEPAREN, pos);
+        1:  173-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:  173-block  1
+        1:  174:                    break;
+        1:  174-block  0
+        1:  175:                case '{':
+        1:  176:                    lineTokens.emplace_back(TokenType::OPENBRACE, pos);
+        1:  176-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:  176-block  1
+        1:  177:                break;
+        1:  177-block  0
+        1:  178:                case '}':
+        1:  179:                    lineTokens.emplace_back(TokenType::CLOSEBRACE, pos);
+        1:  179-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:  179-block  1
+        1:  180:                break;
+        1:  180-block  0
+        1:  181:                case ',':
+        1:  182:                    lineTokens.emplace_back(TokenType::SEPERATOR, pos);
+        1:  182-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:  182-block  1
+        1:  183:                break;
+        1:  183-block  0
+        3:  184:                case '=':
+        3:  185:                    lineTokens.push_back(makeEqualsToken(currentChar));
+        3:  185-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:  185-block  1
+call    3 returned 3
+branch  4 taken 3 (fallthrough)
+branch  5 taken 0 (throw)
+        3:  185-block  2
+call    6 returned 3
+    $$$$$:  185-block  3
+call    7 never executed
+    $$$$$:  185-block  4
+        3:  186:                break;
+        2:  187:                case '!':
+        2:  188:                    lineTokens.push_back(makeNotEqualsToken(currentChar));
+        2:  188-block  0
+call    0 returned 2
+branch  1 taken 1 (fallthrough)
+branch  2 taken 1 (throw)
+        1:  188-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  188-block  2
+call    6 returned 1
+    $$$$$:  188-block  3
+call    7 never executed
+        1:  188-block  4
+        1:  189:                break;
+        2:  190:                case '<':
+        2:  191:                    lineTokens.push_back(makeLessThanToken(currentChar));
+        2:  191-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  191-block  1
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+        2:  191-block  2
+call    6 returned 2
+    $$$$$:  191-block  3
+call    7 never executed
+    $$$$$:  191-block  4
+        2:  192:                break;
+        2:  193:                case '>':
+        2:  194:                    lineTokens.push_back(makeGreaterThanToken(currentChar));
+        2:  194-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  194-block  1
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+        2:  194-block  2
+call    6 returned 2
+    $$$$$:  194-block  3
+call    7 never executed
+    $$$$$:  194-block  4
+        2:  195:                break;
+        2:  196:                case '\"':
+        2:  197:                    lineTokens.push_back(makeStringToken(currentChar));
+        2:  197-block  0
+call    0 returned 2
+branch  1 taken 1 (fallthrough)
+branch  2 taken 1 (throw)
+        1:  197-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  197-block  2
+call    6 returned 1
+    $$$$$:  197-block  3
+call    7 never executed
+        1:  197-block  4
+        1:  198:                break;
+       32:  199:                default:
+       32:  200:                    if (OPERATORS.find(currentChar) != std::string::npos) {
+       32:  200-block  0
+call    0 returned 32
+branch  1 taken 9 (fallthrough)
+branch  2 taken 23
+        9:  201:                        lineTokens.push_back(makeOperatorToken(currentChar));
+        9:  201-block  0
+call    0 returned 9
+branch  1 taken 9 (fallthrough)
+branch  2 taken 0 (throw)
+        9:  201-block  1
+call    3 returned 9
+branch  4 taken 9 (fallthrough)
+branch  5 taken 0 (throw)
+        9:  201-block  2
+call    6 returned 9
+    $$$$$:  201-block  3
+call    7 never executed
+    $$$$$:  201-block  4
+        -:  202:                    }
+       23:  203:                    else if (DIGITS.find(currentChar) != std::string::npos) {
+       23:  203-block  0
+call    0 returned 23
+branch  1 taken 6 (fallthrough)
+branch  2 taken 17
+        6:  204:                        lineTokens.push_back(makeNumberToken(currentChar));
+        6:  204-block  0
+call    0 returned 6
+branch  1 taken 5 (fallthrough)
+branch  2 taken 1 (throw)
+        5:  204-block  1
+call    3 returned 5
+branch  4 taken 5 (fallthrough)
+branch  5 taken 0 (throw)
+        5:  204-block  2
+call    6 returned 5
+    $$$$$:  204-block  3
+call    7 never executed
+        1:  204-block  4
+        -:  205:                    }
+       17:  206:                    else if (LETTERS.find(currentChar) != std::string::npos) {
+       17:  206-block  0
+call    0 returned 17
+branch  1 taken 16 (fallthrough)
+branch  2 taken 1
+       16:  207:                        lineTokens.push_back(makeIdentifierToken(currentChar));
+       16:  207-block  0
+call    0 returned 16
+branch  1 taken 16 (fallthrough)
+branch  2 taken 0 (throw)
+       16:  207-block  1
+call    3 returned 16
+branch  4 taken 16 (fallthrough)
+branch  5 taken 0 (throw)
+       16:  207-block  2
+call    6 returned 16
+    $$$$$:  207-block  3
+call    7 never executed
+    $$$$$:  207-block  4
+        -:  208:                    }
+        -:  209:                    else {
+        2:  210:                        throw IllegalCharError("\nUnrecognized character >>> " + pos["character"] + " <<<" +
+        1:  210-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  210-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  210-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:  210-block  3
+call    9 returned 1
+branch 10 taken 1 (fallthrough)
+branch 11 taken 0 (throw)
+        1:  210-block  4
+call   12 returned 1
+branch 13 taken 1 (fallthrough)
+branch 14 taken 0 (throw)
+call   15 returned 1
+call   16 returned 1
+call   17 returned 1
+call   18 returned 1
+    $$$$$:  210-block  5
+call   19 never executed
+    $$$$$:  210-block  6
+call   20 never executed
+    $$$$$:  210-block  7
+call   21 never executed
+    $$$$$:  210-block  8
+call   22 never executed
+    $$$$$:  210-block  9
+    $$$$$:  210-block 10
+    $$$$$:  210-block 11
+    $$$$$:  210-block 12
+    $$$$$:  210-block 13
+        2:  211:                            " on line: " +
+        1:  211-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 1
+    $$$$$:  211-block  1
+call    4 never executed
+    $$$$$:  211-block  2
+        6:  212:                            std::to_string(stoi(pos["line"]) + 1) + " of file: " + pos["name"] +
+        1:  212-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  212-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  212-block  2
+        1:  212-block  3
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:  212-block  4
+call    9 returned 1
+branch 10 taken 1 (fallthrough)
+branch 11 taken 0 (throw)
+        1:  212-block  5
+call   12 returned 1
+branch 13 taken 1 (fallthrough)
+branch 14 taken 0 (throw)
+        1:  212-block  6
+call   15 returned 1
+        1:  212-block  7
+call   16 returned 1
+branch 17 taken 1 (fallthrough)
+branch 18 taken 0 (throw)
+        1:  212-block  8
+call   19 returned 1
+branch 20 taken 1 (fallthrough)
+branch 21 taken 0 (throw)
+        1:  212-block  9
+call   22 returned 1
+branch 23 taken 1 (fallthrough)
+branch 24 taken 0 (throw)
+call   25 returned 1
+call   26 returned 1
+call   27 returned 1
+call   28 returned 1
+call   29 returned 1
+call   30 returned 1
+    $$$$$:  212-block 10
+call   31 never executed
+    $$$$$:  212-block 11
+call   32 never executed
+    $$$$$:  212-block 12
+call   33 never executed
+    $$$$$:  212-block 13
+call   34 never executed
+    $$$$$:  212-block 14
+call   35 never executed
+    $$$$$:  212-block 15
+    $$$$$:  212-block 16
+    $$$$$:  212-block 17
+    $$$$$:  212-block 18
+    $$$$$:  212-block 19
+call   36 never executed
+    $$$$$:  212-block 20
+    $$$$$:  212-block 21
+    $$$$$:  212-block 22
+    $$$$$:  212-block 23
+        5:  213:                            " {" + pos["lineText"] + "}");
+        1:  213-block  0
+call    0 returned 1
+        1:  213-block  1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+        1:  213-block  2
+call    4 returned 1
+branch  5 taken 1 (fallthrough)
+branch  6 taken 0 (throw)
+        1:  213-block  3
+        1:  213-block  4
+call    7 returned 1
+branch  8 taken 1 (fallthrough)
+branch  9 taken 0 (throw)
+        1:  213-block  5
+call   10 returned 1
+branch 11 taken 1 (fallthrough)
+branch 12 taken 0 (throw)
+        1:  213-block  6
+call   13 returned 1
+branch 14 taken 1 (fallthrough)
+branch 15 taken 0 (throw)
+        1:  213-block  7
+call   16 returned 1
+call   17 returned 1
+call   18 returned 1
+call   19 returned 1
+    $$$$$:  213-block  8
+call   20 never executed
+    $$$$$:  213-block  9
+call   21 never executed
+    $$$$$:  213-block 10
+call   22 never executed
+    $$$$$:  213-block 11
+    $$$$$:  213-block 12
+    $$$$$:  213-block 13
+    $$$$$:  213-block 14
+    $$$$$:  213-block 15
+call   23 never executed
+        -:  214:                    }
+        -:  215:            }
+       53:  216:            currentChar = positionHandler.advanceCharacter(); // advance to next char
+       53:  216-block  0
+call    0 returned 53
+branch  1 taken 53 (fallthrough)
+branch  2 taken 0 (throw)
+       53:  216-block  1
+        -:  217:        }
+       37:  218:        lineTokens.emplace_back(TokenType::EOL, positionHandler.getPos());
+       37:  218-block  0
+call    0 returned 37
+branch  1 taken 37 (fallthrough)
+branch  2 taken 0 (throw)
+       37:  218-block  1
+call    3 returned 37
+branch  4 taken 37 (fallthrough)
+branch  5 taken 0 (throw)
+       37:  218-block  2
+call    6 returned 37
+    $$$$$:  218-block  3
+    $$$$$:  218-block  4
+call    7 never executed
+    $$$$$:  218-block  5
+       37:  219:        tokenDict[positionHandler.getLineNumber()] = lineTokens;
+call    0 returned 37
+branch  1 taken 37 (fallthrough)
+branch  2 taken 0 (throw)
+       37:  219-block  0
+call    3 returned 37
+branch  4 taken 37 (fallthrough)
+branch  5 taken 0 (throw)
+       37:  219-block  1
+call    6 returned 37
+branch  7 taken 37 (fallthrough)
+branch  8 taken 0 (throw)
+    $$$$$:  219-block  2
+       37:  220:        isLine = positionHandler.advanceLine();
+       37:  220-block  0
+call    0 returned 37
+branch  1 taken 37 (fallthrough)
+branch  2 taken 0 (throw)
+       45:  221:    }
+       37:  221-block  0
+call    0 returned 37
+call    1 returned 37
+        4:  221-block  1
+call    2 returned 4
+        4:  221-block  2
+call    3 returned 4
+       36:  222:    tokenDict[positionHandler.getLineNumber()+1].emplace_back(TokenType::EOF_, PositionHandler::nullPos);
+       36:  222-block  0
+call    0 returned 36
+branch  1 taken 36 (fallthrough)
+branch  2 taken 0 (throw)
+       36:  222-block  1
+call    3 returned 36
+branch  4 taken 36 (fallthrough)
+branch  5 taken 0 (throw)
+       36:  222-block  2
+call    6 returned 36
+branch  7 taken 36 (fallthrough)
+branch  8 taken 0 (throw)
+    $$$$$:  222-block  3
+    $$$$$:  222-block  4
+       36:  223:    return tokenDict;
+       36:  223-block  0
+       36:  223-block  1
+        4:  224:}
+        4:  224-block  0
+call    0 returned 4
+        -:  225:
+        -:  226:

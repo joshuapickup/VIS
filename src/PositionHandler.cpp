@@ -11,7 +11,7 @@ const std::map<std::string, std::string> PositionHandler::nullPos = {
     {"character", "null"}
 };
 
-PositionHandler::PositionHandler(std::string fileName, std::ifstream &file):
+PositionHandler::PositionHandler(std::string fileName, std::istream &file):
 file(file),
 charPos(-1),
 currentChar('\0'),
@@ -32,31 +32,22 @@ char PositionHandler::advanceCharacter() {
 
 // advance to the next line returns false if line dosent exist
 bool PositionHandler::advanceLine() {
-    if (!file.is_open()) {
-        return false;
-    }
+    if (!file) return false; // Stream might already be in bad state
+
     if (std::getline(file, lineText)) {
         line++;
         charPos = 0;
-        if (!lineText.empty()) {
-            currentChar = lineText[charPos]; // Set the current character
-        } else {
-            currentChar = '\0'; // Set to null character if the line is empty
-        }
+        currentChar = lineText.empty() ? '\0' : lineText[charPos];
         return true;
     }
-    file.close();
-    return false;
+
+    return false; // No file.close() — not needed for istream
 }
 
 // returns next character without advancing
 char PositionHandler::peek() const{
-    if (charPos < static_cast<int>(lineText.length()) - 1) {
-        return lineText[charPos+1];
-    }
-    else {
-        return '\0';
-    }
+    if (charPos < static_cast<int>(lineText.length()) - 1) {return lineText[charPos+1];}
+    else {return '\0';}
 }
 
 // reset position
@@ -74,32 +65,23 @@ std::string PositionHandler::getWordFromLine(const std::map<std::string, std::st
     const std::string& lineText = lineTextIt->second;
     const int position = std::stoi(charPosIt->second);
     if (position < 0 || position >= static_cast<int>(lineText.length())) {return "";}
-
     auto isWordChar = [](char c) {
         return std::isalnum(static_cast<unsigned char>(c)) || c == '_' || c == '.';
     };
-
-
     int start = position;
     while (start > 0 && isWordChar(lineText[start - 1])) {
         --start;
     }
-
     int end = position;
     while (end < static_cast<int>(lineText.length()) - 1 && isWordChar(lineText[end + 1])) {
         ++end;
     }
-
     return lineText.substr(start, end - start + 1);
 }
 
-char PositionHandler::getChar() const {
-    return currentChar;
-}
+char PositionHandler::getChar() const {return currentChar;}
 
-int PositionHandler::getLineNumber() const {
-    return line;
-}
+int PositionHandler::getLineNumber() const {return line;}
 
 // get current position details
 std::map<std::string, std::string> PositionHandler::getPos() const {

@@ -1,8 +1,6 @@
 @startuml ParserUML
 scale 2/3
 left to right direction
-skinparam linetype ortho
-
 
 enum NodeType {
     Number
@@ -168,23 +166,23 @@ class ReturnCall {
     - expression : unique_ptr<Node>
 }
 
-Node <|-- EndOfFile
-Node <|-- Number
-Node <|-- StringNode
-Node <|-- Operator
-Node <|-- UnaryOperator
-Node <|-- BinaryOperator
-Node <|-- VarAssignment
-Node <|-- VarAccess
-Node <|-- VarIncrement
-Node <|-- VarDecrement
-LibCall --|> Node
-IfStmt --|> Node
-WhileStmt --|> Node
-ForStmt --|> Node
-FuncDef --|> Node
-FuncCall --|> Node
-ReturnCall --|> Node
+Node <|--- EndOfFile
+Node <|--- Number
+Node <|--- StringNode
+Node <|--- Operator
+Node <|--- UnaryOperator
+Node <|--- BinaryOperator
+Node <|--- VarAssignment
+Node <|--- VarAccess
+Node <|--- VarIncrement
+Node <|--- VarDecrement
+LibCall ---|> Node
+IfStmt ---|> Node
+WhileStmt ---|> Node
+ForStmt ---|> Node
+FuncDef ---|> Node
+FuncCall ---|> Node
+ReturnCall ---|> Node
 
 
 Node *- NodeType

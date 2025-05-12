@@ -29,7 +29,7 @@ class ValueLiteral <<variant>> {
     + string
 }
 
-Token::type *-- TokenType
-Token::value *-- ValueLiteral
+TokenType -* Token::type
+Token::value *- ValueLiteral
 
 @enduml

@@ -192,7 +192,6 @@ std::unique_ptr<Literal> Interpreter::visitBinaryOpNode(const BinaryOperator *no
     }
     uniqueLiteral->setPosition(token.getPos());
     uniqueLiteral->setContext(context);
-
     return uniqueLiteral;
 }
 
@@ -306,13 +305,11 @@ std::unique_ptr<Literal> Interpreter::visitForStmtNode(const ForStmt* node, Cont
 std::unique_ptr<Literal> Interpreter::visitFuncDefNode(const FuncDef* node, Context* context) {
     auto contextForFunc = std::make_unique<Context>(node->getName());
     contextForFunc->setParentContext(context);
-    contextForFunc->setSymbolTable(SymbolTable());
-
+    contextForFunc->setSymbolTable(SymbolTable(&context->getSymbolTable()));
     // Clone arguments and body
     std::vector<Token> clonedArgs;
     for (const Token& token : node->getArguments()) {clonedArgs.push_back(token.clone());}
     std::vector<std::unique_ptr<Node>> clonedBody = Node::cloneNodeVector(node->getFunctionBody());
-
     std::unique_ptr<FunctionLiteral> funcLiteral = std::make_unique<FunctionLiteral>(
         node->getName(),
         std::move(clonedArgs),
@@ -321,6 +318,7 @@ std::unique_ptr<Literal> Interpreter::visitFuncDefNode(const FuncDef* node, Cont
         );
     funcLiteral->setContext(context);
     funcLiteral->setPosition(node->getToken().getPos());
+    std::cout << *funcLiteral->getScopeContext() << std::endl;
     const std::string funcName = funcLiteral->getName();
     auto clonedFunc = funcLiteral->clone();
     clonedFunc->setContext(context);
@@ -330,15 +328,16 @@ std::unique_ptr<Literal> Interpreter::visitFuncDefNode(const FuncDef* node, Cont
 }
 
 std::unique_ptr<Literal> Interpreter::visitFuncCallNode(const FuncCall* node, Context* context) {
-    std::string name = node->getName();
+    const std::string name = node->getName();
     Literal* func = context->getSymbolTable().getLiteral(name);
     const FunctionLiteral* funcLiteral = dynamic_cast<FunctionLiteral*>(func);
     if (!funcLiteral) {
         throw VisRunTimeError("function >>> " + name + " <<< called but does not point to a function");
     }
     const std::unique_ptr<Literal> funcClone = funcLiteral->clone();
-    funcClone->setContext(funcLiteral->getContext());
-    funcClone->setPosition(funcLiteral->getPosition());
+    FunctionLiteral* concreteFunc = dynamic_cast<FunctionLiteral*>(funcClone.get());
+    concreteFunc->setContext(funcLiteral->getContext());
+    concreteFunc->setPosition(funcLiteral->getPosition());
     const auto& funcArgs = funcLiteral->getArgs();
     const auto& passedArgs = node->getArguments();
     if (funcArgs.size() != passedArgs.size()) {
@@ -348,11 +347,11 @@ std::unique_ptr<Literal> Interpreter::visitFuncCallNode(const FuncCall* node, Co
         std::string argName = std::get<std::string>(funcArgs[i].getValue());
         std::unique_ptr<Literal> value = visit(passedArgs[i], context);
         if (!value) {throw InterpretError("function argument evaluated to a null ptr");}
-        funcClone->getContext()->getSymbolTable().set(argName, std::move(value));
+        concreteFunc->getScopeContext()->getSymbolTable().set(argName, std::move(value));
     }
     try {
         for (const std::unique_ptr<Node>& bodyNode : funcLiteral->getBody()) {
-            visit(bodyNode, funcLiteral->getContext());
+            visit(bodyNode, concreteFunc->getScopeContext().get());
         }
     }
     catch (ReturnSignal& returnSignal) {
@@ -365,3 +364,7 @@ std::unique_ptr<Literal> Interpreter::visitReturnCallNode(const ReturnCall* node
     std::unique_ptr<Literal> returnValue = visit(node->getExpression(), context);
     throw ReturnSignal(std::move(returnValue));
 }
+
+
+
+

@@ -360,6 +360,8 @@ std::string FunctionLiteral::getStringValue() const {
     throw VisRunTimeError("function contains no value");
 }
 
+const std::unique_ptr<Context>& FunctionLiteral::getScopeContext() const {return scopeContext;}
+
 std::unique_ptr<Literal> FunctionLiteral::clone() const {
     std::vector<Token> clonedArgs;
     clonedArgs.reserve(this->argTokens.size());

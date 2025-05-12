@@ -1,0 +1,586 @@
+        -:    0:Source:D:/Project Workspace/Year3/VIS/src/Token.cpp
+        -:    0:Graph:D:\Project Workspace\Year3\VIS\cmake-build-debug\tests\CMakeFiles\vis_tests.dir\__\src\Token.cpp.gcno
+        -:    0:Data:D:\Project Workspace\Year3\VIS\cmake-build-debug\tests\CMakeFiles\vis_tests.dir\__\src\Token.cpp.gcda
+        -:    0:Runs:1
+        -:    1:#include <iostream>
+        -:    2:#include <utility>
+        -:    3:#include "Token.h"
+        -:    4:
+function _Z14tokenTypeToStrB5cxx119TokenType called 35 returned 100% blocks executed 63%
+       35:    5:std::string tokenTypeToStr(TokenType type) {
+       35:    6:    switch (type) {
+       35:    6-block  0
+branch  0 taken 3
+branch  1 taken 2
+branch  2 taken 2
+branch  3 taken 2
+branch  4 taken 1
+branch  5 taken 1
+branch  6 taken 1
+branch  7 taken 1
+branch  8 taken 1
+branch  9 taken 1
+branch 10 taken 1
+branch 11 taken 1
+branch 12 taken 1
+branch 13 taken 1
+branch 14 taken 1
+branch 15 taken 2
+branch 16 taken 2
+branch 17 taken 1
+branch 18 taken 1
+branch 19 taken 1
+branch 20 taken 1
+branch 21 taken 1
+branch 22 taken 1
+branch 23 taken 1
+branch 24 taken 1
+branch 25 taken 1
+branch 26 taken 1
+branch 27 taken 1
+        9:    7:        case TokenType::INT: return "INT";
+        3:    7-block  0
+        3:    7-block  1
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:    7-block  2
+call    3 never executed
+        6:    8:        case TokenType::FLOAT: return "FLOAT";
+        2:    8-block  0
+        2:    8-block  1
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:    8-block  2
+call    3 never executed
+        6:    9:        case TokenType::STRING: return "STRING";
+        2:    9-block  0
+        2:    9-block  1
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:    9-block  2
+call    3 never executed
+        6:   10:        case TokenType::PLUS: return "PLUS";
+        2:   10-block  0
+        2:   10-block  1
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   10-block  2
+call    3 never executed
+        3:   11:        case TokenType::MINUS: return "MINUS";
+        1:   11-block  0
+        1:   11-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   11-block  2
+call    3 never executed
+        3:   12:        case TokenType::MUL: return "MUL";
+        1:   12-block  0
+        1:   12-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   12-block  2
+call    3 never executed
+        3:   13:        case TokenType::DIV: return "DIV";
+        1:   13-block  0
+        1:   13-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   13-block  2
+call    3 never executed
+        3:   14:        case TokenType::MOD: return "MOD";
+        1:   14-block  0
+        1:   14-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   14-block  2
+call    3 never executed
+        3:   15:        case TokenType::INCREMENT: return "INCREMENT";
+        1:   15-block  0
+        1:   15-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   15-block  2
+call    3 never executed
+        3:   16:        case TokenType::DECREMENT: return "DECREMENT";
+        1:   16-block  0
+        1:   16-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   16-block  2
+call    3 never executed
+        3:   17:        case TokenType::OPENPAREN: return "OPENPAREN";
+        1:   17-block  0
+        1:   17-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   17-block  2
+call    3 never executed
+        3:   18:        case TokenType::CLOSEPAREN: return "CLOSEPAREN";
+        1:   18-block  0
+        1:   18-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   18-block  2
+call    3 never executed
+        3:   19:        case TokenType::OPENBRACE: return "OPENBRACE";
+        1:   19-block  0
+        1:   19-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   19-block  2
+call    3 never executed
+        3:   20:        case TokenType::CLOSEBRACE: return "CLOSEBRACE";
+        1:   20-block  0
+        1:   20-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   20-block  2
+call    3 never executed
+        3:   21:        case TokenType::SEPERATOR: return "SEPERATOR";
+        1:   21-block  0
+        1:   21-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   21-block  2
+call    3 never executed
+        6:   22:        case TokenType::KEYWORD: return "KEYWORD";
+        2:   22-block  0
+        2:   22-block  1
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   22-block  2
+call    3 never executed
+        6:   23:        case TokenType::IDENTIFIER: return "IDENTIFIER";
+        2:   23-block  0
+        2:   23-block  1
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   23-block  2
+call    3 never executed
+        3:   24:        case TokenType::EQUALS: return "EQUALS";
+        1:   24-block  0
+        1:   24-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   24-block  2
+call    3 never executed
+        3:   25:        case TokenType::NOTEQUAL: return "NOT EQUALS";
+        1:   25-block  0
+        1:   25-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   25-block  2
+call    3 never executed
+        3:   26:        case TokenType::TRUEEQUALS: return "TRUE EQUALS";
+        1:   26-block  0
+        1:   26-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   26-block  2
+call    3 never executed
+        3:   27:        case TokenType::LESSTHAN: return "LESS THAN";
+        1:   27-block  0
+        1:   27-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   27-block  2
+call    3 never executed
+        3:   28:        case TokenType::LESSEQUAL: return "LESS OR EQUALS";
+        1:   28-block  0
+        1:   28-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   28-block  2
+call    3 never executed
+        3:   29:        case TokenType::GREATERTHAN: return "GREATER THAN";
+        1:   29-block  0
+        1:   29-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   29-block  2
+call    3 never executed
+        3:   30:        case TokenType::GREATEREQUAL: return "GREATER OR EQUALS";
+        1:   30-block  0
+        1:   30-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   30-block  2
+call    3 never executed
+        3:   31:        case TokenType::NULL_: return "NULL_";
+        1:   31-block  0
+        1:   31-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   31-block  2
+call    3 never executed
+        3:   32:        case TokenType::EOL: return "END OF LINE";
+        1:   32-block  0
+        1:   32-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   32-block  2
+call    3 never executed
+        3:   33:        case TokenType::EOF_: return "END OF FILE";
+        1:   33-block  0
+        1:   33-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+    $$$$$:   33-block  2
+call    3 never executed
+        3:   34:        default: return "UNKNOWN";
+        1:   34-block  0
+        1:   34-block  1
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   35:    }
+        -:   36:}
+        -:   37:
+function _ZN5TokenC2E9TokenTypeRKSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES7_St4lessIS7_ESaISt4pairIKS7_S7_EEESt7variantIJSt9monostatebifS7_EE called 296 returned 100% blocks executed 83%
+      296:   38:Token::Token(const TokenType type_, const std::map<std::string, std::string>& pos, ValueLiteral  value_):
+      296:   39:    type(type_),
+      296:   40:    value(std::move(value_)),
+      296:   40-block  0
+call    0 returned 296
+call    1 returned 296
+      296:   41:    position(pos) {}
+call    0 returned 296
+branch  1 taken 296 (fallthrough)
+branch  2 taken 0 (throw)
+      296:   41-block  0
+    $$$$$:   41-block  1
+call    3 never executed
+        -:   42:
+function _ZNK5Token7getTypeEv called 419 returned 100% blocks executed 100%
+      419:   43:TokenType Token::getType() const {return type;}
+      419:   43-block  0
+        -:   44:
+function _ZNK5Token8getValueB5cxx11Ev called 170 returned 100% blocks executed 100%
+      170:   45:ValueLiteral Token::getValue() const {return value;}
+      170:   45-block  0
+call    0 returned 170
+        -:   46:
+function _ZNK5Token6getPosB5cxx11Ev called 104 returned 100% blocks executed 100%
+      104:   47:std::map<std::string, std::string> Token::getPos() const {return position;}
+      104:   47-block  0
+call    0 returned 104
+        -:   48:
+function _ZNK5Token7matchesE9TokenTypeRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 150 returned 100% blocks executed 100%
+      150:   49:bool Token::matches(const TokenType type_, const std::string &value_) const {
+      150:   50:    if (std::holds_alternative<std::string>(value)) {
+      150:   50-block  0
+call    0 returned 150
+branch  1 taken 65 (fallthrough)
+branch  2 taken 85
+       65:   51:        if (type == type_ && std::get<std::string>(value) == value_) {
+       65:   51-block  0
+branch  0 taken 46 (fallthrough)
+branch  1 taken 19
+       46:   51-block  1
+call    2 returned 46
+call    3 returned 46
+branch  4 taken 14 (fallthrough)
+branch  5 taken 32
+       14:   51-block  2
+       51:   51-block  3
+       65:   51-block  4
+branch  6 taken 14 (fallthrough)
+branch  7 taken 51
+       14:   52:            return true;
+       14:   52-block  0
+        -:   53:        }
+        -:   54:    }
+      136:   55:    return false;
+      136:   55-block  0
+        -:   56:}
+        -:   57:
+function _ZNK5Token5cloneEv called 4 returned 100% blocks executed 75%
+        4:   58:Token Token::clone() const {return Token(type, position, value);}
+        4:   58-block  0
+call    0 returned 4
+branch  1 taken 4 (fallthrough)
+branch  2 taken 0 (throw)
+        4:   58-block  1
+call    3 returned 4
+branch  4 taken 4 (fallthrough)
+branch  5 taken 0 (throw)
+        4:   58-block  2
+call    6 returned 4
+        4:   58-block  3
+    $$$$$:   58-block  4
+call    7 never executed
+        -:   59:
+function _ZlsRSoRK5Token called 7 returned 100% blocks executed 56%
+        7:   60:std::ostream& operator<<(std::ostream& os,  const Token& token) {
+        7:   61:    os << "Token(Type: " << tokenTypeToStr(token.getType()) << ", ";
+        7:   61-block  0
+call    0 returned 7
+call    1 returned 7
+call    2 returned 7
+branch  3 taken 7 (fallthrough)
+branch  4 taken 0 (throw)
+        7:   61-block  1
+call    5 returned 7
+branch  6 taken 7 (fallthrough)
+branch  7 taken 0 (throw)
+        7:   61-block  2
+call    8 returned 7
+branch  9 taken 7 (fallthrough)
+branch 10 taken 0 (throw)
+        7:   61-block  3
+call   11 returned 7
+    $$$$$:   61-block  4
+call   12 never executed
+    $$$$$:   61-block  5
+call   13 never executed
+       35:   62:    os << "Position: {line: " << token.getPos()["line"] << " | Pos: " << token.getPos()["charPos"] << "}, ";
+call    0 returned 7
+call    1 returned 7
+branch  2 taken 7 (fallthrough)
+branch  3 taken 0 (throw)
+        7:   62-block  0
+call    4 returned 7
+branch  5 taken 7 (fallthrough)
+branch  6 taken 0 (throw)
+        7:   62-block  1
+call    7 returned 7
+branch  8 taken 7 (fallthrough)
+branch  9 taken 0 (throw)
+        7:   62-block  2
+call   10 returned 7
+branch 11 taken 7 (fallthrough)
+branch 12 taken 0 (throw)
+        7:   62-block  3
+call   13 returned 7
+branch 14 taken 7 (fallthrough)
+branch 15 taken 0 (throw)
+        7:   62-block  4
+call   16 returned 7
+branch 17 taken 7 (fallthrough)
+branch 18 taken 0 (throw)
+        7:   62-block  5
+call   19 returned 7
+branch 20 taken 7 (fallthrough)
+branch 21 taken 0 (throw)
+        7:   62-block  6
+call   22 returned 7
+branch 23 taken 7 (fallthrough)
+branch 24 taken 0 (throw)
+        7:   62-block  7
+call   25 returned 7
+branch 26 taken 7 (fallthrough)
+branch 27 taken 0 (throw)
+        7:   62-block  8
+call   28 returned 7
+branch 29 taken 7 (fallthrough)
+branch 30 taken 0 (throw)
+        7:   62-block  9
+call   31 returned 7
+call   32 returned 7
+call   33 returned 7
+call   34 returned 7
+    $$$$$:   62-block 10
+call   35 never executed
+    $$$$$:   62-block 11
+    $$$$$:   62-block 12
+    $$$$$:   62-block 13
+call   36 never executed
+    $$$$$:   62-block 14
+    $$$$$:   62-block 15
+call   37 never executed
+    $$$$$:   62-block 16
+    $$$$$:   62-block 17
+    $$$$$:   62-block 18
+call   38 never executed
+    $$$$$:   62-block 19
+call   39 never executed
+        7:   63:    os << "Value: ";
+call    0 returned 7
+        -:   64:
+        7:   65:    if (std::holds_alternative<std::monostate>(token.getValue())) {
+call    0 returned 7
+branch  1 taken 7 (fallthrough)
+branch  2 taken 0 (throw)
+        7:   65-block  0
+call    3 returned 7
+call    4 returned 7
+branch  5 taken 1 (fallthrough)
+branch  6 taken 6
+    $$$$$:   65-block  1
+call    7 never executed
+        1:   66:        os << "No value";  // Case for operators
+        1:   66-block  0
+call    0 returned 1
+        -:   67:    }
+        6:   68:    else if (std::holds_alternative<int>(token.getValue())) {
+        6:   68-block  0
+call    0 returned 6
+branch  1 taken 6 (fallthrough)
+branch  2 taken 0 (throw)
+        6:   68-block  1
+call    3 returned 6
+call    4 returned 6
+branch  5 taken 2 (fallthrough)
+branch  6 taken 4
+    $$$$$:   68-block  2
+call    7 never executed
+        2:   69:        os << std::get<int>(token.getValue());
+        2:   69-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:   69-block  1
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+        2:   69-block  2
+call    6 returned 2
+branch  7 taken 2 (fallthrough)
+branch  8 taken 0 (throw)
+        2:   69-block  3
+call    9 returned 2
+    $$$$$:   69-block  4
+call   10 never executed
+    $$$$$:   69-block  5
+call   11 never executed
+        -:   70:    }
+        4:   71:    else if (std::holds_alternative<float>(token.getValue())) {
+        4:   71-block  0
+call    0 returned 4
+branch  1 taken 4 (fallthrough)
+branch  2 taken 0 (throw)
+        4:   71-block  1
+call    3 returned 4
+call    4 returned 4
+branch  5 taken 1 (fallthrough)
+branch  6 taken 3
+    $$$$$:   71-block  2
+call    7 never executed
+        1:   72:        os << std::get<float>(token.getValue());
+        1:   72-block  0
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   72-block  1
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:   72-block  2
+call    6 returned 1
+branch  7 taken 1 (fallthrough)
+branch  8 taken 0 (throw)
+        1:   72-block  3
+call    9 returned 1
+    $$$$$:   72-block  4
+call   10 never executed
+    $$$$$:   72-block  5
+call   11 never executed
+        -:   73:    }
+        3:   74:    else if (std::holds_alternative<std::string>(token.getValue())) {
+        3:   74-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:   74-block  1
+call    3 returned 3
+call    4 returned 3
+branch  5 taken 3 (fallthrough)
+branch  6 taken 0
+    $$$$$:   74-block  2
+call    7 never executed
+        3:   75:        os << std::get<std::string>(token.getValue());
+        3:   75-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:   75-block  1
+call    3 returned 3
+branch  4 taken 3 (fallthrough)
+branch  5 taken 0 (throw)
+        3:   75-block  2
+call    6 returned 3
+branch  7 taken 3 (fallthrough)
+branch  8 taken 0 (throw)
+        3:   75-block  3
+call    9 returned 3
+    $$$$$:   75-block  4
+call   10 never executed
+    $$$$$:   75-block  5
+call   11 never executed
+        -:   76:    }
+    #####:   77:    else if (std::holds_alternative<bool>(token.getValue())) {
+    %%%%%:   77-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   77-block  1
+call    3 never executed
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed
+    $$$$$:   77-block  2
+call    7 never executed
+    #####:   78:        os << (std::get<bool>(token.getValue()) ? "true" : "false");
+    %%%%%:   78-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   78-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   78-block  2
+branch  6 never executed (fallthrough)
+branch  7 never executed
+    %%%%%:   78-block  3
+    %%%%%:   78-block  4
+    %%%%%:   78-block  5
+call    8 never executed
+branch  9 never executed (fallthrough)
+branch 10 never executed (throw)
+    %%%%%:   78-block  6
+call   11 never executed
+    $$$$$:   78-block  7
+call   12 never executed
+        -:   79:    } else {
+    #####:   80:        os << "Unknown Type";  // Fallback case (should never happen)
+    %%%%%:   80-block  0
+call    0 never executed
+        -:   81:    }
+        -:   82:
+        7:   83:    os << ")";
+        7:   83-block  0
+call    0 returned 7
+        7:   84:    return os;
+        7:   84-block  0
+        -:   85:}
+        -:   86:
+        -:   87:
+        -:   88:

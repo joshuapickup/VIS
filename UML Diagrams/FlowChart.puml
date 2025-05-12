@@ -1,21 +1,33 @@
 @startuml
 
-
 start
-
-:open file;
-:Tokenize with Lexer;
-
-repeat :Parse Tokens;
-    if (AST created?) then (yes)
-          :Visit Nodes in AST;
+if (file path provided?) then (yes)
+    :open file;
+    if (file open?) then (yes)
+        :create Context, PositionHandler;
+        :Tokenize with Lexer;
+        if (verbose flag?) then (yes)
+            :output Tokens to console;
+        else (no)
+        endif
+        repeat :Parse Tokens;
+            if (AST created?) then (yes)
+                if (verbose flag?) then (yes)
+                    :output Nodes to console;
+                else (no)
+                endif
+                :Visit Nodes in AST;
+            else (no)
+            endif
+        repeat while (current token not EndOfFile)
+        stop
     else (no)
+        :throw error;
+        stop
     endif
-repeat while (token != End Of File)
-
-stop
-
-
-
+else (no)
+    :throw error;
+    stop
+endif
 
 @enduml

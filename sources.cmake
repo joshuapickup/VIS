@@ -1,0 +1,11 @@
+set(PROJECT_SOURCES
+        ${PROJECT_SOURCE_DIR}/src/Token.cpp
+        ${PROJECT_SOURCE_DIR}/src/Error.cpp
+        ${PROJECT_SOURCE_DIR}/src/Literal.cpp
+        ${PROJECT_SOURCE_DIR}/src/Node.cpp
+        ${PROJECT_SOURCE_DIR}/src/Context.cpp
+        ${PROJECT_SOURCE_DIR}/src/PositionHandler.cpp
+        ${PROJECT_SOURCE_DIR}/src/Lexer.cpp
+        ${PROJECT_SOURCE_DIR}/src/Parser.cpp
+        ${PROJECT_SOURCE_DIR}/src/Interpreter.cpp
+)

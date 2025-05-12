@@ -1,0 +1,3164 @@
+        -:    0:Source:D:/Project Workspace/Year3/VIS/src/Node.cpp
+        -:    0:Graph:D:\Project Workspace\Year3\VIS\cmake-build-debug\tests\CMakeFiles\vis_tests.dir\__\src\Node.cpp.gcno
+        -:    0:Data:D:\Project Workspace\Year3\VIS\cmake-build-debug\tests\CMakeFiles\vis_tests.dir\__\src\Node.cpp.gcda
+        -:    0:Runs:1
+        -:    1:#include <iostream>
+        -:    2:#include <utility>
+        -:    3:#include "Node.h"
+        -:    4:
+        -:    5://NODE DEFINTITION
+function _ZN4NodeC2ERK5Token8NodeType called 137 returned 100% blocks executed 45%
+      548:    6:Node::Node(const Token &token, const NodeType type_) : tokenVector(std::vector<Token>{token}), type(type_){}
+      137:    6-block  0
+call    0 returned 137
+branch  1 taken 137 (fallthrough)
+branch  2 taken 0 (throw)
+      137:    6-block  1
+      137:    6-block  2
+call    3 returned 137
+branch  4 taken 137 (fallthrough)
+branch  5 taken 0 (throw)
+      274:    6-block  3
+branch  6 taken 137 (fallthrough)
+branch  7 taken 137
+      137:    6-block  4
+call    8 returned 137
+      137:    6-block  5
+    $$$$$:    6-block  6
+    $$$$$:    6-block  7
+    $$$$$:    6-block  8
+branch  9 never executed (fallthrough)
+branch 10 never executed
+    $$$$$:    6-block  9
+call   11 never executed
+    $$$$$:    6-block 10
+branch 12 never executed (fallthrough)
+branch 13 never executed
+    $$$$$:    6-block 11
+    $$$$$:    6-block 12
+branch 14 never executed (fallthrough)
+branch 15 never executed
+    $$$$$:    6-block 13
+call   16 never executed
+        -:    7:
+function _ZNK4Node8getTokenEv called 275 returned 100% blocks executed 100%
+      275:    8:Token Node::getToken() const {return tokenVector[0];}
+      275:    8-block  0
+call    0 returned 275
+call    1 returned 275
+        -:    9:
+function _ZNK4Node7getTypeEv called 145 returned 100% blocks executed 100%
+      145:   10:NodeType Node::getType() const {return type;}
+      145:   10-block  0
+        -:   11:
+function _ZNK4Node9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:   12:void Node::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:   12-block  0
+    #####:   13:    os << std::string(tabCount, '\t') << "Node<" << std::endl;
+    %%%%%:   13-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   13-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   13-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   13-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:   13-block  4
+call   12 never executed
+    $$$$$:   13-block  5
+call   13 never executed
+    $$$$$:   13-block  6
+    $$$$$:   13-block  7
+call   14 never executed
+    #####:   14:    os << std::string(tabCount+1, '\t') << tokenVector[0] << std::endl;
+    %%%%%:   14-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   14-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   14-block  2
+call    6 never executed
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:   14-block  3
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    %%%%%:   14-block  4
+call   13 never executed
+    $$$$$:   14-block  5
+call   14 never executed
+    $$$$$:   14-block  6
+    $$$$$:   14-block  7
+call   15 never executed
+    #####:   15:    os << std::string(tabCount, '\t') << "Node>" << std::endl;
+    %%%%%:   15-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   15-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   15-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   15-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:   15-block  4
+call   12 never executed
+    $$$$$:   15-block  5
+call   13 never executed
+    $$$$$:   15-block  6
+    #####:   16:}
+        -:   17:
+function _ZN4Node15cloneNodeVectorERKSt6vectorISt10unique_ptrIS_St14default_deleteIS_EESaIS4_EE called 3 returned 100% blocks executed 76%
+        3:   18:std::vector<std::unique_ptr<Node>> Node::cloneNodeVector(const std::vector<std::unique_ptr<Node>>& nodes) {
+        3:   19:    std::vector<std::unique_ptr<Node>> result;
+        3:   19-block  0
+call    0 returned 3
+        3:   20:    result.reserve(nodes.size());
+call    0 returned 3
+call    1 returned 3
+branch  2 taken 3 (fallthrough)
+branch  3 taken 0 (throw)
+        6:   21:    for (const auto& node : nodes) {
+        3:   21-block  0
+call    0 returned 3
+call    1 returned 3
+        3:   21-block  1
+call    2 returned 3
+        6:   21-block  2
+call    3 returned 6
+branch  4 taken 3
+branch  5 taken 3 (fallthrough)
+        3:   22:        result.push_back(node->clone());
+call    0 returned 3
+call    1 returned 3
+branch  2 taken 3 (fallthrough)
+branch  3 taken 0 (throw)
+        3:   22-block  0
+call    4 returned 3
+branch  5 taken 3 (fallthrough)
+branch  6 taken 0 (throw)
+        3:   22-block  1
+call    7 returned 3
+call    8 returned 3
+    $$$$$:   22-block  2
+call    9 never executed
+    $$$$$:   22-block  3
+        -:   23:    }
+        3:   24:    return result;
+        3:   24-block  0
+        3:   24-block  1
+    =====:   25:}
+    $$$$$:   25-block  0
+call    0 never executed
+        -:   26:
+function _ZlsRSoRK4Node called 0 returned 0% blocks executed 0%
+    #####:   27:std::ostream& operator<<(std::ostream& os, const Node &node) {
+    #####:   28:    node.printNode(os, 0);
+    %%%%%:   28-block  0
+call    0 never executed
+    #####:   29:    return os;
+        -:   30:}
+        -:   31:
+        -:   32:
+        -:   33:
+        -:   34://END OF FILE DEFINITION
+function _ZN9EndOfFileC2ERK5Token called 1 returned 100% blocks executed 100%
+        1:   35:EndOfFile::EndOfFile(const Token &token): Node(token, NodeType::EndOfFile) {}
+        1:   35-block  0
+call    0 returned 1
+        -:   36:
+function _ZNK9EndOfFile5cloneEv called 0 returned 0% blocks executed 0%
+    #####:   37:std::unique_ptr<Node> EndOfFile::clone() const {return std::make_unique<EndOfFile>(*this);}
+    %%%%%:   37-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   37-block  1
+call    3 never executed
+call    4 never executed
+    %%%%%:   37-block  2
+        -:   38:
+function _ZNK9EndOfFile9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:   39:void EndOfFile::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:   39-block  0
+    #####:   40:    os << std::string(tabCount, '\t') << "End Of File <>" << std::endl;
+    %%%%%:   40-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   40-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   40-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   40-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:   40-block  4
+call   12 never executed
+    $$$$$:   40-block  5
+call   13 never executed
+    $$$$$:   40-block  6
+    #####:   41:}
+        -:   42:
+        -:   43:
+        -:   44:
+        -:   45://NUMBER DEFINTITION
+function _ZN6NumberC2ERK5Token called 56 returned 100% blocks executed 100%
+       56:   46:Number::Number(const Token &token): Node(token, NodeType::Number) {}
+       56:   46-block  0
+call    0 returned 56
+        -:   47:
+function _ZNK6Number5cloneEv called 3 returned 100% blocks executed 100%
+        3:   48:std::unique_ptr<Node> Number::clone() const {return std::make_unique<Number>(*this);}
+        3:   48-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:   48-block  1
+call    3 returned 3
+call    4 returned 3
+        3:   48-block  2
+        -:   49:
+function _ZNK6Number9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:   50:void Number::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:   50-block  0
+    #####:   51:    os << std::string(tabCount, '\t') << "Number Node <" << tokenVector[0] << ">" << std::endl;
+    %%%%%:   51-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   51-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   51-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   51-block  3
+call    9 never executed
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    %%%%%:   51-block  4
+call   13 never executed
+branch 14 never executed (fallthrough)
+branch 15 never executed (throw)
+    %%%%%:   51-block  5
+call   16 never executed
+branch 17 never executed (fallthrough)
+branch 18 never executed (throw)
+    %%%%%:   51-block  6
+call   19 never executed
+    $$$$$:   51-block  7
+call   20 never executed
+    $$$$$:   51-block  8
+    #####:   52:}
+        -:   53:
+        -:   54:
+        -:   55:
+        -:   56://NUMBER DEFINTITION
+function _ZN10StringNodeC2ERK5Token called 4 returned 100% blocks executed 100%
+        4:   57:StringNode::StringNode(const Token &token): Node(token, NodeType::String) {}
+        4:   57-block  0
+call    0 returned 4
+        -:   58:
+function _ZNK10StringNode5cloneEv called 0 returned 0% blocks executed 0%
+    #####:   59:std::unique_ptr<Node> StringNode::clone() const {return std::make_unique<StringNode>(*this);}
+    %%%%%:   59-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   59-block  1
+call    3 never executed
+call    4 never executed
+    %%%%%:   59-block  2
+        -:   60:
+function _ZNK10StringNode9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:   61:void StringNode::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:   61-block  0
+    #####:   62:    os << std::string(tabCount, '\t') << "String Node <" << tokenVector[0] << ">" << std::endl;
+    %%%%%:   62-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   62-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   62-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   62-block  3
+call    9 never executed
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    %%%%%:   62-block  4
+call   13 never executed
+branch 14 never executed (fallthrough)
+branch 15 never executed (throw)
+    %%%%%:   62-block  5
+call   16 never executed
+branch 17 never executed (fallthrough)
+branch 18 never executed (throw)
+    %%%%%:   62-block  6
+call   19 never executed
+    $$$$$:   62-block  7
+call   20 never executed
+    $$$$$:   62-block  8
+    #####:   63:}
+        -:   64:
+        -:   65:
+        -:   66:
+        -:   67://OPERATOR DEFINITION
+function _ZN8OperatorC2ERK5Token called 24 returned 100% blocks executed 100%
+       24:   68:Operator::Operator(const Token &token) : Node(token, NodeType::Operator){}
+       24:   68-block  0
+call    0 returned 24
+        -:   69:
+function _ZNK8Operator5cloneEv called 0 returned 0% blocks executed 0%
+    #####:   70:std::unique_ptr<Node> Operator::clone() const {return std::make_unique<Operator>(*this);}
+    %%%%%:   70-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   70-block  1
+call    3 never executed
+call    4 never executed
+    %%%%%:   70-block  2
+        -:   71:
+function _ZNK8Operator9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:   72:void Operator::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:   72-block  0
+    #####:   73:    os << std::string(tabCount, '\t') << "Operator Node <" << tokenVector[0] << ">" << std::endl;
+    %%%%%:   73-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   73-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   73-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   73-block  3
+call    9 never executed
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    %%%%%:   73-block  4
+call   13 never executed
+branch 14 never executed (fallthrough)
+branch 15 never executed (throw)
+    %%%%%:   73-block  5
+call   16 never executed
+branch 17 never executed (fallthrough)
+branch 18 never executed (throw)
+    %%%%%:   73-block  6
+call   19 never executed
+    $$$$$:   73-block  7
+call   20 never executed
+    $$$$$:   73-block  8
+    #####:   74:}
+        -:   75:
+        -:   76:
+        -:   77:
+        -:   78://UNARY OPERATOR DEFINITION
+function _ZN13UnaryOperatorC2ERK8OperatorSt10unique_ptrI4NodeSt14default_deleteIS4_EE called 2 returned 100% blocks executed 45%
+        2:   79:UnaryOperator::UnaryOperator(const Operator &operator_, std::unique_ptr<Node> node) :
+        2:   80:                            Node(operator_.getToken(), NodeType::UnaryOperator),
+        2:   80-block  0
+call    0 returned 2
+    $$$$$:   80-block  1
+call    1 never executed
+    $$$$$:   80-block  2
+call    2 never executed
+        4:   81:                            operatorNode(operator_), valueNode(std::move(node)) {
+        2:   81-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:   81-block  1
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+call    6 returned 2
+branch  7 taken 2 (fallthrough)
+branch  8 taken 0 (throw)
+        2:   81-block  2
+call    9 returned 2
+call   10 returned 2
+        6:   82:    tokenVector = {operatorNode.getToken(), this->valueNode->getToken()};
+        2:   82-block  0
+        6:   82-block  1
+branch  0 taken 4 (fallthrough)
+branch  1 taken 2
+        4:   82-block  2
+call    2 returned 4
+    $$$$$:   82-block  3
+    $$$$$:   82-block  4
+branch  3 never executed (fallthrough)
+branch  4 never executed
+    $$$$$:   82-block  5
+call    5 never executed
+    $$$$$:   82-block  6
+        4:   83:}
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:   83-block  0
+call    3 returned 2
+call    4 returned 2
+branch  5 taken 2 (fallthrough)
+branch  6 taken 0 (throw)
+        2:   83-block  1
+call    7 returned 2
+branch  8 taken 2 (fallthrough)
+branch  9 taken 0 (throw)
+        2:   83-block  2
+    $$$$$:   83-block  3
+branch 10 never executed (fallthrough)
+branch 11 never executed
+    $$$$$:   83-block  4
+    $$$$$:   83-block  5
+branch 12 never executed (fallthrough)
+branch 13 never executed
+    $$$$$:   83-block  6
+call   14 never executed
+    $$$$$:   83-block  7
+call   15 never executed
+    $$$$$:   83-block  8
+call   16 never executed
+    $$$$$:   83-block  9
+call   17 never executed
+        -:   84:
+function _ZNK13UnaryOperator9getTokensEv called 0 returned 0% blocks executed 0%
+    #####:   85:std::vector<Token> UnaryOperator::getTokens() const {return tokenVector;}
+    %%%%%:   85-block  0
+call    0 never executed
+        -:   86:
+function _ZNK13UnaryOperator11getOperatorEv called 2 returned 100% blocks executed 100%
+        2:   87:Operator UnaryOperator::getOperator() const {return operatorNode;}
+        2:   87-block  0
+call    0 returned 2
+        -:   88:
+function _ZNK13UnaryOperator8getValueEv called 2 returned 100% blocks executed 100%
+        2:   89:const std::unique_ptr<Node>& UnaryOperator::getValue() const {return valueNode;}
+        2:   89-block  0
+        -:   90:
+function _ZNK13UnaryOperator5cloneEv called 0 returned 0% blocks executed 0%
+    #####:   91:std::unique_ptr<Node> UnaryOperator::clone() const {
+    #####:   92:    return std::make_unique<UnaryOperator>(operatorNode, valueNode->clone());
+    %%%%%:   92-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:   92-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:   92-block  2
+call    7 never executed
+call    8 never executed
+call    9 never executed
+    %%%%%:   92-block  3
+    $$$$$:   92-block  4
+call   10 never executed
+    $$$$$:   92-block  5
+        -:   93:}
+        -:   94:
+function _ZNK13UnaryOperator9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:   95:void UnaryOperator::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:   95-block  0
+    #####:   96:    os << std::string(tabCount, '\t') << "UnaryOpNode<" << std::endl;
+    %%%%%:   96-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   96-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   96-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   96-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:   96-block  4
+call   12 never executed
+    $$$$$:   96-block  5
+call   13 never executed
+    $$$$$:   96-block  6
+    $$$$$:   96-block  7
+call   14 never executed
+    #####:   97:    operatorNode.printNode(os, tabCount+1);
+call    0 never executed
+    #####:   98:    valueNode->printNode(os, tabCount+1);
+call    0 never executed
+call    1 never executed
+    #####:   99:    os << std::string(tabCount, '\t') << "UnaryOpNode>" << std::endl;
+    %%%%%:   99-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:   99-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:   99-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:   99-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:   99-block  4
+call   12 never executed
+    $$$$$:   99-block  5
+call   13 never executed
+    $$$$$:   99-block  6
+    #####:  100:}
+        -:  101:
+        -:  102:
+        -:  103:
+        -:  104://BINARY OPERATOR DEFINITION
+function _ZN14BinaryOperatorC2ESt10unique_ptrI4NodeSt14default_deleteIS1_EERK8OperatorS4_ called 22 returned 100% blocks executed 50%
+       22:  105:BinaryOperator::BinaryOperator(
+        -:  106:    std::unique_ptr<Node> leftNode,
+        -:  107:    const Operator &operatorNode,
+        -:  108:    std::unique_ptr<Node> rightNode
+       22:  109:    ):
+       44:  110:        Node(leftNode->getToken(), NodeType::BinaryOperator),
+call    0 returned 22
+branch  1 taken 22 (fallthrough)
+branch  2 taken 0 (throw)
+       22:  110-block  0
+call    3 returned 22
+    $$$$$:  110-block  1
+call    4 never executed
+    $$$$$:  110-block  2
+call    5 never executed
+       22:  111:        leftNode(std::move(leftNode)),
+call    0 returned 22
+       22:  112:        operatorNode(operatorNode),
+call    0 returned 22
+branch  1 taken 22 (fallthrough)
+branch  2 taken 0 (throw)
+       88:  113:        rightNode(std::move(rightNode)) {
+       22:  113-block  0
+call    0 returned 22
+       22:  113-block  1
+call    1 returned 22
+branch  2 taken 22 (fallthrough)
+branch  3 taken 0 (throw)
+call    4 returned 22
+       22:  113-block  2
+call    5 returned 22
+call    6 returned 22
+       88:  114:    tokenVector = {this->leftNode->getToken(), operatorNode.getToken(), this->rightNode->getToken()};
+       22:  114-block  0
+       88:  114-block  1
+branch  0 taken 66 (fallthrough)
+branch  1 taken 22
+       66:  114-block  2
+call    2 returned 66
+    $$$$$:  114-block  3
+    $$$$$:  114-block  4
+branch  3 never executed (fallthrough)
+branch  4 never executed
+    $$$$$:  114-block  5
+call    5 never executed
+    $$$$$:  114-block  6
+       44:  115:}
+call    0 returned 22
+call    1 returned 22
+branch  2 taken 22 (fallthrough)
+branch  3 taken 0 (throw)
+       22:  115-block  0
+call    4 returned 22
+branch  5 taken 22 (fallthrough)
+branch  6 taken 0 (throw)
+       22:  115-block  1
+call    7 returned 22
+call    8 returned 22
+branch  9 taken 22 (fallthrough)
+branch 10 taken 0 (throw)
+       22:  115-block  2
+call   11 returned 22
+branch 12 taken 22 (fallthrough)
+branch 13 taken 0 (throw)
+       22:  115-block  3
+    $$$$$:  115-block  4
+branch 14 never executed (fallthrough)
+branch 15 never executed
+    $$$$$:  115-block  5
+    $$$$$:  115-block  6
+branch 16 never executed (fallthrough)
+branch 17 never executed
+    $$$$$:  115-block  7
+call   18 never executed
+    $$$$$:  115-block  8
+call   19 never executed
+    $$$$$:  115-block  9
+call   20 never executed
+    $$$$$:  115-block 10
+call   21 never executed
+    $$$$$:  115-block 11
+call   22 never executed
+        -:  116:
+function _ZN14BinaryOperator9getTokensEv called 0 returned 0% blocks executed 0%
+    #####:  117:std::vector<Token> BinaryOperator::getTokens() {return tokenVector;}
+    %%%%%:  117-block  0
+call    0 never executed
+        -:  118:
+function _ZNK14BinaryOperator11getLeftNodeEv called 32 returned 100% blocks executed 100%
+       32:  119:const std::unique_ptr<Node>& BinaryOperator::getLeftNode() const {return leftNode;}
+       32:  119-block  0
+        -:  120:
+function _ZNK14BinaryOperator15getOperatorNodeEv called 32 returned 100% blocks executed 100%
+       32:  121:Operator BinaryOperator::getOperatorNode() const {return operatorNode;}
+       32:  121-block  0
+call    0 returned 32
+        -:  122:
+function _ZNK14BinaryOperator12getRightNodeEv called 32 returned 100% blocks executed 100%
+       32:  123:const std::unique_ptr<Node>& BinaryOperator::getRightNode() const {return rightNode;}
+       32:  123-block  0
+        -:  124:
+function _ZNK14BinaryOperator5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  125:std::unique_ptr<Node> BinaryOperator::clone() const {
+    #####:  126:    return std::make_unique<BinaryOperator>(
+    %%%%%:  126-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+call    3 never executed
+    #####:  127:        leftNode->clone(),
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+call    3 never executed
+    $$$$$:  127-block  0
+call    4 never executed
+    $$$$$:  127-block  1
+    #####:  128:        operatorNode,
+    %%%%%:  128-block  0
+call    0 never executed
+    #####:  129:        rightNode->clone()
+    %%%%%:  129-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+call    4 never executed
+    $$$$$:  129-block  1
+call    5 never executed
+    $$$$$:  129-block  2
+    #####:  130:    );
+    %%%%%:  130-block  0
+call    0 never executed
+    %%%%%:  130-block  1
+        -:  131:}
+        -:  132:
+function _ZNK14BinaryOperator9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  133:void BinaryOperator::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  133-block  0
+    #####:  134:    os << std::string(tabCount, '\t') << "BinOpNode<" << std::endl;
+    %%%%%:  134-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  134-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  134-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  134-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  134-block  4
+call   12 never executed
+    $$$$$:  134-block  5
+call   13 never executed
+    $$$$$:  134-block  6
+    $$$$$:  134-block  7
+call   14 never executed
+    #####:  135:    leftNode->printNode(os, tabCount+1);
+call    0 never executed
+call    1 never executed
+    #####:  136:    operatorNode.printNode(os, tabCount+1);
+call    0 never executed
+    #####:  137:    rightNode->printNode(os, tabCount+1);
+call    0 never executed
+call    1 never executed
+    #####:  138:    os << std::string(tabCount, '\t') << "BinOpNode>" << std::endl;
+    %%%%%:  138-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  138-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  138-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  138-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  138-block  4
+call   12 never executed
+    $$$$$:  138-block  5
+call   13 never executed
+    $$$$$:  138-block  6
+    #####:  139:}
+        -:  140:
+        -:  141:
+        -:  142:
+        -:  143:// VAR ASSIGNMENT DEFINITION
+function _ZN13VarAssignmentC2ERK5TokenSt10unique_ptrI4NodeSt14default_deleteIS4_EE called 3 returned 100% blocks executed 100%
+        3:  144:VarAssignment::VarAssignment(const Token &token, std::unique_ptr<Node> value_): Node(token, NodeType::VarAssgnment), value(std::move(value_)) {}
+        3:  144-block  0
+call    0 returned 3
+call    1 returned 3
+call    2 returned 3
+        -:  145:
+function _ZNK13VarAssignment8getValueEv called 3 returned 100% blocks executed 100%
+        3:  146:const std::unique_ptr<Node>& VarAssignment::getValue() const {return value;}
+        3:  146-block  0
+        -:  147:
+function _ZNK13VarAssignment5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  148:std::unique_ptr<Node> VarAssignment::clone() const {
+    #####:  149:    return std::make_unique<VarAssignment>(getToken(), value->clone());
+    %%%%%:  149-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  149-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  149-block  2
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  149-block  3
+call   10 never executed
+call   11 never executed
+call   12 never executed
+call   13 never executed
+    %%%%%:  149-block  4
+    $$$$$:  149-block  5
+call   14 never executed
+    $$$$$:  149-block  6
+    $$$$$:  149-block  7
+call   15 never executed
+    $$$$$:  149-block  8
+        -:  150:}
+        -:  151:
+function _ZNK13VarAssignment9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  152:void VarAssignment::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  152-block  0
+    #####:  153:    os << std::string(tabCount, '\t') << "VarAssignNode<" << std::endl;
+    %%%%%:  153-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  153-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  153-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  153-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  153-block  4
+call   12 never executed
+    $$$$$:  153-block  5
+call   13 never executed
+    $$$$$:  153-block  6
+    $$$$$:  153-block  7
+call   14 never executed
+    #####:  154:    os << std::string(tabCount+1, '\t') << tokenVector[0] << std::endl;
+    %%%%%:  154-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  154-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  154-block  2
+call    6 never executed
+call    7 never executed
+branch  8 never executed (fallthrough)
+branch  9 never executed (throw)
+    %%%%%:  154-block  3
+call   10 never executed
+branch 11 never executed (fallthrough)
+branch 12 never executed (throw)
+    %%%%%:  154-block  4
+call   13 never executed
+    $$$$$:  154-block  5
+call   14 never executed
+    $$$$$:  154-block  6
+    $$$$$:  154-block  7
+call   15 never executed
+    #####:  155:    value->printNode(os, tabCount+1);
+call    0 never executed
+call    1 never executed
+    #####:  156:    os << std::string(tabCount, '\t') << "VarAssignNode>" << std::endl;
+    %%%%%:  156-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  156-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  156-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  156-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  156-block  4
+call   12 never executed
+    $$$$$:  156-block  5
+call   13 never executed
+    $$$$$:  156-block  6
+    #####:  157:}
+        -:  158:
+        -:  159:
+        -:  160:
+        -:  161:// VAR ACCESS DEFINITION
+function _ZN9VarAccessC2ERK5Token called 4 returned 100% blocks executed 100%
+        4:  162:VarAccess::VarAccess(const Token &token): Node(token, NodeType::VarAccess) {}
+        4:  162-block  0
+call    0 returned 4
+function _ZNK9VarAccess5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  163:std::unique_ptr<Node> VarAccess::clone() const {return std::make_unique<VarAccess>(*this);}
+    %%%%%:  163-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  163-block  1
+call    3 never executed
+call    4 never executed
+    %%%%%:  163-block  2
+function _ZNK9VarAccess9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  164:void VarAccess::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  164-block  0
+    #####:  165:    os << std::string(tabCount, '\t') << "VarAccessNode<" << std::endl;
+    %%%%%:  165-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  165-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  165-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  165-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  165-block  4
+call   12 never executed
+    $$$$$:  165-block  5
+call   13 never executed
+    $$$$$:  165-block  6
+    $$$$$:  165-block  7
+call   14 never executed
+    #####:  166:    os << std::string(tabCount+1, '\t') << "VariableName: " + std::get<std::string>(getToken().getValue()) << std::endl;
+    %%%%%:  166-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  166-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  166-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  166-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  166-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  166-block  5
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  166-block  6
+call   18 never executed
+branch 19 never executed (fallthrough)
+branch 20 never executed (throw)
+    %%%%%:  166-block  7
+call   21 never executed
+branch 22 never executed (fallthrough)
+branch 23 never executed (throw)
+    %%%%%:  166-block  8
+call   24 never executed
+call   25 never executed
+call   26 never executed
+call   27 never executed
+    $$$$$:  166-block  9
+call   28 never executed
+    $$$$$:  166-block 10
+call   29 never executed
+    $$$$$:  166-block 11
+call   30 never executed
+    $$$$$:  166-block 12
+    $$$$$:  166-block 13
+    $$$$$:  166-block 14
+    $$$$$:  166-block 15
+call   31 never executed
+    $$$$$:  166-block 16
+    $$$$$:  166-block 17
+call   32 never executed
+    #####:  167:    os << std::string(tabCount, '\t') << "VarAccessNode>" << std::endl;
+    %%%%%:  167-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  167-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  167-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  167-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  167-block  4
+call   12 never executed
+    $$$$$:  167-block  5
+call   13 never executed
+    $$$$$:  167-block  6
+    #####:  168:}
+        -:  169:
+        -:  170:// VAR INCREMENT DEFINITION
+function _ZN12VarIncrementC2ERK5Token called 3 returned 100% blocks executed 100%
+        3:  171:VarIncrement::VarIncrement(const Token &token): Node(token, NodeType::VarIncrement) {}
+        3:  171-block  0
+call    0 returned 3
+function _ZNK12VarIncrement5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  172:std::unique_ptr<Node> VarIncrement::clone() const {return std::make_unique<VarIncrement>(*this);}
+    %%%%%:  172-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  172-block  1
+call    3 never executed
+call    4 never executed
+    %%%%%:  172-block  2
+function _ZNK12VarIncrement9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  173:void VarIncrement::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  173-block  0
+    #####:  174:    os << std::string(tabCount, '\t') << "VarIncrementNode<" << std::endl;
+    %%%%%:  174-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  174-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  174-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  174-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  174-block  4
+call   12 never executed
+    $$$$$:  174-block  5
+call   13 never executed
+    $$$$$:  174-block  6
+    $$$$$:  174-block  7
+call   14 never executed
+    #####:  175:    os << std::string(tabCount+1, '\t') << "VariableName: " + std::get<std::string>(getToken().getValue()) << std::endl;
+    %%%%%:  175-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  175-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  175-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  175-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  175-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  175-block  5
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  175-block  6
+call   18 never executed
+branch 19 never executed (fallthrough)
+branch 20 never executed (throw)
+    %%%%%:  175-block  7
+call   21 never executed
+branch 22 never executed (fallthrough)
+branch 23 never executed (throw)
+    %%%%%:  175-block  8
+call   24 never executed
+call   25 never executed
+call   26 never executed
+call   27 never executed
+    $$$$$:  175-block  9
+call   28 never executed
+    $$$$$:  175-block 10
+call   29 never executed
+    $$$$$:  175-block 11
+call   30 never executed
+    $$$$$:  175-block 12
+    $$$$$:  175-block 13
+    $$$$$:  175-block 14
+    $$$$$:  175-block 15
+call   31 never executed
+    $$$$$:  175-block 16
+    $$$$$:  175-block 17
+call   32 never executed
+    #####:  176:    os << std::string(tabCount, '\t') << "VarIncrementNode>" << std::endl;
+    %%%%%:  176-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  176-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  176-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  176-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  176-block  4
+call   12 never executed
+    $$$$$:  176-block  5
+call   13 never executed
+    $$$$$:  176-block  6
+    #####:  177:}
+        -:  178:
+        -:  179:// VAR DECREMENT DEFINITION
+function _ZN12VarDecrementC2ERK5Token called 1 returned 100% blocks executed 100%
+        1:  180:VarDecrement::VarDecrement(const Token &token): Node(token, NodeType::VarDecrement) {}
+        1:  180-block  0
+call    0 returned 1
+function _ZNK12VarDecrement5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  181:std::unique_ptr<Node> VarDecrement::clone() const {return std::make_unique<VarDecrement>(*this);}
+    %%%%%:  181-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  181-block  1
+call    3 never executed
+call    4 never executed
+    %%%%%:  181-block  2
+function _ZNK12VarDecrement9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  182:void VarDecrement::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  182-block  0
+    #####:  183:    os << std::string(tabCount, '\t') << "VarDecrementNode<" << std::endl;
+    %%%%%:  183-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  183-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  183-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  183-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  183-block  4
+call   12 never executed
+    $$$$$:  183-block  5
+call   13 never executed
+    $$$$$:  183-block  6
+    $$$$$:  183-block  7
+call   14 never executed
+    #####:  184:    os << std::string(tabCount+1, '\t') << "VariableName: " + std::get<std::string>(getToken().getValue()) << std::endl;
+    %%%%%:  184-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  184-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  184-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  184-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  184-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  184-block  5
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  184-block  6
+call   18 never executed
+branch 19 never executed (fallthrough)
+branch 20 never executed (throw)
+    %%%%%:  184-block  7
+call   21 never executed
+branch 22 never executed (fallthrough)
+branch 23 never executed (throw)
+    %%%%%:  184-block  8
+call   24 never executed
+call   25 never executed
+call   26 never executed
+call   27 never executed
+    $$$$$:  184-block  9
+call   28 never executed
+    $$$$$:  184-block 10
+call   29 never executed
+    $$$$$:  184-block 11
+call   30 never executed
+    $$$$$:  184-block 12
+    $$$$$:  184-block 13
+    $$$$$:  184-block 14
+    $$$$$:  184-block 15
+call   31 never executed
+    $$$$$:  184-block 16
+    $$$$$:  184-block 17
+call   32 never executed
+    #####:  185:    os << std::string(tabCount, '\t') << "VarDecrementNode>" << std::endl;
+    %%%%%:  185-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  185-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  185-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  185-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  185-block  4
+call   12 never executed
+    $$$$$:  185-block  5
+call   13 never executed
+    $$$$$:  185-block  6
+    #####:  186:}
+        -:  187:
+        -:  188:
+        -:  189:
+        -:  190:// LIBRARY CALL DEFINITION
+function _ZN7LibCallC2ERK5TokenSt6vectorISt10unique_ptrI4NodeSt14default_deleteIS5_EESaIS8_EE called 2 returned 100% blocks executed 100%
+        2:  191:LibCall::LibCall(const Token &token, std::vector<std::unique_ptr<Node>> arguments):
+        -:  192:Node(token, NodeType::LibCall),
+        2:  193:argumentNodes(std::move(arguments)){}
+        2:  193-block  0
+call    0 returned 2
+call    1 returned 2
+call    2 returned 2
+        -:  194:
+function _ZNK7LibCall16getArgumentNodesEv called 1 returned 100% blocks executed 100%
+        1:  195:const std::vector<std::unique_ptr<Node>>& LibCall::getArgumentNodes() const {return argumentNodes;}
+        1:  195-block  0
+        -:  196:
+function _ZNK7LibCall5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  197:std::unique_ptr<Node> LibCall::clone() const {
+    #####:  198:    std::vector<std::unique_ptr<Node>> clonedBody = cloneNodeVector(argumentNodes);
+    %%%%%:  198-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:  199:    return std::make_unique<LibCall>(getToken(), std::move(clonedBody));
+    %%%%%:  199-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  199-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  199-block  2
+call    7 never executed
+call    8 never executed
+call    9 never executed
+    %%%%%:  199-block  3
+    $$$$$:  199-block  4
+call   10 never executed
+    $$$$$:  199-block  5
+    $$$$$:  199-block  6
+    #####:  200:}
+call    0 never executed
+    $$$$$:  200-block  0
+call    1 never executed
+        -:  201:
+function _ZNK7LibCall9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  202:void LibCall::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  202-block  0
+    #####:  203:    os << std::string(tabCount, '\t') << "LibraryCallNode<" << std::endl;
+    %%%%%:  203-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  203-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  203-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  203-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  203-block  4
+call   12 never executed
+    $$$$$:  203-block  5
+call   13 never executed
+    $$$$$:  203-block  6
+    $$$$$:  203-block  7
+call   14 never executed
+    #####:  204:    os << std::string(tabCount+1, '\t') << "Name: " << std::get<std::string>(getToken().getValue()) << std::endl;
+    %%%%%:  204-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  204-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  204-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  204-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  204-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  204-block  5
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  204-block  6
+call   18 never executed
+branch 19 never executed (fallthrough)
+branch 20 never executed (throw)
+    %%%%%:  204-block  7
+call   21 never executed
+branch 22 never executed (fallthrough)
+branch 23 never executed (throw)
+    %%%%%:  204-block  8
+call   24 never executed
+call   25 never executed
+call   26 never executed
+    $$$$$:  204-block  9
+call   27 never executed
+    $$$$$:  204-block 10
+call   28 never executed
+    $$$$$:  204-block 11
+    $$$$$:  204-block 12
+    $$$$$:  204-block 13
+call   29 never executed
+    $$$$$:  204-block 14
+    $$$$$:  204-block 15
+call   30 never executed
+    #####:  205:    os << std::string(tabCount+1, '\t') << "Arguments<" << std::endl;
+    %%%%%:  205-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  205-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  205-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  205-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  205-block  4
+call   12 never executed
+    $$$$$:  205-block  5
+call   13 never executed
+    $$$$$:  205-block  6
+    $$$$$:  205-block  7
+call   14 never executed
+    #####:  206:    for (const auto& node : argumentNodes) {node->printNode(os, tabCount+2);}
+call    0 never executed
+call    1 never executed
+    %%%%%:  206-block  0
+call    2 never executed
+call    3 never executed
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  206-block  1
+call    7 never executed
+    %%%%%:  206-block  2
+call    8 never executed
+branch  9 never executed
+branch 10 never executed (fallthrough)
+    #####:  207:    os << std::string(tabCount+1, '\t') << "Arguments>" << std::endl;
+    %%%%%:  207-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  207-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  207-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  207-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  207-block  4
+call   12 never executed
+    $$$$$:  207-block  5
+call   13 never executed
+    $$$$$:  207-block  6
+    $$$$$:  207-block  7
+call   14 never executed
+    #####:  208:    os << std::string(tabCount, '\t') << "LibraryCallNode>" << std::endl;
+    %%%%%:  208-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  208-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  208-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  208-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  208-block  4
+call   12 never executed
+    $$$$$:  208-block  5
+call   13 never executed
+    $$$$$:  208-block  6
+    #####:  209:}
+        -:  210:
+        -:  211:
+        -:  212:// IF STATEMENT DEFINITION
+function _ZN6IfStmtC2ESt10unique_ptrI4NodeSt14default_deleteIS1_EESt6vectorIS4_SaIS4_EES7_ called 2 returned 100% blocks executed 86%
+        2:  213:IfStmt::IfStmt(
+        -:  214:    std::unique_ptr<Node> comparisonNode,
+        -:  215:    std::vector<std::unique_ptr<Node>> ifBlockNodes,
+        -:  216:    std::vector<std::unique_ptr<Node>> elseBlockNodes
+        2:  217:    ) :
+        4:  218:Node(comparisonNode->getToken(), NodeType::IfStmt),
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  218-block  0
+call    3 returned 2
+    $$$$$:  218-block  1
+call    4 never executed
+        2:  219:comparison(std::move(comparisonNode)),
+call    0 returned 2
+        2:  220:ifBlockNodes(std::move(ifBlockNodes)),
+call    0 returned 2
+call    1 returned 2
+        8:  221:elseBlockNodes(std::move(elseBlockNodes)) {}
+        2:  221-block  0
+call    0 returned 2
+        2:  221-block  1
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0 (throw)
+call    4 returned 2
+call    5 returned 2
+call    6 returned 2
+        -:  222:
+function _ZNK6IfStmt13getComparisonEv called 2 returned 100% blocks executed 100%
+        2:  223:const std::unique_ptr<Node> & IfStmt::getComparison() const {return comparison;}
+        2:  223-block  0
+        -:  224:
+function _ZNK6IfStmt10getIfBlockEv called 2 returned 100% blocks executed 100%
+        2:  225:const std::vector<std::unique_ptr<Node>>& IfStmt::getIfBlock() const {return ifBlockNodes;}
+        2:  225-block  0
+        -:  226:
+function _ZNK6IfStmt12getElseBlockEv called 1 returned 100% blocks executed 100%
+        1:  227:const std::vector<std::unique_ptr<Node>>& IfStmt::getElseBlock() const {return elseBlockNodes;}
+        1:  227-block  0
+        -:  228:
+function _ZNK6IfStmt5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  229:std::unique_ptr<Node> IfStmt::clone() const {
+    #####:  230:    auto clonedIf = std::vector<std::unique_ptr<Node>>{};
+    %%%%%:  230-block  0
+call    0 never executed
+    #####:  231:    for (const auto& stmt : ifBlockNodes)
+call    0 never executed
+call    1 never executed
+    %%%%%:  231-block  0
+call    2 never executed
+    %%%%%:  231-block  1
+call    3 never executed
+branch  4 never executed
+branch  5 never executed (fallthrough)
+    #####:  232:        clonedIf.push_back(stmt->clone());
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  232-block  0
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  232-block  1
+call    7 never executed
+call    8 never executed
+    $$$$$:  232-block  2
+call    9 never executed
+    $$$$$:  232-block  3
+        -:  233:
+    #####:  234:    auto clonedElse = std::vector<std::unique_ptr<Node>>{};
+    %%%%%:  234-block  0
+call    0 never executed
+    #####:  235:    for (const auto& stmt : elseBlockNodes)
+call    0 never executed
+call    1 never executed
+    %%%%%:  235-block  0
+call    2 never executed
+    %%%%%:  235-block  1
+call    3 never executed
+branch  4 never executed
+branch  5 never executed (fallthrough)
+    #####:  236:        clonedElse.push_back(stmt->clone());
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  236-block  0
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  236-block  1
+call    7 never executed
+call    8 never executed
+    $$$$$:  236-block  2
+call    9 never executed
+    $$$$$:  236-block  3
+        -:  237:
+    #####:  238:    return std::make_unique<IfStmt>(
+    %%%%%:  238-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+call    3 never executed
+    $$$$$:  238-block  1
+    #####:  239:        comparison->clone(),
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+call    4 never executed
+    $$$$$:  239-block  0
+call    5 never executed
+    $$$$$:  239-block  1
+    #####:  240:        std::move(clonedIf),
+call    0 never executed
+    #####:  241:        std::move(clonedElse)
+    %%%%%:  241-block  0
+call    0 never executed
+    #####:  242:    );
+    %%%%%:  242-block  0
+call    0 never executed
+    %%%%%:  242-block  1
+    #####:  243:}
+call    0 never executed
+call    1 never executed
+    $$$$$:  243-block  0
+call    2 never executed
+    $$$$$:  243-block  1
+call    3 never executed
+        -:  244:
+function _ZNK6IfStmt9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  245:void IfStmt::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  245-block  0
+    #####:  246:    os << std::string(tabCount, '\t') << "IfStatementNode<" << std::endl;
+    %%%%%:  246-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  246-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  246-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  246-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  246-block  4
+call   12 never executed
+    $$$$$:  246-block  5
+call   13 never executed
+    $$$$$:  246-block  6
+    $$$$$:  246-block  7
+call   14 never executed
+    #####:  247:    os << std::string(tabCount+1, '\t') << "Requirement<" << std::endl;
+    %%%%%:  247-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  247-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  247-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  247-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  247-block  4
+call   12 never executed
+    $$$$$:  247-block  5
+call   13 never executed
+    $$$$$:  247-block  6
+    $$$$$:  247-block  7
+call   14 never executed
+    #####:  248:    comparison->printNode(os, tabCount+2);
+call    0 never executed
+call    1 never executed
+    #####:  249:    os << std::string(tabCount+1, '\t') << "Requirement>" << std::endl;
+    %%%%%:  249-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  249-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  249-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  249-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  249-block  4
+call   12 never executed
+    $$$$$:  249-block  5
+call   13 never executed
+    $$$$$:  249-block  6
+    $$$$$:  249-block  7
+call   14 never executed
+    #####:  250:    os << std::string(tabCount+1, '\t') << "IfStatements<" << std::endl;
+    %%%%%:  250-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  250-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  250-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  250-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  250-block  4
+call   12 never executed
+    $$$$$:  250-block  5
+call   13 never executed
+    $$$$$:  250-block  6
+    $$$$$:  250-block  7
+call   14 never executed
+    #####:  251:    for (const auto& node : ifBlockNodes) {node->printNode(os, tabCount+2);}
+call    0 never executed
+call    1 never executed
+    %%%%%:  251-block  0
+call    2 never executed
+call    3 never executed
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  251-block  1
+call    7 never executed
+    %%%%%:  251-block  2
+call    8 never executed
+branch  9 never executed
+branch 10 never executed (fallthrough)
+    #####:  252:    os << std::string(tabCount+1, '\t') << "IfStatements>" << std::endl;
+    %%%%%:  252-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  252-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  252-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  252-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  252-block  4
+call   12 never executed
+    $$$$$:  252-block  5
+call   13 never executed
+    $$$$$:  252-block  6
+    $$$$$:  252-block  7
+call   14 never executed
+    #####:  253:    os << std::string(tabCount+1, '\t') << "ElseStatements<" << std::endl;
+    %%%%%:  253-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  253-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  253-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  253-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  253-block  4
+call   12 never executed
+    $$$$$:  253-block  5
+call   13 never executed
+    $$$$$:  253-block  6
+    $$$$$:  253-block  7
+call   14 never executed
+    #####:  254:    for (const auto& node : elseBlockNodes) {node->printNode(os, tabCount+2);}
+call    0 never executed
+call    1 never executed
+    %%%%%:  254-block  0
+call    2 never executed
+call    3 never executed
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  254-block  1
+call    7 never executed
+    %%%%%:  254-block  2
+call    8 never executed
+branch  9 never executed
+branch 10 never executed (fallthrough)
+    #####:  255:    os << std::string(tabCount+1, '\t') << "ElseStatements<" << std::endl;
+    %%%%%:  255-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  255-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  255-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  255-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  255-block  4
+call   12 never executed
+    $$$$$:  255-block  5
+call   13 never executed
+    $$$$$:  255-block  6
+    $$$$$:  255-block  7
+call   14 never executed
+    #####:  256:    os << std::string(tabCount, '\t') << "IfStatementNode>" << std::endl;
+    %%%%%:  256-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  256-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  256-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  256-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  256-block  4
+call   12 never executed
+    $$$$$:  256-block  5
+call   13 never executed
+    $$$$$:  256-block  6
+    #####:  257:}
+        -:  258:
+        -:  259:
+        -:  260:
+        -:  261:// WHILE STATEMENT DEFINITION
+function _ZN9WhileStmtC2ESt10unique_ptrI4NodeSt14default_deleteIS1_EESt6vectorIS4_SaIS4_EE called 2 returned 100% blocks executed 83%
+        2:  262:WhileStmt::WhileStmt(
+        -:  263:    std::unique_ptr<Node> comparisonNode,
+        -:  264:    std::vector<std::unique_ptr<Node>> whileNodes
+        2:  265:    ) :
+        4:  266:Node(comparisonNode->getToken(), NodeType::WhileStmt),
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  266-block  0
+call    3 returned 2
+    $$$$$:  266-block  1
+call    4 never executed
+        2:  267:comparison(std::move(comparisonNode)),
+call    0 returned 2
+        8:  268:whileNodes(std::move(whileNodes)) {}
+        2:  268-block  0
+call    0 returned 2
+        2:  268-block  1
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0 (throw)
+call    4 returned 2
+call    5 returned 2
+call    6 returned 2
+        -:  269:
+function _ZNK9WhileStmt13getComparisonEv called 13 returned 100% blocks executed 100%
+       13:  270:const std::unique_ptr<Node> & WhileStmt::getComparison() const {return comparison;}
+       13:  270-block  0
+        -:  271:
+function _ZNK9WhileStmt13getWhileBlockEv called 2 returned 100% blocks executed 100%
+        2:  272:const std::vector<std::unique_ptr<Node>>& WhileStmt::getWhileBlock() const {return whileNodes;}
+        2:  272-block  0
+        -:  273:
+function _ZNK9WhileStmt5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  274:std::unique_ptr<Node> WhileStmt::clone() const {
+    #####:  275:    std::vector<std::unique_ptr<Node>> clonedBody = cloneNodeVector(whileNodes);
+    %%%%%:  275-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:  276:    return std::make_unique<WhileStmt>(
+    %%%%%:  276-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+call    3 never executed
+    $$$$$:  276-block  1
+    #####:  277:        comparison->clone(),
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+call    4 never executed
+    $$$$$:  277-block  0
+call    5 never executed
+    $$$$$:  277-block  1
+    #####:  278:        std::move(clonedBody)
+    %%%%%:  278-block  0
+call    0 never executed
+    #####:  279:    );
+    %%%%%:  279-block  0
+call    0 never executed
+    %%%%%:  279-block  1
+    #####:  280:}
+call    0 never executed
+    $$$$$:  280-block  0
+call    1 never executed
+        -:  281:
+function _ZNK9WhileStmt9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  282:void WhileStmt::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  282-block  0
+    #####:  283:    os << std::string(tabCount, '\t') << "WhileStatementNode<" << std::endl;
+    %%%%%:  283-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  283-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  283-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  283-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  283-block  4
+call   12 never executed
+    $$$$$:  283-block  5
+call   13 never executed
+    $$$$$:  283-block  6
+    $$$$$:  283-block  7
+call   14 never executed
+    #####:  284:    os << std::string(tabCount+1, '\t') << "Condition<" << std::endl;
+    %%%%%:  284-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  284-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  284-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  284-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  284-block  4
+call   12 never executed
+    $$$$$:  284-block  5
+call   13 never executed
+    $$$$$:  284-block  6
+    $$$$$:  284-block  7
+call   14 never executed
+    #####:  285:    comparison->printNode(os, tabCount+2);
+call    0 never executed
+call    1 never executed
+    #####:  286:    os << std::string(tabCount+1, '\t') << "Condition>" << std::endl;
+    %%%%%:  286-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  286-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  286-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  286-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  286-block  4
+call   12 never executed
+    $$$$$:  286-block  5
+call   13 never executed
+    $$$$$:  286-block  6
+    $$$$$:  286-block  7
+call   14 never executed
+    #####:  287:    os << std::string(tabCount+1, '\t') << "WhileStatements<" << std::endl;
+    %%%%%:  287-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  287-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  287-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  287-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  287-block  4
+call   12 never executed
+    $$$$$:  287-block  5
+call   13 never executed
+    $$$$$:  287-block  6
+    $$$$$:  287-block  7
+call   14 never executed
+    #####:  288:    for (const auto& node : whileNodes) {node->printNode(os, tabCount+2);}
+call    0 never executed
+call    1 never executed
+    %%%%%:  288-block  0
+call    2 never executed
+call    3 never executed
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  288-block  1
+call    7 never executed
+    %%%%%:  288-block  2
+call    8 never executed
+branch  9 never executed
+branch 10 never executed (fallthrough)
+    #####:  289:    os << std::string(tabCount+1, '\t') << "WhileStatements>" << std::endl;
+    %%%%%:  289-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  289-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  289-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  289-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  289-block  4
+call   12 never executed
+    $$$$$:  289-block  5
+call   13 never executed
+    $$$$$:  289-block  6
+    $$$$$:  289-block  7
+call   14 never executed
+    #####:  290:    os << std::string(tabCount, '\t') << "WhileStatementNode>" << std::endl;
+    %%%%%:  290-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  290-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  290-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  290-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  290-block  4
+call   12 never executed
+    $$$$$:  290-block  5
+call   13 never executed
+    $$$$$:  290-block  6
+    #####:  291:}
+        -:  292:
+        -:  293:
+        -:  294:
+        -:  295:// FOR STATEMENT DEFINITION
+function _ZN7ForStmtC2ESt10unique_ptrI4NodeSt14default_deleteIS1_EES4_S4_St6vectorIS4_SaIS4_EE called 1 returned 100% blocks executed 88%
+        1:  296:ForStmt::ForStmt(
+        -:  297:    std::unique_ptr<Node> varInitialisation,
+        -:  298:    std::unique_ptr<Node> condition,
+        -:  299:    std::unique_ptr<Node> step,
+        -:  300:    std::vector<std::unique_ptr<Node>> forNodes
+        1:  301:    ) :
+        2:  302:Node(varInitialisation->getToken(), NodeType::ForStmt),
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  302-block  0
+call    3 returned 1
+    $$$$$:  302-block  1
+call    4 never executed
+        1:  303:varDeclare(std::move(varInitialisation)),
+call    0 returned 1
+        1:  304:condition(std::move(condition)),
+call    0 returned 1
+call    1 returned 1
+        1:  305:step(std::move(step)),
+call    0 returned 1
+call    1 returned 1
+        4:  306:forNodes(std::move(forNodes)) {}
+        1:  306-block  0
+call    0 returned 1
+        1:  306-block  1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+call    4 returned 1
+call    5 returned 1
+call    6 returned 1
+        -:  307:
+function _ZNK7ForStmt13getVarDeclareEv called 1 returned 100% blocks executed 100%
+        1:  308:const std::unique_ptr<Node> & ForStmt::getVarDeclare() const {return varDeclare;}
+        1:  308-block  0
+        -:  309:
+function _ZNK7ForStmt12getConditionEv called 0 returned 0% blocks executed 0%
+    #####:  310:const std::unique_ptr<Node> & ForStmt::getCondition() const {return condition;}
+    %%%%%:  310-block  0
+        -:  311:
+function _ZNK7ForStmt7getStepEv called 0 returned 0% blocks executed 0%
+    #####:  312:const std::unique_ptr<Node> & ForStmt::getStep() const {return step;}
+    %%%%%:  312-block  0
+        -:  313:
+function _ZNK7ForStmt11getForBlockEv called 1 returned 100% blocks executed 100%
+        1:  314:const std::vector<std::unique_ptr<Node>>& ForStmt::getForBlock() const {return forNodes;}
+        1:  314-block  0
+        -:  315:
+function _ZNK7ForStmt5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  316:std::unique_ptr<Node> ForStmt::clone() const {
+    #####:  317:    std::vector<std::unique_ptr<Node>> clonedBody = cloneNodeVector(forNodes);
+    %%%%%:  317-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:  318:    return std::make_unique<ForStmt>(
+    %%%%%:  318-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+call    3 never executed
+    $$$$$:  318-block  1
+    #####:  319:        varDeclare->clone(),
+    %%%%%:  319-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+call    4 never executed
+    $$$$$:  319-block  1
+call    5 never executed
+    $$$$$:  319-block  2
+    #####:  320:        condition->clone(),
+    %%%%%:  320-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+call    4 never executed
+    $$$$$:  320-block  1
+call    5 never executed
+    $$$$$:  320-block  2
+    #####:  321:        step->clone(),
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+call    4 never executed
+    $$$$$:  321-block  0
+call    5 never executed
+    $$$$$:  321-block  1
+    #####:  322:        std::move(clonedBody)
+    %%%%%:  322-block  0
+call    0 never executed
+    #####:  323:    );
+    %%%%%:  323-block  0
+call    0 never executed
+    %%%%%:  323-block  1
+    #####:  324:}
+call    0 never executed
+    $$$$$:  324-block  0
+call    1 never executed
+        -:  325:
+function _ZNK7ForStmt9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  326:void ForStmt::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  326-block  0
+    #####:  327:    os << std::string(tabCount, '\t') << "ForStatementNode<" << std::endl;
+    %%%%%:  327-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  327-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  327-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  327-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  327-block  4
+call   12 never executed
+    $$$$$:  327-block  5
+call   13 never executed
+    $$$$$:  327-block  6
+    $$$$$:  327-block  7
+call   14 never executed
+    #####:  328:    os << std::string(tabCount+1, '\t') << "Decleration<" << std::endl;
+    %%%%%:  328-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  328-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  328-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  328-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  328-block  4
+call   12 never executed
+    $$$$$:  328-block  5
+call   13 never executed
+    $$$$$:  328-block  6
+    $$$$$:  328-block  7
+call   14 never executed
+    #####:  329:    varDeclare->printNode(os, tabCount+2);
+call    0 never executed
+call    1 never executed
+    #####:  330:    os << std::string(tabCount+1, '\t') << "Decleration>" << std::endl;
+    %%%%%:  330-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  330-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  330-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  330-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  330-block  4
+call   12 never executed
+    $$$$$:  330-block  5
+call   13 never executed
+    $$$$$:  330-block  6
+    $$$$$:  330-block  7
+call   14 never executed
+    #####:  331:    os << std::string(tabCount+1, '\t') << "Condition<" << std::endl;
+    %%%%%:  331-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  331-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  331-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  331-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  331-block  4
+call   12 never executed
+    $$$$$:  331-block  5
+call   13 never executed
+    $$$$$:  331-block  6
+    $$$$$:  331-block  7
+call   14 never executed
+    #####:  332:    condition->printNode(os, tabCount+2);
+call    0 never executed
+call    1 never executed
+    #####:  333:    os << std::string(tabCount+1, '\t') << "Condition>" << std::endl;
+    %%%%%:  333-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  333-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  333-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  333-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  333-block  4
+call   12 never executed
+    $$$$$:  333-block  5
+call   13 never executed
+    $$$$$:  333-block  6
+    $$$$$:  333-block  7
+call   14 never executed
+    #####:  334:    os << std::string(tabCount+1, '\t') << "Step<" << std::endl;
+    %%%%%:  334-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  334-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  334-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  334-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  334-block  4
+call   12 never executed
+    $$$$$:  334-block  5
+call   13 never executed
+    $$$$$:  334-block  6
+    $$$$$:  334-block  7
+call   14 never executed
+    #####:  335:    step->printNode(os, tabCount+2);
+call    0 never executed
+call    1 never executed
+    #####:  336:    os << std::string(tabCount+1, '\t') << "Step>" << std::endl;
+    %%%%%:  336-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  336-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  336-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  336-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  336-block  4
+call   12 never executed
+    $$$$$:  336-block  5
+call   13 never executed
+    $$$$$:  336-block  6
+    $$$$$:  336-block  7
+call   14 never executed
+    #####:  337:    os << std::string(tabCount+1, '\t') << "ForStatements<" << std::endl;
+    %%%%%:  337-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  337-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  337-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  337-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  337-block  4
+call   12 never executed
+    $$$$$:  337-block  5
+call   13 never executed
+    $$$$$:  337-block  6
+    $$$$$:  337-block  7
+call   14 never executed
+    #####:  338:    for (const auto& node : forNodes) {node->printNode(os, tabCount+2);}
+call    0 never executed
+call    1 never executed
+    %%%%%:  338-block  0
+call    2 never executed
+call    3 never executed
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  338-block  1
+call    7 never executed
+    %%%%%:  338-block  2
+call    8 never executed
+branch  9 never executed
+branch 10 never executed (fallthrough)
+    #####:  339:    os << std::string(tabCount+1, '\t') << "ForStatements>" << std::endl;
+    %%%%%:  339-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  339-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  339-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  339-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  339-block  4
+call   12 never executed
+    $$$$$:  339-block  5
+call   13 never executed
+    $$$$$:  339-block  6
+    $$$$$:  339-block  7
+call   14 never executed
+    #####:  340:    os << std::string(tabCount, '\t') << "ForStatementNode>" << std::endl;
+    %%%%%:  340-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  340-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  340-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  340-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  340-block  4
+call   12 never executed
+    $$$$$:  340-block  5
+call   13 never executed
+    $$$$$:  340-block  6
+    #####:  341:}
+        -:  342:
+        -:  343:
+        -:  344:
+        -:  345:// FUNCTION DEF DEFINITION
+function _ZN7FuncDefC2ERK5TokenSt6vectorIS0_SaIS0_EES3_ISt10unique_ptrI4NodeSt14default_deleteIS7_EESaISA_EE called 2 returned 100% blocks executed 100%
+        2:  346:FuncDef::FuncDef(
+        -:  347:    const Token &token,
+        -:  348:    std::vector<Token> arguments,
+        -:  349:    std::vector<std::unique_ptr<Node>> bodyNodes
+        2:  350:    ) :
+        -:  351:Node(token, NodeType::FuncDef),
+        2:  352:arguments(std::move(arguments)),
+call    0 returned 2
+        4:  353:bodyNodes(std::move(bodyNodes)) {}
+        2:  353-block  0
+call    0 returned 2
+call    1 returned 2
+call    2 returned 2
+call    3 returned 2
+        -:  354:
+function _ZNK7FuncDef7getNameB5cxx11Ev called 3 returned 100% blocks executed 64%
+        3:  355:std::string FuncDef::getName() const {return std::get<std::string>(getToken().getValue());}
+        3:  355-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        3:  355-block  1
+call    3 returned 3
+branch  4 taken 3 (fallthrough)
+branch  5 taken 0 (throw)
+        3:  355-block  2
+call    6 returned 3
+branch  7 taken 3 (fallthrough)
+branch  8 taken 0 (throw)
+        3:  355-block  3
+call    9 returned 3
+call   10 returned 3
+call   11 returned 3
+        3:  355-block  4
+    $$$$$:  355-block  5
+call   12 never executed
+    $$$$$:  355-block  6
+call   13 never executed
+    $$$$$:  355-block  7
+        -:  356:
+function _ZNK7FuncDef12getArgumentsEv called 2 returned 100% blocks executed 100%
+        2:  357:const std::vector<Token>& FuncDef::getArguments() const {return arguments;}
+        2:  357-block  0
+        -:  358:
+function _ZNK7FuncDef15getFunctionBodyEv called 2 returned 100% blocks executed 100%
+        2:  359:const std::vector<std::unique_ptr<Node>> & FuncDef::getFunctionBody() const {return bodyNodes;}
+        2:  359-block  0
+        -:  360:
+function _ZNK7FuncDef5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  361:std::unique_ptr<Node> FuncDef::clone() const {
+    #####:  362:    std::vector<Token> clonedArgs = {};
+    %%%%%:  362-block  0
+call    0 never executed
+    #####:  363:    clonedArgs.reserve(this->arguments.size());
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    #####:  364:    for (const Token& token : this->arguments) {clonedArgs.push_back(token.clone());}
+    %%%%%:  364-block  0
+call    0 never executed
+call    1 never executed
+    %%%%%:  364-block  1
+call    2 never executed
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  364-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  364-block  3
+call    9 never executed
+call   10 never executed
+    %%%%%:  364-block  4
+call   11 never executed
+branch 12 never executed
+branch 13 never executed (fallthrough)
+    $$$$$:  364-block  5
+call   14 never executed
+    $$$$$:  364-block  6
+    #####:  365:    std::vector<std::unique_ptr<Node>> clonedBody = cloneNodeVector(bodyNodes);
+    %%%%%:  365-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    #####:  366:    return std::make_unique<FuncDef>(getToken(), std::move(clonedArgs), std::move(clonedBody));
+    %%%%%:  366-block  0
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed (fallthrough)
+branch  4 never executed (throw)
+    %%%%%:  366-block  1
+call    5 never executed
+branch  6 never executed (fallthrough)
+branch  7 never executed (throw)
+    %%%%%:  366-block  2
+call    8 never executed
+call    9 never executed
+call   10 never executed
+    %%%%%:  366-block  3
+    $$$$$:  366-block  4
+call   11 never executed
+    $$$$$:  366-block  5
+    $$$$$:  366-block  6
+    #####:  367:}
+call    0 never executed
+call    1 never executed
+    $$$$$:  367-block  0
+call    2 never executed
+    $$$$$:  367-block  1
+call    3 never executed
+        -:  368:
+function _ZNK7FuncDef9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  369:void FuncDef::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  369-block  0
+    #####:  370:    os << std::string(tabCount, '\t') << "FunctionDeclerationNode<" << std::endl;
+    %%%%%:  370-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  370-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  370-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  370-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  370-block  4
+call   12 never executed
+    $$$$$:  370-block  5
+call   13 never executed
+    $$$$$:  370-block  6
+    $$$$$:  370-block  7
+call   14 never executed
+    #####:  371:    os << std::string(tabCount+1, '\t') << "Name: " << std::get<std::string>(getToken().getValue()) << std::endl;
+    %%%%%:  371-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  371-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  371-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  371-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  371-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  371-block  5
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  371-block  6
+call   18 never executed
+branch 19 never executed (fallthrough)
+branch 20 never executed (throw)
+    %%%%%:  371-block  7
+call   21 never executed
+branch 22 never executed (fallthrough)
+branch 23 never executed (throw)
+    %%%%%:  371-block  8
+call   24 never executed
+call   25 never executed
+call   26 never executed
+    $$$$$:  371-block  9
+call   27 never executed
+    $$$$$:  371-block 10
+call   28 never executed
+    $$$$$:  371-block 11
+    $$$$$:  371-block 12
+    $$$$$:  371-block 13
+call   29 never executed
+    $$$$$:  371-block 14
+    $$$$$:  371-block 15
+call   30 never executed
+    #####:  372:    os << std::string(tabCount+1, '\t') << "Arguments<" << std::endl;
+    %%%%%:  372-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  372-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  372-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  372-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  372-block  4
+call   12 never executed
+    $$$$$:  372-block  5
+call   13 never executed
+    $$$$$:  372-block  6
+    $$$$$:  372-block  7
+call   14 never executed
+    #####:  373:    for (const auto& token : arguments) {
+call    0 never executed
+call    1 never executed
+    %%%%%:  373-block  0
+call    2 never executed
+    %%%%%:  373-block  1
+call    3 never executed
+branch  4 never executed
+branch  5 never executed (fallthrough)
+    #####:  374:        os << std::string(tabCount+2, '\t') << "Name: " << std::get<std::string>(token.getValue()) << std::endl;
+    %%%%%:  374-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  374-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  374-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  374-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  374-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  374-block  5
+call   15 never executed
+branch 16 never executed (fallthrough)
+branch 17 never executed (throw)
+    %%%%%:  374-block  6
+call   18 never executed
+branch 19 never executed (fallthrough)
+branch 20 never executed (throw)
+    %%%%%:  374-block  7
+call   21 never executed
+call   22 never executed
+call   23 never executed
+    $$$$$:  374-block  8
+call   24 never executed
+    $$$$$:  374-block  9
+    $$$$$:  374-block 10
+call   25 never executed
+    $$$$$:  374-block 11
+    $$$$$:  374-block 12
+        -:  375:    }
+    #####:  376:    os << std::string(tabCount+1, '\t') << "Arguments>" << std::endl;
+    %%%%%:  376-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  376-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  376-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  376-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  376-block  4
+call   12 never executed
+    $$$$$:  376-block  5
+call   13 never executed
+    $$$$$:  376-block  6
+    $$$$$:  376-block  7
+call   14 never executed
+    #####:  377:    os << std::string(tabCount+1, '\t') << "StatementNodes<" << std::endl;
+    %%%%%:  377-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  377-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  377-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  377-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  377-block  4
+call   12 never executed
+    $$$$$:  377-block  5
+call   13 never executed
+    $$$$$:  377-block  6
+    $$$$$:  377-block  7
+call   14 never executed
+    #####:  378:    for (const auto& node : bodyNodes) {node->printNode(os, tabCount+2);}
+call    0 never executed
+call    1 never executed
+    %%%%%:  378-block  0
+call    2 never executed
+call    3 never executed
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  378-block  1
+call    7 never executed
+    %%%%%:  378-block  2
+call    8 never executed
+branch  9 never executed
+branch 10 never executed (fallthrough)
+    #####:  379:    os << std::string(tabCount+1, '\t') << "StatementNodes>" << std::endl;
+    %%%%%:  379-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  379-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  379-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  379-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  379-block  4
+call   12 never executed
+    $$$$$:  379-block  5
+call   13 never executed
+    $$$$$:  379-block  6
+    $$$$$:  379-block  7
+call   14 never executed
+    #####:  380:    os << std::string(tabCount, '\t') << "FunctionDeclerationNode>" << std::endl;
+    %%%%%:  380-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  380-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  380-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  380-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  380-block  4
+call   12 never executed
+    $$$$$:  380-block  5
+call   13 never executed
+    $$$$$:  380-block  6
+    #####:  381:}
+        -:  382:
+        -:  383:
+        -:  384:
+        -:  385:// FUNCTION CALL DEFINITION
+function _ZN8FuncCallC2ERK5TokenSt6vectorISt10unique_ptrI4NodeSt14default_deleteIS5_EESaIS8_EE called 2 returned 100% blocks executed 61%
+        2:  386:FuncCall::FuncCall(
+        -:  387:    const Token &token,
+        -:  388:    std::vector<std::unique_ptr<Node>> argumentNodes
+        2:  389:    ) :
+        -:  390:Node(token, NodeType::FuncCall),
+        2:  391:name(std::get<std::string>(getToken().getValue())),
+        2:  391-block  0
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+        2:  391-block  1
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+        2:  391-block  2
+call    6 returned 2
+call    7 returned 2
+call    8 returned 2
+    $$$$$:  391-block  3
+call    9 never executed
+    $$$$$:  391-block  4
+call   10 never executed
+    $$$$$:  391-block  5
+    $$$$$:  391-block  6
+        4:  392:argumentNodes(std::move(argumentNodes)) {}
+        2:  392-block  0
+call    0 returned 2
+call    1 returned 2
+branch  2 taken 2 (fallthrough)
+branch  3 taken 0 (throw)
+call    4 returned 2
+call    5 returned 2
+    $$$$$:  392-block  1
+call    6 never executed
+        -:  393:
+function _ZNK8FuncCall7getNameB5cxx11Ev called 1 returned 100% blocks executed 100%
+        1:  394:std::string FuncCall::getName() const {return name;}
+        1:  394-block  0
+call    0 returned 1
+        -:  395:
+function _ZNK8FuncCall12getArgumentsEv called 2 returned 100% blocks executed 100%
+        2:  396:const std::vector<std::unique_ptr<Node>> & FuncCall::getArguments() const {return argumentNodes;}
+        2:  396-block  0
+        -:  397:
+function _ZNK8FuncCall5cloneEv called 0 returned 0% blocks executed 0%
+    #####:  398:std::unique_ptr<Node> FuncCall::clone() const {
+    #####:  399:    std::vector<std::unique_ptr<Node>> clonedArgs = cloneNodeVector(argumentNodes);
+    %%%%%:  399-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+        -:  400:
+    #####:  401:    return std::make_unique<FuncCall>(getToken(), std::move(clonedArgs));
+    %%%%%:  401-block  0
+call    0 never executed
+call    1 never executed
+branch  2 never executed (fallthrough)
+branch  3 never executed (throw)
+    %%%%%:  401-block  1
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  401-block  2
+call    7 never executed
+call    8 never executed
+call    9 never executed
+    %%%%%:  401-block  3
+    $$$$$:  401-block  4
+call   10 never executed
+    $$$$$:  401-block  5
+    $$$$$:  401-block  6
+    #####:  402:}
+call    0 never executed
+    $$$$$:  402-block  0
+call    1 never executed
+        -:  403:
+function _ZNK8FuncCall9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  404:void FuncCall::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  404-block  0
+    #####:  405:    os << std::string(tabCount, '\t') << "FunctionCallNode<" << std::endl;
+    %%%%%:  405-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  405-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  405-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  405-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  405-block  4
+call   12 never executed
+    $$$$$:  405-block  5
+call   13 never executed
+    $$$$$:  405-block  6
+    $$$$$:  405-block  7
+call   14 never executed
+    #####:  406:    os << std::string(tabCount+1, '\t') << "Name: " << name << std::endl;
+    %%%%%:  406-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  406-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  406-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  406-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  406-block  4
+call   12 never executed
+branch 13 never executed (fallthrough)
+branch 14 never executed (throw)
+    %%%%%:  406-block  5
+call   15 never executed
+    $$$$$:  406-block  6
+call   16 never executed
+    $$$$$:  406-block  7
+    $$$$$:  406-block  8
+call   17 never executed
+    #####:  407:    os << std::string(tabCount+1, '\t') << "Arguments<" << std::endl;
+    %%%%%:  407-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  407-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  407-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  407-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  407-block  4
+call   12 never executed
+    $$$$$:  407-block  5
+call   13 never executed
+    $$$$$:  407-block  6
+    $$$$$:  407-block  7
+call   14 never executed
+    #####:  408:    for (const auto& node : argumentNodes) {node->printNode(os, tabCount+2);}
+call    0 never executed
+call    1 never executed
+    %%%%%:  408-block  0
+call    2 never executed
+call    3 never executed
+call    4 never executed
+branch  5 never executed (fallthrough)
+branch  6 never executed (throw)
+    %%%%%:  408-block  1
+call    7 never executed
+    %%%%%:  408-block  2
+call    8 never executed
+branch  9 never executed
+branch 10 never executed (fallthrough)
+    #####:  409:    os << std::string(tabCount+1, '\t') << "Arguments>" << std::endl;
+    %%%%%:  409-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  409-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  409-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  409-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  409-block  4
+call   12 never executed
+    $$$$$:  409-block  5
+call   13 never executed
+    $$$$$:  409-block  6
+    $$$$$:  409-block  7
+call   14 never executed
+    #####:  410:    os << std::string(tabCount, '\t') << "FunctionCallNode>" << std::endl;
+    %%%%%:  410-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  410-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  410-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  410-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  410-block  4
+call   12 never executed
+    $$$$$:  410-block  5
+call   13 never executed
+    $$$$$:  410-block  6
+    #####:  411:}
+        -:  412:
+        -:  413:
+        -:  414:
+        -:  415:// RETURN CALL DEFINITION
+function _ZN10ReturnCallC2ERK5TokenSt10unique_ptrI4NodeSt14default_deleteIS4_EE called 6 returned 100% blocks executed 100%
+        6:  416:ReturnCall::ReturnCall(const Token &token, std::unique_ptr<Node> expressionNode) :
+        -:  417:Node(token, NodeType::ReturnCall),
+        6:  418:expression(std::move(expressionNode)){
+        6:  418-block  0
+call    0 returned 6
+call    1 returned 6
+call    2 returned 6
+        6:  419:}
+        -:  420:
+function _ZNK10ReturnCall13getExpressionEv called 2 returned 100% blocks executed 100%
+        2:  421:const std::unique_ptr<Node> & ReturnCall::getExpression() const {return expression;}
+        2:  421-block  0
+        -:  422:
+function _ZNK10ReturnCall5cloneEv called 3 returned 100% blocks executed 65%
+        3:  423:std::unique_ptr<Node> ReturnCall::clone() const {
+        3:  424:    return std::make_unique<ReturnCall>(getToken(), expression->clone());
+        3:  424-block  0
+call    0 returned 3
+call    1 returned 3
+branch  2 taken 3 (fallthrough)
+branch  3 taken 0 (throw)
+        3:  424-block  1
+call    4 returned 3
+branch  5 taken 3 (fallthrough)
+branch  6 taken 0 (throw)
+        3:  424-block  2
+call    7 returned 3
+branch  8 taken 3 (fallthrough)
+branch  9 taken 0 (throw)
+        3:  424-block  3
+call   10 returned 3
+call   11 returned 3
+call   12 returned 3
+call   13 returned 3
+        3:  424-block  4
+    $$$$$:  424-block  5
+call   14 never executed
+    $$$$$:  424-block  6
+    $$$$$:  424-block  7
+call   15 never executed
+    $$$$$:  424-block  8
+        -:  425:}
+        -:  426:
+function _ZNK10ReturnCall9printNodeERSoi called 0 returned 0% blocks executed 0%
+    #####:  427:void ReturnCall::printNode(std::ostream &os, const int tabCount) const {
+    %%%%%:  427-block  0
+    #####:  428:    os << std::string(tabCount, '\t') << "ReturnCallNode<" << std::endl;
+    %%%%%:  428-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  428-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  428-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  428-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  428-block  4
+call   12 never executed
+    $$$$$:  428-block  5
+call   13 never executed
+    $$$$$:  428-block  6
+    $$$$$:  428-block  7
+call   14 never executed
+    #####:  429:    os << std::string(tabCount+1, '\t') << "Expression<" << std::endl;
+    %%%%%:  429-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  429-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  429-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  429-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  429-block  4
+call   12 never executed
+    $$$$$:  429-block  5
+call   13 never executed
+    $$$$$:  429-block  6
+    $$$$$:  429-block  7
+call   14 never executed
+    #####:  430:    expression->printNode(os, tabCount+2);
+call    0 never executed
+call    1 never executed
+    #####:  431:    os << std::string(tabCount+1, '\t') << "Expression>" << std::endl;
+    %%%%%:  431-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  431-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  431-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  431-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  431-block  4
+call   12 never executed
+    $$$$$:  431-block  5
+call   13 never executed
+    $$$$$:  431-block  6
+    $$$$$:  431-block  7
+call   14 never executed
+    #####:  432:    os << std::string(tabCount, '\t') << "ReturnCallNode>" << std::endl;
+    %%%%%:  432-block  0
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed (throw)
+    %%%%%:  432-block  1
+call    3 never executed
+branch  4 never executed (fallthrough)
+branch  5 never executed (throw)
+    %%%%%:  432-block  2
+call    6 never executed
+branch  7 never executed (fallthrough)
+branch  8 never executed (throw)
+    %%%%%:  432-block  3
+call    9 never executed
+branch 10 never executed (fallthrough)
+branch 11 never executed (throw)
+    %%%%%:  432-block  4
+call   12 never executed
+    $$$$$:  432-block  5
+call   13 never executed
+    $$$$$:  432-block  6
+    #####:  433:}

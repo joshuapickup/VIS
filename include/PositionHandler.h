@@ -7,7 +7,7 @@
 class PositionHandler {
 public:
     static const std::map<std::string, std::string> nullPos;
-    explicit PositionHandler(std::string  fileName, std::ifstream& file);
+    explicit PositionHandler(std::string fileName, std::istream& file);
     char advanceCharacter();
     bool advanceLine();
     char peek() const;
@@ -18,7 +18,7 @@ public:
     [[nodiscard]] std::map<std::string, std::string> getPos() const;
 
 private:
-    std::ifstream& file;
+    std::istream& file;
     int charPos;
     char currentChar;
     int line;

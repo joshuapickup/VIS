@@ -74,7 +74,6 @@ InvalidSyntaxError Parser::makeSyntaxError(std::map<std::string, std::string> po
 std::unique_ptr<Node> Parser::binaryOperation(  const std::function<std::unique_ptr<Node>()> &func,
                                                 const std::vector<TokenType> &tokenTypes,
                                                 const std::vector<std::string> &tokenValues) {
-
     const bool containsKeyword = std::find( tokenTypes.begin(),tokenTypes.end(),TokenType::KEYWORD) != tokenTypes.end();
     if (containsKeyword && tokenValues.empty()) {
         throw ParseError("binaryOperation was called with TokenType::KEYWORD but no tokenValues were provided");
@@ -82,9 +81,7 @@ std::unique_ptr<Node> Parser::binaryOperation(  const std::function<std::unique_
     if (not containsKeyword && not tokenValues.empty()) {
         throw ParseError("binaryOperation was called without TokenType::KEYWORD but tokenValues were provided");
     }
-
     std::unique_ptr<Node> left = func();
-
     while (true) {
         bool matchFound = false;
         if (containsKeyword) {
@@ -102,7 +99,6 @@ std::unique_ptr<Node> Parser::binaryOperation(  const std::function<std::unique_
         if (not matchFound) {// exit loop if no TokenTypes were correct
             break;
         }
-
         const Token* opToken = currentToken;
         advanceToken();
         std::unique_ptr<Node> right = func();
