@@ -28,3 +28,11 @@ The goal of the project is to:
 Below is the full list of supported syntax examples.  
 `~` means the text after it is a comment (ignored by the interpreter).
 
+## Running the Interpreter
+
+Once built, the compiled binary will be named `VIS.exe`.
+
+To run a script, pass the filename as an argument when executing `VIS.exe`:
+
+```bash
+VIS.exe myscript.txt
